@@ -83,12 +83,12 @@
                     <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
                         <i class="fas fa-user text-gray-300"></i>
                     </div>
-                    @if (Auth::guard('admin')->user()->role === 'admin')
+                    @if (Auth::guard('admin')->user()->role->role == 'admin')
                     <div class="ml-3">
                         <a href="{{ route('update.password') }}">
                             <p class="text-sm font-medium text-white">Admin</p>
                             <p class="text-xs text-gray-400">
-                                {{ Auth::guard('admin')->check() ? Auth::guard('admin')->user()->name : '' }}
+                                {{ Auth::guard('admin')->check() ? Auth::guard('admin')->user()->role->role : '' }}
                             </p>
                         </a>
                     </div>

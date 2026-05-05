@@ -55,18 +55,18 @@
                         class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-500">
                 </div>
                 <div class="mb-4">
-    <label>Select Project</label>
+                    <label>Select Project</label>
 
-    <select name="project_id" class="w-full border p-2">
-        <option value="">Select Project</option>
+                    <select name="project_id" class="w-full border p-2">
+                        <option value="">Select Project</option>
 
-        @foreach($projects as $project)
-            <option value="{{ $project->id }}">
-                {{ $project->name }}
-            </option>
-        @endforeach
-    </select>
-</div>
+                        @foreach ($projects as $project)
+                            <option value="{{ $project->id }}">
+                                {{ $project->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
 
 
@@ -88,7 +88,7 @@
                     <select name="assigned_to"
                         class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-500">
                         @php
-                            $user = App\Models\User::where('role', '!=', 'admin')->get();
+                            $user = App\Models\User::where('role_id', '!=', '1')->get();
                         @endphp
                         <option value="">Select User</option>
                         @foreach ($user as $us)

@@ -45,7 +45,7 @@
                     @csrf
 
 
-                    {{-- Project + Task --}}
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-sm font-semibold mb-1">Project Name</label>
@@ -64,9 +64,7 @@
                     <div>
                         <label class="block text-sm font-semibold mb-1">Description</label>
                         <textarea id="content-editor" name="description" rows="4"
-                            class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-500">
-           {{ old('description', $task->description) }}
-                </textarea>
+                            class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-500">{!! old('description', $task->description) !!}</textarea>
                     </div>
                     @php
                         $users = App\Models\User::where('role', '!=', 'admin')->get();
@@ -214,7 +212,7 @@
                 @endif
                 @php
                     $user = Auth::guard('admin')->user();
-                    $feedback = App\Models\Performances::where('employee_id',$user->id)->select('feedback')->first();
+                    $feedback = App\Models\Performances::where('employee_id', $user->id)->select('feedback')->first();
 
                 @endphp
                 {{-- FORM --}}
@@ -244,7 +242,7 @@
                         <label class="block text-sm font-semibold mb-1">Feedback</label>
                         <textarea id="content-editor" name="feedback" rows="4"
                             class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-500">
-                      {{ old('feedback',$feedback->feedback ?? "") }}
+                      {{ old('feedback', $feedback->feedback ?? '') }}
                 </textarea>
                     </div>
 

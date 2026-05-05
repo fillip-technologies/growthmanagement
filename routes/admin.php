@@ -10,10 +10,10 @@ Route::get('/', [AdminController::class, 'login_admin'])->name('admin');
 Route::post('login', [LoginController::class, 'login'])->name('admin.login');
 Route::get('admin/store', [LoginController::class, 'store'])->name('login.store');
 
-Route::middleware(['admin'])->group(function () {
+Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
-    })->name('dashboard');
+    })->name('admin.dashboard');
     Route::get('admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
     Route::get('get/all', [ManegemantController::class, 'get_emp'])->name('employees');
     Route::get('create/emp', [ManegemantController::class, 'create'])->name('create');
@@ -33,7 +33,12 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/task/update/store', [ManegemantController::class, 'store_update'])
     ->name('task.update.store');
     Route::get('/getempprefarmans',[ManegemantController::class, 'getempprefarmans'])->name('getempprefarmans');
-    Route::resource('projects', ProjectController::class);
+    Route::get('/project/list',[ProjectController::class, 'index'])->name('project.list');
+    Route::get('project/create',[ProjectController::class, 'create'])->name('project.create');
+    Route::post('project/store',[ProjectController::class, 'store'])->name('project.store');
+    Route::get('/project/edit/{id}',[ProjectController::class, 'edit'])->name('project.edit');
+    Route::post('project/update/{id}',[ProjectController::class, 'update'])->name('project.update');
+    Route::delete('/product/delete/{id}',[ProjectController::class, 'destroy'])->name('project.delete');
     Route::get('/daily-work', [ManegemantController::class, 'daily_works'])->name('daily.work');
     Route::post('/daily-work/store', [ManegemantController::class, 'store_daily_work'])->name('daily.work.store');
     Route::get('/daily-work/edit/{id}', [ManegemantController::class, 'edit_daily_work'])->name('daily.work.edit');

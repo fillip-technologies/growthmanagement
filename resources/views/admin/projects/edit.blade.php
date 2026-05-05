@@ -5,130 +5,95 @@
 
 @section('content')
 
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if ($errors->any())
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Validation Error',
+            html: `{!! implode('<br>', $errors->all()) !!}`,
+        });
+    });
+</script>
+@endif
+
 <div class="max-w-4xl mx-auto mt-10">
 
-    <div class="bg-white shadow-xl rounded-xl p-8">
+    <div class="bg-white shadow-2xl rounded-2xl p-8 border">
 
-        <h2 class="text-2xl font-bold mb-6">Edit Project</h2>
+        <!-- Heading -->
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Edit Project</h2>
+            <p class="text-sm text-gray-500">Update project details</p>
+        </div>
 
-        <form action="{{ route('projects.update', $project->id) }}" method="POST">
+        <form action="{{ route('project.update', $project->id) }}" method="POST">
             @csrf
-            @method('PUT')
-
+          
             <!-- Project Name -->
-            <div class="mb-4">
-                <label class="block mb-1">Project Name</label>
-                <input type="text" name="name"
-                       value="{{ $project->name }}"
-                       class="w-full border p-2 rounded">
-            </div>
-
-            <!-- Assign Employee -->
-            <div class="mb-4">
-                <label class="block mb-1">Assign To</label>
-
-                <select name="employee_id" class="w-full border p-2 rounded">
-                    <option value="">Select Employee</option>
-
-                    @foreach($employees as $emp)
-                        <option value="{{ $emp->id }}"
-                            {{ $project->employee_id == $emp->id ? 'selected' : '' }}>
-                            {{ $emp->name }}
-                        </option>
-                    @endforeach
-                </select>
+            <div class="mb-5">
+                <label class="block mb-2 font-medium text-gray-700">Project Name</label>
+                <input type="text" name="name" value="{{ $project->name }}"
+                    class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-orange-500 outline-none">
             </div>
 
             <!-- Description -->
-            <div class="mb-4">
-                <label class="block mb-1">Description</label>
-                <textarea name="description"
-                          class="w-full border p-2 rounded">{{ $project->description }}</textarea>
+            <div class="mb-5">
+                <label class="block mb-2 font-medium text-gray-700">Description</label>
+                <textarea name="description" rows="4"
+                    class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-orange-500 outline-none">{{ $project->description }}</textarea>
             </div>
 
             <!-- Dates -->
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid md:grid-cols-2 gap-5 mb-5">
                 <div>
-                    <label>Start Date</label>
-                    <input type="date" name="start_date"
-                           value="{{ $project->start_date }}"
-                           class="w-full border p-2 rounded">
+                    <label class="block mb-2 font-medium text-gray-700">Start Date</label>
+                    <input type="date" name="start_date" value="{{ $project->start_date }}"
+                        class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-orange-500 outline-none">
                 </div>
 
                 <div>
-                    <label>End Date</label>
-                    <input type="date" name="end_date"
-                           value="{{ $project->end_date }}"
-                           class="w-full border p-2 rounded">
+                    <label class="block mb-2 font-medium text-gray-700">End Date</label>
+                    <input type="date" name="end_date" value="{{ $project->end_date }}"
+                        class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-orange-500 outline-none">
                 </div>
             </div>
 
-            <!-- Button -->
-            <div class="mt-6 text-right">
-                <button class="bg-orange-600 text-white px-6 py-2 rounded">
+            <!-- Status -->
+            <div class="mb-6">
+                <label class="block mb-2 font-medium text-gray-700">Status</label>
+                <select name="status"
+                    class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-orange-500 outline-none">
+
+                    <option value="pending" {{ $project->status == 'pending' ? 'selected' : '' }}>Pending</option>
+
+                    <option value="ongoing" {{ $project->status == 'ongoing' ? 'selected' : '' }}>Ongoing</option>
+
+                    <option value="completed" {{ $project->status == 'completed' ? 'selected' : '' }}>Completed</option>
+
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex justify-between items-center mt-8">
+
+                <a href="{{ route('project.list') }}"
+                    class="text-gray-600 hover:underline">
+                    ← Back
+                </a>
+
+                <button type="submit"
+                    class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-xl font-semibold shadow">
                     Update Project
                 </button>
+
             </div>
 
         </form>
-
     </div>
-    <hr class="my-6">
-
-<div class="bg-gray-50 p-6 rounded-xl">
-
-    <h2 class="text-lg font-bold mb-4">Add Module</h2>
-
-    <form action="{{ route('module.store') }}" method="POST">
-        @csrf
-
-        <!-- Project ID -->
-        <input type="hidden" name="project_id" value="{{ $project->id }}">
-
-        <!-- Module Name -->
-        <input type="text" name="name"
-               placeholder="Module Name"
-               class="w-full border p-2 mb-3 rounded">
-
-        <!-- Assign Employee -->
-        <select name="assigned_to" class="w-full border p-2 mb-3 rounded">
-            <option value="">Assign Employee</option>
-            @foreach($employees as $emp)
-                <option value="{{ $emp->id }}">{{ $emp->name }}</option>
-            @endforeach
-        </select>
-
-        <button class="bg-green-600 text-white px-4 py-2 rounded">
-            Add Module
-        </button>
-    </form>
 
 </div>
-<div class="bg-white p-6 rounded-xl mt-4">
-
-    <h2 class="text-lg font-bold mb-4">Modules</h2>
-
-    @forelse($project->modules as $module)
-        <div class="border p-3 rounded mb-2 flex justify-between">
-
-            <div>
-                <p class="font-semibold">{{ $module->name }}</p>
-                <p class="text-sm text-gray-500">
-                    Assigned: {{ $module->user->name ?? 'N/A' }}
-                </p>
-            </div>
-
-            <span class="bg-blue-500 text-white px-2 py-1 rounded text-sm">
-                {{ $module->progress ?? 0 }}%
-            </span>
-
-        </div>
-    @empty
-        <p class="text-gray-400">No modules added</p>
-    @endforelse
-
-</div>
-
-</div>
-
 @endsection

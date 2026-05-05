@@ -4,6 +4,7 @@
     <title>Growth Management System - Admin Panel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -41,10 +42,22 @@
 
 </head>
 
+
 <body class="bg-gray-100 font-sans">
-    <!-- Login Screen -->
-    <!-- Login Screen -->
-    <!-- Login Screen with Video Background -->
+    
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: `{!! implode('<br>', $errors->all()) !!}`,
+                    confirmButtonText: 'OK'
+                });
+            });
+        </script>
+    @endif
+
     <div id="login-screen" class="relative min-h-screen flex items-center justify-center overflow-hidden">
 
         <!-- VIDEO BACKGROUND -->
@@ -66,7 +79,6 @@
                 <h1 class="text-4xl font-bold text-white drop-shadow-xl text-center">Growth Management System</h1>
                 <p class="text-white/80 mt-3 text-center text-lg">Panel Login</p>
             </div>
-
             <!-- Right Login Form -->
             <div class="p-10 bg-white/20 backdrop-blur-2xl">
 
@@ -89,8 +101,7 @@
                         </label>
 
                         <label class="cursor-pointer">
-                            <input type="radio" name="user_type" value="hr"
-                                class="hidden peer">
+                            <input type="radio" name="user_type" value="hr" class="hidden peer">
                             <span
                                 class="px-4 py-2 rounded-lg border border-white/30 text-white peer-checked:bg-white/30">
                                 HR
@@ -98,8 +109,7 @@
                         </label>
 
                         <label class="cursor-pointer">
-                            <input type="radio" name="user_type" value="employee"
-                                class="hidden peer">
+                            <input type="radio" name="user_type" value="employee" class="hidden peer">
                             <span
                                 class="px-4 py-2 rounded-lg border border-white/30 text-white peer-checked:bg-white/30">
                                 Employees
@@ -116,10 +126,10 @@
                         </label>
                     </div>
                     <input type="email" name="email" placeholder="admin@gmail.com"
-                        class="w-full mb-5 px-4 py-3 rounded-lg bg-white/30 text-white border border-white/40" required>
+                        class="w-full mb-5 px-4 py-3 rounded-lg bg-white/30 text-white border border-white/40" >
 
                     <input type="password" name="password" placeholder="••••••••"
-                        class="w-full mb-6 px-4 py-3 rounded-lg bg-white/30 text-white border border-white/40" required>
+                        class="w-full mb-6 px-4 py-3 rounded-lg bg-white/30 text-white border border-white/40" >
 
                     <button type="submit" class="w-full bg-orange-300 hover:bg-orange-400 text-white py-3 rounded-lg">
                         Sign In

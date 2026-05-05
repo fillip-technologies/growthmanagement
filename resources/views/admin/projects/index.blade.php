@@ -8,7 +8,7 @@
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800">Project List</h2>
 
-        <a href="{{ route('projects.create') }}"
+        <a href="{{ route('project.create') }}"
            class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">
             + Add Project
         </a>
@@ -40,7 +40,7 @@
                         {{ $p->name }}
                     </td>
 
-                  
+
 
                     <td class="p-3">
                         {{ $p->description }}
@@ -72,16 +72,16 @@
 
                     <td class="p-3 flex gap-2">
 
-                        <a href="{{ route('projects.edit',$p->id) }}"
+                        <a href="{{ route('project.edit',$p->id) }}"
                            class="bg-blue-500 text-white px-3 py-1 rounded">
                             Edit
                         </a>
 
-                        <form action="{{ route('projects.destroy',$p->id) }}" method="POST">
+                        <form action="{{ route('project.delete',$p->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
 
-                            <button class="bg-red-500 text-white px-3 py-1 rounded">
+                            <button class="bg-red-500 text-white px-3 py-1 rounded" onclick="return confirm('Are you sure delete this data')">
                                 Delete
                             </button>
                         </form>

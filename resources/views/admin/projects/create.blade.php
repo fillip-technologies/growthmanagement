@@ -14,7 +14,7 @@
             Project Details
         </h3>
 
-        <form action="{{ route('projects.store') }}" method="POST">
+        <form action="{{ route('project.store') }}" method="POST">
             @csrf
 
             <!-- Title + Status -->
@@ -30,7 +30,7 @@
                            @enderror
                 </div>
 
-                
+
 
 
                 <div>
@@ -48,7 +48,7 @@
 
             </div>
 
-          
+
 
             <!-- Description -->
             <div class="mb-4">
@@ -83,14 +83,14 @@
                           <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                       @enderror
                 </div>
-                     
+
 
             </div>
 
             <!-- Buttons -->
             <div class="flex justify-between items-center">
 
-                <a href="{{ route('projects.index') }}"
+                <a href="{{ route('project.list') }}"
                    class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
                     ← Back
                 </a>

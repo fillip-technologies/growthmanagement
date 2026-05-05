@@ -2,7 +2,9 @@
 @section('title', 'Dashboard')
 @section('content')
 
-
+@php
+    
+@endphp
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div class="stat-card bg-white rounded-xl shadow p-6 border-l-4 border-primary transition duration-300">

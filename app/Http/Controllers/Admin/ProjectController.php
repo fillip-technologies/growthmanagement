@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\Project;
 
+use App\Http\Controllers\Controller;
+use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -15,7 +15,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('admin.projects.index' , compact("projects"));
+
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -23,8 +24,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $employees = User::where('role', '!=', 'admin')->get();
-        return view("admin.projects.create", compact('employees'));
+        $employees = User::with('role')->where('role_id', '!=', '1')->get();
+
+        return view('admin.projects.create', compact('employees'));
     }
 
     /**
@@ -32,17 +34,17 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-       $request->validate([
-        "name" => "required",
-        "employee_id" => "required|exists:users,id",
-        "description" => "required",
-        "status"=>"required",
-        "start_date"=>"required|date",
-        "end_date"=>"required|date|after_or_equal:start_date",
-       ]);
-       Project::create($request->all());
-       return redirect()->route('projects.index')
-                        ->with('success','Project created successfully.');
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'status' => 'required',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+        Project::create($request->all());
+
+        return redirect()->route('project.list')
+            ->with('success', 'Project created successfully.');
     }
 
     /**
@@ -50,8 +52,9 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-       $project= Project::findorFail($id);
-       return view("admin.projects.show" , compact("project")); 
+        $project = Project::findorFail($id);
+
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -59,35 +62,50 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        $project=Project::with('modules.user')->findorFail($id);
-         $employees = User::where('role', '!=', 'admin')->get();
-        return view("admin.projects.edit" , compact("project", "employees"));
+        $project = Project::findorFail($id);
+
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
+
         $request->validate([
-            "name" => "required",
-            "description" => "required",
-            "start_date" => "required|date",
-            "end_date" => "required|date|after_or_equal:start_date",
-            "status" => "required"
-                      ]);
-            return redirect() -> route("projects.index")
-            ->with("success","project update successfully");
+            'name' => 'required',
+            'description' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'status' => 'required',
+        ]);
+
+        $project = Project::findOrFail($id);
+
+        $projectupdate = $project->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'status' => $request->status,
+        ]);
+
+        if ($projectupdate) {
+            return redirect()->route('project.list')
+                ->with('success', 'project update successfully');
+        } else {
+            return back()->with('error', 'Something went wrong');
+        }
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
-        
-        $project->delete();
-        return redirect() -> route("projects.index")
-        ->with("success" ,"Project deleted successfully");
+
+        Project::findOrFail($id)->delete();
+
+        return redirect()->route('project.list')
+            ->with('success', 'Project deleted successfully');
     }
 }
