@@ -12,16 +12,6 @@ class AdminController extends Controller
 {
     public function login_admin()
     {
-        User::create([
-            'name' => 'Admin',
-            'email'=>'admin@gmail.com',
-            'password'=>Hash::make('admin@123'),
-            'role_id'=> '1',
-            'designation'=>"C.O",
-            'phone'=>'7545999990',
-            'status'=>'active',
-            'profile'=>'default.jpg'
-        ]);
 
         return view('admin.login.signin');
     }
