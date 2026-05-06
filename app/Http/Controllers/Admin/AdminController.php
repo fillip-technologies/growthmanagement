@@ -56,7 +56,6 @@ class AdminController extends Controller
             ->whereBetween('deadline', [$startOfWeek, $endOfWeek])
             ->get();
 
-
         return view('admin.reports.weekly', compact('tasks'));
     }
 }

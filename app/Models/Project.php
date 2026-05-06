@@ -14,8 +14,11 @@ class Project extends Model
         'start_date',
         'end_date',
         'status',
-        
+        'modules'
+
     ];
+
+    protected $casts = ['modules'=>'array'];
     public function logs()
     {
         return $this->hasMany(ProjectLog::class);

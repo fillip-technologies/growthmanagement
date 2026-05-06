@@ -57,7 +57,7 @@
                 <div class="mb-4">
                     <label>Select Project</label>
 
-                    <select name="project_id" class="w-full border p-2">
+                    <select name="project_id" class="w-full border p-2" id="getmodules">
                         <option value="">Select Project</option>
 
                         @foreach ($projects as $project)
@@ -67,15 +67,9 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="mb-4" id="moduls_items">
 
-
-
-
-
-
-
-
-
+                </div>
                 <div>
                     <label class="block text-sm font-semibold mb-1">Description</label>
                     <textarea id="content-editor" name="description" rows="4"
@@ -156,6 +150,56 @@
     <script>
         CKEDITOR.replace('content-editor', {
             removeButtons: 'Image,Video,Flash' // optional
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            var moduls_items = $("#moduls_items").hide();
+
+            $("#getmodules").on('change', function() {
+
+                var id = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('get.module') }}",
+                    type: "GET",
+                    data: {
+                        id: id
+                    },
+
+                    success: function(res) {
+
+                        let html =
+                            `<label class="block mb-2 font-medium">Select Modules</label>`;
+
+                        let modules = res.data?.[0]?.modules || [];
+
+                        // ✅ checkbox generate
+                        modules.forEach(function(item, index) {
+                            html += `
+                        <div class="flex items-center gap-2 mb-2">
+                            <input type="checkbox"
+                                   name="modules[]"
+                                   value="${item}"
+                                   id="module_${index}">
+
+                            <label for="module_${index}">${item}</label>
+                        </div>
+                    `;
+                        });
+
+                        $("#moduls_items").html(html).show();
+
+                    },
+
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+
+            });
+
         });
     </script>
 @endsection

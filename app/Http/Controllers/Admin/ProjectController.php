@@ -79,6 +79,8 @@ class ProjectController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
             'status' => 'required',
+            'modules' => 'nullable|array',
+            'modules.*' => 'nullable',
         ]);
 
         $project = Project::findOrFail($id);
@@ -89,6 +91,7 @@ class ProjectController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'status' => $request->status,
+            'modules' => json_encode($request->modules),
         ]);
 
         if ($projectupdate) {
@@ -107,5 +110,14 @@ class ProjectController extends Controller
 
         return redirect()->route('project.list')
             ->with('success', 'Project deleted successfully');
+    }
+
+    public function getmoduls(Request $request)
+    {
+        $id =$request->id;
+        $getmodel = Project::where('id',$id)->select('modules')->get();
+        return response()->json([
+            'data'=>$getmodel,
+        ]);
     }
 }
