@@ -16,12 +16,9 @@ class EmployeeAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-         if(Auth::guard('employee')->check()){
-            if(Auth::guard('admin')->user()){
-               return $next($request);
-            }
-        }else{
-            return redirect()->route('admin');
+        if (Auth::guard('employee')->check()) {
+            return $next($request);
         }
+        return redirect('/');
     }
 }

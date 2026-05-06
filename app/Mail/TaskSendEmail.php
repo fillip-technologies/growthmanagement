@@ -49,9 +49,7 @@ class TaskSendEmail extends Mailable
         );
     }
 
-    /**
-     * Get the attachments for the message.
-     */
+    
     public function attachments(): array
     {
         $attachments = [];

@@ -17,9 +17,7 @@ class InternAuthMiddleware
     public function handle(Request $request, Closure $next): Response
     {
          if(Auth::guard('intern')->check()){
-            if(Auth::guard('admin')->user()){
                return $next($request);
-            }
         }else{
             return redirect()->route('admin');
         }

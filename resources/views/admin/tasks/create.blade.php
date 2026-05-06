@@ -85,18 +85,27 @@
 
                 <div>
                     <label class="block text-sm font-semibold mb-1">Assigned To</label>
+
                     <select name="assigned_to"
                         class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-500">
-                        @php
-                            $user = App\Models\User::where('role_id', '!=', '1')->get();
-                        @endphp
+
                         <option value="">Select User</option>
-                        @foreach ($user as $us)
-                            <option value="{{ $us->id }}">{{ $us->name }}</option>
+
+                        @php
+                            $users = App\Models\User::with('role')->where('role_id', '!=', 1)->get();
+                        @endphp
+
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">
+                                {{ $user->name }}
+                                @if ($user->role)
+                                    ({{ $user->role->role }})
+                                @endif
+                            </option>
                         @endforeach
+
                     </select>
                 </div>
-
 
                 <div>
                     <label class="block text-sm font-semibold mb-1">Attachments</label>

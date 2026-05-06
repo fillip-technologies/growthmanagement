@@ -18,32 +18,32 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-
         if ($request->user_type == 'admin') {
 
             if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                $request->session()->regenerate();
+
                 return redirect()->route('admin.dashboard');
             } else {
                 return back()->with('error', 'Hello '.ucfirst($request->user_type).', your invalid credentials.');
             }
 
         } elseif ($request->user_type == 'employee') {
-            if (Auth::guard('employee')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                return redirect()->route('dashboard');
-            } else {
-                return back()->with('error', 'Hello '.ucfirst($request->user_type).', your invalid credentials.');
-            }
 
-        } elseif ($request->user_type == 'hr') {
-            if (Auth::guard('hr')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                return redirect()->route('admin.dashboard');
+            if (Auth::guard('employee')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                $request->session()->regenerate();
+
+                return redirect()->route('employee.dashboard');
             } else {
                 return back()->with('error', 'Hello '.ucfirst($request->user_type).', your invalid credentials.');
             }
 
         } elseif ($request->user_type == 'intern') {
             if (Auth::guard('intern')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                return redirect()->route('dashboard');
+
+                $request->session()->regenerate();
+
+                return redirect()->route('intern.dashboard');
             } else {
                 return back()->with('error', 'Hello '.ucfirst($request->user_type).', your invalid credentials.');
             }
@@ -55,32 +55,43 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        if (Auth::guard('admin')->user()) {
+        if (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-        } elseif (Auth::guard('employee')->user()) {
-            Auth::guard('employee')->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-        } elseif (Auth::guard('hr')->user()) {
-            Auth::guard('hr')->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-        } elseif (Auth::guard('intern')->user()) {
-            Auth::guard('intern')->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
+
         }
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+
+    }
+    public function emplogout(Request $request)
+    {
+        if (Auth::guard('employee')->check()) {
+            Auth::guard('employee')->logout();
+
+        }
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+
+    public function internLogout(Request $request)
+    {
+        if (Auth::guard('intern')->check()) {
+            Auth::guard('intern')->logout();
+        }
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect('/');
     }
 
     public function update_password()
     {
-
         return view('admin.include.change_password');
-
     }
 
     public function update(Request $request)

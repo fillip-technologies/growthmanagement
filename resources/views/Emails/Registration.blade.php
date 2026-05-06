@@ -97,7 +97,7 @@
                     </tr>
                 </table>
             </div>
-            
+
              <div style="text-align:center; margin:30px 0;">
                                 <a href="{{ url('https://growthmanagement.fillipsoftware.com/') }}"
                                     style="
@@ -118,7 +118,7 @@
         </div>
 
         <div class="footer">
-            &copy; {{ date('Y') }} Company Name. All rights reserved.
+            &copy; {{ date('Y') }} Fillip Technologies. All rights reserved.
         </div>
     </div>
 </body>

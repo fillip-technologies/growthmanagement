@@ -78,36 +78,47 @@
 
             @include('admin.include.sidebar')
 
+            @php
+                $rolename = null;
+                $name = null;
+                $logout = null;
+
+                if (Auth::guard('admin')->check()) {
+                    $rolename = Auth::guard('admin')->user()->role->role ?? '';
+                    $name = Auth::guard('admin')->user()->name ?? '';
+                    $logout = route('admin.logout') ?? "";
+                } elseif (Auth::guard('employee')->check()) {
+                    $rolename = Auth::guard('employee')->user()->role->role ?? '';
+                    $name = Auth::guard('employee')->user()->name ?? '';
+                     $logout = route('employee.logout') ?? "";
+                }  elseif (Auth::guard('intern')->check()) {
+                    $rolename = Auth::guard('intern')->user()->role->role ?? '';
+                    $name = Auth::guard('intern')->user()->name ?? '';
+                     $logout = route('intern.logout') ?? "";
+                }
+            @endphp
+
             <div class="mt-auto p-4 border-t border-gray-700">
                 <div class="flex items-center">
+
                     <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
                         <i class="fas fa-user text-gray-300"></i>
                     </div>
-                    @if (Auth::guard('admin')->user()->role->role == 'admin')
+
                     <div class="ml-3">
                         <a href="{{ route('update.password') }}">
-                            <p class="text-sm font-medium text-white">Admin</p>
+                            <p class="text-sm font-medium text-white">
+                                {{ $name ?? 'User' }}
+                            </p>
                             <p class="text-xs text-gray-400">
-                                {{ Auth::guard('admin')->check() ? Auth::guard('admin')->user()->role->role : '' }}
+                                {{ $rolename ?? 'Role' }}
                             </p>
                         </a>
                     </div>
-                    <a href="{{ route('admin.logout') }}" class="ml-auto text-gray-400 hover:text-red-500 transition">
+
+                    <a href="{{ $logout }}" class="ml-auto text-gray-400 hover:text-red-500 transition">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
-                    @else
-                    <div class="ml-3">
-
-                            <p class="text-sm font-medium text-white">Employee</p>
-                            <p class="text-xs text-gray-400">
-                                {{ Auth::guard('admin')->check() ? Auth::guard('admin')->user()->name : '' }}
-                            </p>
-
-                    </div>
-                    <a href="{{ route('admin.logout') }}" class="ml-auto text-gray-400 hover:text-red-500 transition">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </a>
-                    @endif
 
                 </div>
             </div>

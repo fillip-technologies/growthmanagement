@@ -5,115 +5,151 @@
 
 @section('content')
 
-    <div class="max-w-7xl mx-auto mt-8">
+<div class="max-w-7xl mx-auto mt-8">
 
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold">Task List</h1>
+    {{-- HEADER --}}
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
 
-            <a href="{{ route('task.form') }}"
-                class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-lg font-semibold shadow">
-                + Add Task
-            </a>
+        <div>
+            <h1 class="text-2xl font-semibold text-gray-800">Task Management</h1>
+            <p class="text-sm text-gray-500">Manage and track all assigned tasks</p>
         </div>
 
-        <div class="bg-white shadow rounded-xl overflow-hidden">
+        <a href="{{ route('task.form') }}"
+           class="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-5 py-2 rounded-lg text-sm font-medium shadow-sm transition">
+            + Add Task
+        </a>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full text-sm text-left">
+    </div>
 
-                    <!-- Header -->
-                    <thead class="bg-orange-600 text-white">
-                        <tr>
-                            <th class="px-4 py-3">#</th>
-                            <th class="px-4 py-3">Task</th>
-                            <th class="px-4 py-3">Project</th>
-                            <th class="px-4 py-3">Assigned To</th>
-                            <th class="px-4 py-3">Status</th>
-                            <th class="px-4 py-3">Deadline</th>
-                            <th class="px-4 py-3">Action</th>
+    {{-- TABLE CARD --}}
+    <div class="bg-white border rounded-xl shadow-sm overflow-hidden">
 
-                        </tr>
-                    </thead>
+        <div class="overflow-x-auto">
 
-                    <!-- Body -->
-                    <tbody class="divide-y">
-                        @forelse ($tasks as $task)
-                            <tr class="hover:bg-gray-50">
+            <table class="min-w-full text-sm">
 
-                                <td class="px-4 py-3">
-                                    {{ $loop->iteration }}
-                                </td>
+                {{-- HEADER --}}
+                <thead class="bg-gray-50 text-gray-600 text-xs uppercase tracking-wider">
+                    <tr>
+                        <th class="px-4 py-3 text-left">#</th>
+                        <th class="px-4 py-3 text-left">Task</th>
+                        <th class="px-4 py-3 text-left">Project</th>
+                        <th class="px-4 py-3 text-left">Assigned To</th>
+                        <th class="px-4 py-3 text-left">Status</th>
+                        <th class="px-4 py-3 text-left">Deadline</th>
+                        <th class="px-4 py-3 text-center">Action</th>
+                    </tr>
+                </thead>
 
-                                <td class="px-4 py-3 font-medium text-gray-800">
+                {{-- BODY --}}
+                <tbody class="divide-y divide-gray-100">
+
+                    @forelse ($tasks as $task)
+
+                        <tr class="hover:bg-gray-50 transition">
+
+                            {{-- INDEX --}}
+                            <td class="px-4 py-3 text-gray-500">
+                                {{ $loop->iteration }}
+                            </td>
+
+                            {{-- TASK --}}
+                            <td class="px-4 py-3">
+                                <div class="font-medium text-gray-800">
                                     {{ $task->task_name }}
-                                </td>
+                                </div>
+                            </td>
 
-                                <td class="px-4 py-3 text-gray-600">
-                                    {{ $task->project->name ?? '-' }}
-                                </td>
+                            {{-- PROJECT --}}
+                            <td class="px-4 py-3 text-gray-600">
+                                {{ $task->project->name ?? '-' }}
+                            </td>
 
-                                <td class="px-4 py-3 text-gray-600">
-                                    {{ $task->user->name ?? 'N/A' }}
-                                </td>
+                            {{-- ASSIGNED TO --}}
+                            <td class="px-4 py-3 text-gray-600">
+                                {{ $task->user->name ?? 'N/A' }}
+                            </td>
 
-                                <td class="px-4 py-3">
-                                    <span
-                                        class="px-2 py-1 text-xs rounded
+                            {{-- STATUS --}}
+                            <td class="px-4 py-3">
+
+                                <span class="px-2 py-1 text-xs rounded-full font-medium
                                     {{ $task->status === 'completed'
-                                        ? 'bg-green-600 text-white'
+                                        ? 'bg-green-50 text-green-600'
                                         : ($task->status === 'in_progress'
-                                            ? 'bg-blue-600 text-white'
-                                            : 'bg-gray-600 text-white') }}">
-                                        {{ ucwords(str_replace('_', ' ', $task->status)) }}
-                                    </span>
-                                </td>
+                                            ? 'bg-blue-50 text-blue-600'
+                                            : 'bg-gray-100 text-gray-600') }}">
 
-                                <td class="px-4 py-3 text-gray-600">
-                                    {{ $task->deadline ?? '-' }}
-                                </td>
+                                    {{ ucwords(str_replace('_', ' ', $task->status)) }}
 
-                                <td class="px-4 py-3 flex gap-2">
+                                </span>
 
-                                    <!-- Edit -->
+                            </td>
+
+                            {{-- DEADLINE --}}
+                            <td class="px-4 py-3 text-gray-600">
+                                {{ $task->deadline ?? '-' }}
+                            </td>
+
+                            {{-- ACTION --}}
+                            <td class="px-4 py-3">
+
+                                <div class="flex justify-center items-center gap-2">
+
+                                    {{-- EDIT --}}
                                     <a href="{{ route('task.edit', $task->id) }}"
-                                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs">
-                                        Edit
+                                       class="p-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-900 hover:text-white transition"
+                                       title="Edit">
+
+                                        <i class="fa-solid fa-pen"></i>
                                     </a>
 
-                                    <!-- Delete -->
+                                    {{-- DELETE --}}
                                     <form action="{{ route('tasks.delete', $task->id) }}" method="POST"
-                                        onsubmit="return confirm('Are you sure?')">
+                                          onsubmit="return confirm('Are you sure you want to delete this task?')">
+
                                         @csrf
                                         @method('DELETE')
 
                                         <button type="submit"
-                                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">
-                                            Delete
+                                                class="p-2 rounded-lg bg-gray-100 text-red-500 hover:bg-red-500 hover:text-white transition"
+                                                title="Delete">
+
+                                            <i class="fa-solid fa-trash"></i>
                                         </button>
+
                                     </form>
 
-                                </td>
+                                </div>
 
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="text-center py-6 text-gray-400">
-                                    No Tasks Found
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
+                            </td>
 
-                </table>
-            </div>
+                        </tr>
 
-            <!-- Pagination -->
-            <div class="p-4 border-t">
-                {{ $tasks->links() }}
-            </div>
+                    @empty
+
+                        <tr>
+                            <td colspan="7" class="text-center py-10 text-gray-400">
+                                No tasks found
+                            </td>
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
 
         </div>
 
+        {{-- PAGINATION --}}
+        <div class="p-4 border-t bg-gray-50">
+            {{ $tasks->links() }}
+        </div>
+
     </div>
+
+</div>
 
 @endsection

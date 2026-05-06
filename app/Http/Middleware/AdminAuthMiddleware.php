@@ -18,9 +18,7 @@ class AdminAuthMiddleware
     {
 
          if(Auth::guard('admin')->check()){
-            if(Auth::guard('admin')->user()){
                return $next($request);
-            }
         }else{
             return redirect()->route('admin');
         }

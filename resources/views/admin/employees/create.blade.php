@@ -66,7 +66,7 @@
                     <div class="mb-6">
                         <label class="block font-medium text-gray-700 mb-2">Designation</label>
                         <input type="text" name="designation" value="{{ old('designation') }}"
-                            class="w-full border rounded-lg p-2" maxlength="12" placeholder="Enter phone number">
+                            class="w-full border rounded-lg p-2"  placeholder="Enter phone number">
 
                         @error('designation')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -91,7 +91,7 @@
                         <label class="block font-medium text-gray-700 mb-2">Profile Images</label>
 
                         <input type="file" name="profile" value="{{ old('profile') }}"
-                            class="w-full border rounded-lg p-1" maxlength="12" placeholder="Enter phone number">
+                            class="w-full border rounded-lg p-1" placeholder="Enter phone number">
 
                         @error('profile')
                             <span class="text-red-500 text-sm">{{ $message }}</span>

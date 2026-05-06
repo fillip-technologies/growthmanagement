@@ -17,9 +17,7 @@ class HrAuthMiddleware
     public function handle(Request $request, Closure $next): Response
     {
          if(Auth::guard('hr')->check()){
-            if(Auth::guard('admin')->user()){
                return $next($request);
-            }
         }else{
             return redirect()->route('admin');
         }

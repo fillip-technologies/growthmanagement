@@ -6,7 +6,9 @@ use App\Http\Controllers\ManegemantController;
 use Illuminate\Support\Facades\Route;
 
 
-// Route::prefix('hr')->middleware('hr')->group(function () {
-
-// });
+Route::prefix('hr')->middleware('hr')->group(function () {
+Route::get('admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('hr.dashboard');
+});
 

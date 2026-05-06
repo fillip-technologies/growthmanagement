@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Tasks;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -45,5 +45,18 @@ class AdminController extends Controller
     {
 
         return view('admin.dashboard');
+    }
+
+    public function weeklyReport()
+    {
+        $startOfWeek = Carbon::now()->startOfWeek(Carbon::MONDAY);
+        $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY);
+
+        $tasks = Tasks::with('user')
+            ->whereBetween('deadline', [$startOfWeek, $endOfWeek])
+            ->get();
+
+
+        return view('admin.reports.weekly', compact('tasks'));
     }
 }

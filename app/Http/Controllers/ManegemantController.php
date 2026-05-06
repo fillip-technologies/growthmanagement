@@ -105,16 +105,9 @@ class ManegemantController extends Controller
 
     public function destroy($id)
     {
-        $users = User::findOrFail($id)->delete();
-        if ($users) {
-            if (file_exists(public_path($users->profile))) {
-                unlink(public_path($users->profile));
-            }
-
+            User::findOrFail($id)->delete();
             return redirect('admin/get/all')->with('success', 'User Deleted SuccessFully :)');
-        }
 
-        return redirect('get/all')->with('error', 'User Deleted SuccessFully :)');
     }
 
     public function task_index()

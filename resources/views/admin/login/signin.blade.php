@@ -44,7 +44,7 @@
 
 
 <body class="bg-gray-100 font-sans">
-    
+
     @if ($errors->any())
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -100,13 +100,7 @@
                             </span>
                         </label>
 
-                        <label class="cursor-pointer">
-                            <input type="radio" name="user_type" value="hr" class="hidden peer">
-                            <span
-                                class="px-4 py-2 rounded-lg border border-white/30 text-white peer-checked:bg-white/30">
-                                HR
-                            </span>
-                        </label>
+                        
 
                         <label class="cursor-pointer">
                             <input type="radio" name="user_type" value="employee" class="hidden peer">
