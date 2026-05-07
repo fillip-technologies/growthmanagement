@@ -62,7 +62,7 @@
 
                         @foreach ($projects as $project)
                             <option value="{{ $project->id }}">
-                                {{ $project->name }}
+                                {{$project->name }}
                             </option>
                         @endforeach
                     </select>
@@ -175,7 +175,7 @@
 
                         let modules = res.data?.[0]?.modules || [];
 
-                        // ✅ checkbox generate
+                      
                         modules.forEach(function(item, index) {
                             html += `
                         <div class="flex items-center gap-2 mb-2">

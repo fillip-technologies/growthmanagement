@@ -129,6 +129,7 @@ class ManegemantController extends Controller
 
     public function task_store(Request $request)
     {
+
         $request->validate([
             'title' => 'required|string|max:255',
             'attachments' => 'required|array',
@@ -140,6 +141,8 @@ class ManegemantController extends Controller
             'project_id' => 'required|exists:projects,id',
             'status' => 'required|in:pending,in_progress,completed',
             'description' => 'nullable|string',
+            'modules'=>'nullable|array',
+            'modules.*'=>'nullable'
         ]);
 
         $files = [];
@@ -152,6 +155,14 @@ class ManegemantController extends Controller
             }
         }
 
+        $assingmodel = [];
+        if($request->modules){
+            foreach($request->modules as $modules){
+                $assingmodel[] = $modules;
+            }
+        }
+      
+
         $task = Tasks::create([
             'title' => $request->title,
             'task_name' => $request->task_name,
@@ -162,6 +173,7 @@ class ManegemantController extends Controller
             'description' => $request->description,
             'attachments' => json_encode($files),
             'project_id' => $request->project_id,
+            'assingmodul'=> json_encode($assingmodel)
         ]);
 
         $user = User::find($request->assigned_to);

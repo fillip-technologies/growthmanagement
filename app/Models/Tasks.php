@@ -11,8 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 class Tasks extends Model
 {
     protected $fillable = [
-        'title', 'description', 'assigned_to', 'status', 'priority', 'deadline','task_name','attachments','project_id'
+        'title', 'description', 'assigned_to', 'status', 'priority', 'deadline','task_name','attachments','project_id','assingmodul'
     ];
+
+    protected $casts = ['assingmodule'=>'array'];
 
     public function user()
     {
