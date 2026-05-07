@@ -20,7 +20,7 @@
                         <th class="p-3">Deadline</th>
                         <th class="p-3">Modules</th>
                         <th class="p-3">Progress</th>
-                        <th class="p-3">Action</th>
+
                     </tr>
                 </thead>
 
@@ -77,17 +77,7 @@
                                 <small>{{ $task->progress }}%</small>
                             </td>
 
-                            <td class="p-3 flex gap-2">
 
-                                <a href="{{ route('task.edit', $task->id) }}" class="text-blue-600 hover:underline">
-                                    Edit
-                                </a>
-
-                                <a href="" class="text-red-600 hover:underline">
-                                    Delete
-                                </a>
-
-                            </td>
 
                         </tr>
                     @endforeach

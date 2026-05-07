@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ManegemantController;
+use App\Http\Controllers\Task\DragTaskController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', [AdminController::class, 'login_admin'])->name('admin');
 Route::post('login', [LoginController::class, 'login'])->name('admin.login');
@@ -14,6 +16,7 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+    Route::get('/drag/task',[DragTaskController::class, 'dragTask'])->name('drag.task');
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
     Route::get('get/all', [ManegemantController::class, 'get_emp'])->name('employees');
     Route::get('create/emp', [ManegemantController::class, 'create'])->name('create');

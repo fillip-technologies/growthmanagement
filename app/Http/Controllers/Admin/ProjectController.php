@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AddTask;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,11 +39,14 @@ class ProjectController extends Controller
             'name' => 'required',
             'description' => 'required',
             'status' => 'required',
+            'priority'=>'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
-        Project::create($request->all());
-
+         $data = Project::create($request->all());
+         if($data){
+            AddTask::create(['project_id'=>$data->id]);
+         }
         return redirect()->route('project.list')
             ->with('success', 'Project created successfully.');
     }
@@ -80,6 +84,7 @@ class ProjectController extends Controller
             'end_date' => 'required',
             'status' => 'required',
             'modules' => 'nullable|array',
+            'priority'=>'required',
             'modules.*' => 'nullable',
         ]);
 
@@ -91,6 +96,7 @@ class ProjectController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'status' => $request->status,
+            'priority'=>$request->priority,
             'modules' => json_encode($request->modules),
         ]);
 

@@ -57,6 +57,12 @@
                                         {{ \Carbon\Carbon::parse($task->deadline)->format('d M Y') }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td style="padding:6px 0;">
+                                        <strong>⏰ Assing Modules:</strong>
+                                       {{ $task->assingmodul }}
+                                    </td>
+                                </tr>
 
                                 <tr>
                                     <td style="padding:6px 0;">

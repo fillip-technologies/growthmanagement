@@ -14,6 +14,7 @@ class Project extends Model
         'start_date',
         'end_date',
         'status',
+        'priority',
         'modules'
 
     ];
@@ -26,6 +27,10 @@ class Project extends Model
     public function modules()
     {
         return $this->hasMany(Module::class);
+    }
+
+    public function addtask(){
+        return $this->hasMany(AddTask::class);
     }
 
 }

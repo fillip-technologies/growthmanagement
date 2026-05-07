@@ -34,7 +34,7 @@
                             <th class="px-4 py-3 text-left">Start Date</th>
                             <th class="px-4 py-3 text-left">Deadline</th>
                             <th class="px-4 py-3 text-left">Status</th>
-                            <th class="px-4 py-3 text-center">Modules</th>
+                            <th class="px-4 py-3 text-center">All Modules</th>
                             <th class="px-4 py-3 text-center">Action</th>
                         </tr>
                     </thead>
