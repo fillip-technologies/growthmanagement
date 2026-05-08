@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssingTask;
-use App\Models\Tasks;
+use App\Models\Project;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InternController extends Controller
@@ -16,5 +17,19 @@ class InternController extends Controller
 
         return view('admin.taskList.intern_task', compact('tasks'));
 
+    }
+
+    public function status(Request $request)
+    {
+       $request->validate([
+            'status' => 'required',
+            'project_id'=>'required'
+        ]);
+
+        $getdata = Project::findOrFail($request->project_id);
+        $getdata->update([
+            'status'=>$request->status,
+        ]);
+        return back()->with('success','Status Updated');
     }
 }

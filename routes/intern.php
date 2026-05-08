@@ -11,5 +11,6 @@ Route::prefix('intern')->middleware('intern')->group(function(){
         return view('admin.dashboard');
     })->name('intern.dashboard');
     Route::get('/task',[InternController::class, 'InternTask'])->name('intern.task');
+    Route::post('/assing/project/status',[InternController::class, 'status'])->name('intern.status');
     Route::get('/logout',[LoginController::class, 'internLogout'])->name('intern.logout');
 });

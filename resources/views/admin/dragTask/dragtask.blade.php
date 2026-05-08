@@ -336,6 +336,7 @@
                         id: id
                     },
                     success: function(res) {
+console.log(res);
 
                             setTimeout(function() {
                                 location.reload();
