@@ -61,7 +61,7 @@
 <body class="bg-gray-100 font-sans">
 
     <!-- Admin Panel Wrapper -->
-    <div id="admin-panel" class="min-h-screen flex">
+    <div id="admin-panel" class="min-h-screen flex ">
 
         <!-- Sidebar -->
         <div class="w-64 bg-sidebarBg shadow-md h-screen fixed top-0 left-0 flex flex-col text-white">

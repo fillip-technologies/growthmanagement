@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use App\Models\Tasks;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -47,15 +48,17 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    public function weeklyReport()
-    {
-        $startOfWeek = Carbon::now()->startOfWeek(Carbon::MONDAY);
-        $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY);
 
-        $tasks = Tasks::with('user')
-            ->whereBetween('deadline', [$startOfWeek, $endOfWeek])
-            ->get();
 
-        return view('admin.reports.weekly', compact('tasks'));
-    }
+public function weeklyReport()
+{
+    $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
+    $endOfWeek = Carbon::now()->endOfWeek()->toDateString();
+
+    $tasks = Project::whereBetween('end_date', [$startOfWeek, $endOfWeek])
+        ->orderBy('end_date', 'asc')
+        ->get();
+
+    return view('admin.reports.weekly', compact('tasks'));
+}
 }

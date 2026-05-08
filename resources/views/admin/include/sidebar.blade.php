@@ -20,7 +20,7 @@
         $route = route('intern.dashboard');
     }
 @endphp
-<nav class="mt-6 flex-1 overflow-y-auto bg-gradient-to-b from-black to-gray-900 text-white p-2">
+<nav class="mt-6 flex-1 overflow-y-auto bg-gradient-to-b from-slate-900 via-slate-900 text-white p-2">
 
     <div class="px-4 mb-6 mt-4">
         <p class="text-xs uppercase text-orange-500 font-bold tracking-wider opacity-80">
