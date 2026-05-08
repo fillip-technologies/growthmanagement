@@ -14,4 +14,12 @@ class AddTask extends Model
     public function project(){
         return $this->belongsTo(Project::class);
     }
+
+    public function assingtask(){
+        return $this->hasMany(AssingTask::class);
+    }
+
+    
+
+
 }

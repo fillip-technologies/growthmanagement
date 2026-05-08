@@ -16,6 +16,10 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+    Route::post('/addtotask/{id}',[ProjectController::class, 'addtotask'])->name('addtotask');
+    Route::post('/assing/drag/task',[DragTaskController::class, 'assignDragTask'])->name('assignDragTask');
+    Route::get('/delete/add/task',[DragTaskController::class, 'deleteAddTask'])->name('deleteAddTask');
+     Route::get('/delete/assing/task',[DragTaskController::class, 'assingdeletetask'])->name('assingdeletetask');
     Route::get('/drag/task',[DragTaskController::class, 'dragTask'])->name('drag.task');
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
     Route::get('get/all', [ManegemantController::class, 'get_emp'])->name('employees');

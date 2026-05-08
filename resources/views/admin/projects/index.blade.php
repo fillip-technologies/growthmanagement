@@ -1,6 +1,29 @@
 @extends('admin.include.layout')
 
 @section('content')
+
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                html: `{!! implode('<br>', $errors->all()) !!}`
+            });
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+                timer: 2500,
+                showConfirmButton: false
+            });
+        </script>
+    @endif
+
     <div class="max-w-7xl mx-auto mt-8">
 
         {{-- HEADER --}}
@@ -122,6 +145,16 @@
                                             </button>
 
                                         </form>
+
+                                        <form action="{{ route('addtotask', $p->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="p-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-blue-500 hover:text-white transition">
+                                                AddToTask
+                                            </button>
+
+                                        </form>
+
 
                                     </div>
 

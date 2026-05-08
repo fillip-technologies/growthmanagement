@@ -39,14 +39,15 @@ class ProjectController extends Controller
             'name' => 'required',
             'description' => 'required',
             'status' => 'required',
-            'priority'=>'required',
+            'priority' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
-         $data = Project::create($request->all());
-         if($data){
-            AddTask::create(['project_id'=>$data->id]);
-         }
+        $data = Project::create($request->all());
+        if ($data) {
+            AddTask::create(['project_id' => $data->id]);
+        }
+
         return redirect()->route('project.list')
             ->with('success', 'Project created successfully.');
     }
@@ -84,7 +85,7 @@ class ProjectController extends Controller
             'end_date' => 'required',
             'status' => 'required',
             'modules' => 'nullable|array',
-            'priority'=>'required',
+            'priority' => 'required',
             'modules.*' => 'nullable',
         ]);
 
@@ -96,7 +97,7 @@ class ProjectController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'status' => $request->status,
-            'priority'=>$request->priority,
+            'priority' => $request->priority,
             'modules' => json_encode($request->modules),
         ]);
 
@@ -120,10 +121,27 @@ class ProjectController extends Controller
 
     public function getmoduls(Request $request)
     {
-        $id =$request->id;
-        $getmodel = Project::where('id',$id)->select('modules')->get();
+        $id = $request->id;
+        $getmodel = Project::where('id', $id)->select('modules')->get();
+
         return response()->json([
-            'data'=>$getmodel,
+            'data' => $getmodel,
         ]);
+    }
+
+    public function addtotask($id)
+    {
+        $id = trim($id);
+        $data = AddTask::where('project_id',$id)->first();
+        if (!empty($data)) {
+            return back()->with('success', 'Task Already Added');
+        } else {
+           AddTask::create([
+                'project_id' => $id,
+            ]);
+        }
+
+        return back()->with('success', 'Add Task SuccessFul');
+
     }
 }

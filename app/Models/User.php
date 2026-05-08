@@ -80,6 +80,10 @@ class User extends Authenticatable
         return $this->hasMany(Reports::class, 'employee_id');
     }
 
+     public function assingtask(){
+        return $this->hasMany(AssingTask::class);
+    }
+
     public function role(){
         return $this->belongsTo(Role::class,'role_id');
     }
