@@ -38,7 +38,7 @@
     </a>
 
     @if ($isAdminOrHR)
-      <a href=""
+      <a href="{{ route('attendanceList') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400

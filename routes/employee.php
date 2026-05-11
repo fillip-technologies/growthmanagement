@@ -23,6 +23,9 @@ Route::prefix('employee')->middleware('employee')->group(function () {
     Route::put('/attendance/{id}', [AttendanceInfoController::class, 'update'])->name('attendance.update');
     Route::delete('/attendance/{id}', [AttendanceInfoController::class, 'destroy'])->name('attendance.destroy');
     Route::post('/today/works',[AttendanceInfoController::class, 'TodayWorks'])->name('today.works');
+        Route::post('/dailyAttendance',[AttendanceInfoController::class, 'dailyAttendance'])->name('dailyAttendance');
+        Route::post('take/leave',[AttendanceInfoController::class, 'TakeLeave'])->name('TakeLeave');
+
 
 
 });

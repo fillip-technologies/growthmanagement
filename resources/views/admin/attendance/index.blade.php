@@ -4,7 +4,7 @@
         <div class="flex flex-wrap justify-between items-center">
             <div class="mb-4 sm:mb-0">
                 <h2 class="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-                    Attendance Management</h2>
+                    {{ EmpLogin()->name ?? '' }}</h2>
                 <p class="text-sm text-gray-500 mt-1 flex items-center gap-1">
                     <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
@@ -16,6 +16,18 @@
             </div>
 
             <div class="flex flex-wrap gap-3">
+                {{-- <div class="status">
+
+                    <select name="status" id="statusMark"
+                        class="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 bg-gray-50 hover:bg-white">
+                        <option value="">-- Mark Attendance --</option>
+                        <option value="present" {{ request('status') == 'present' ? 'selected' : '' }}>✅ Present</option>
+                        <option value="absent" {{ request('status') == 'absent' ? 'selected' : '' }}>❌ Absent</option>
+                        <option value="late" {{ request('status') == 'leave' ? 'selected' : '' }}> Leave</option>
+                        <option value="half_day" {{ request('status') == 'half_day' ? 'selected' : '' }}>🌓 Half Day
+                        </option>
+                    </select>
+                </div> --}}
                 <button id="startWorkBtn"
                     class="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 transform hover:scale-105">
                     <input type="hidden" name="employee_id" id="empID" value="{{ EmpLogin()->id }}">
@@ -47,6 +59,7 @@
                     </svg>
                     <span class="font-semibold">Lunch Out</span>
                 </button>
+
                 @if (optional($eventCount)->event_count == 1)
                     <button id="endWorkBtn"
                         class="px-5 py-2.5 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 transform hover:scale-105">
@@ -70,6 +83,14 @@
                         <span class="font-semibold">Wait For Next Day</span>
                     </button>
                 @endif
+                <button onclick="OpenLeave()"
+                    class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 transform hover:scale-105">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Take Leave
+                </button>
             </div>
         </div>
     </div>
@@ -344,6 +365,7 @@
                     </select>
                 </div>
 
+
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-semibold text-gray-700 flex items-center gap-2">
                         <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -373,6 +395,95 @@
         </div>
     </div>
 
+    <div id="takeLeave"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50 transition-all duration-300">
+        <div
+            class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-6 relative transform transition-all duration-300 scale-95 opacity-0 animate-modal-in">
+            <!-- Close Button -->
+            <button onclick="leavecloseModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors duration-200 text-2xl w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-50">
+                &times;
+            </button>
+
+            <div class="flex items-center gap-3 mb-6 pb-3 border-b border-gray-200">
+                <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">
+                    Take Leaves
+                </h2>
+            </div>
+
+            <form id="takeLeaveForm">
+                @csrf
+
+                <input type="hidden" id="employee_id" name="employee_id" value="{{ EmpLogin()->id ?? 0 }}">
+
+                <!-- From Date -->
+                <div class="mb-6">
+                    <label class="block mb-2 text-sm font-semibold text-gray-700">
+                        From Date
+                    </label>
+
+                    <input type="date" name="from_date"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200">
+                </div>
+
+                <!-- To Date -->
+                <div class="mb-6">
+                    <label class="block mb-2 text-sm font-semibold text-gray-700">
+                        To Date
+                    </label>
+
+                    <input type="date" name="to_date"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200">
+                </div>
+
+                <!-- Reason -->
+                <div class="mb-6">
+                    <label class="block mb-2 text-sm font-semibold text-gray-700 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h7" />
+                        </svg>
+
+                        Reason
+                    </label>
+
+                    <textarea name="reason" rows="4"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
+                        placeholder="Enter leave reason..."></textarea>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex justify-end gap-3 pt-3 border-t border-gray-200">
+
+
+                    <button type="submit"
+                        class="px-6 py-2.5 bg-gradient-to-r from-blue-800 to-emerald-600 hover:from-blue-600 hover:to-emerald-700 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2">
+
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+
+                        Apply Leave
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="loader" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+
+        <div class="bg-white p-4 rounded-xl shadow-lg flex items-center gap-3">
+            <div class="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <span class="text-gray-700 font-medium">Please wait...</span>
+        </div>
+
+    </div>
     <style>
         @keyframes modalIn {
             from {
@@ -392,6 +503,76 @@
     </style>
 
     <script>
+        function takeLeaves() {
+
+            $("#takeLeaveForm").submit(function(e) {
+
+                e.preventDefault();
+
+                let data = $(this).serialize();
+
+                $("#loader").removeClass('hidden');
+
+                $.ajax({
+                    url: "{{ route('TakeLeave') }}",
+                    type: "POST",
+                    data: data,
+
+                    success: function(response) {
+                        $("#loader").addClass('hidden');
+
+                        showNotification(response.message, 'success');
+                        $("#takeLeaveForm")[0].reset();
+                        console.log(response);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
+                    },
+                    error: function(error) {
+                        $("#loader").addClass('hidden');
+                        console.log(error);
+                        if (error.responseJSON.errors) {
+                            $.each(error.responseJSON.errors, function(key, value) {
+                                showNotification(value[0], 'error');
+                            });
+                        } else {
+                            showNotification('Something went wrong!', 'error');
+                        }
+                    }
+                });
+
+            });
+
+        }
+
+        function statusMarks() {
+            $(document).ready(function() {
+                $("#statusMark").on('change', function() {
+                    let empId = $("#empID").val();
+                    let status = $(this).val();
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('dailyAttendance') }}",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            empId: empId,
+                            status: status
+                        },
+                        success: function(res) {
+
+                            showNotification(res.message, 'success');
+                            setTimeout(() => location.reload(), 1000);
+                        },
+                        error: function(error) {
+                            console.log(error);
+
+                        }
+                    });
+
+                });
+            });
+        }
+
         function WorkStart() {
             $(document).ready(function() {
                 $("#startWorkBtn").on('click', function() {
@@ -402,7 +583,7 @@
                     const originalText = btn.html();
                     btn.html(
                         '<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Processing...'
-                        ).prop('disabled', true);
+                    ).prop('disabled', true);
 
                     $.ajax({
                         type: "POST",
@@ -442,7 +623,7 @@
                     const originalText = btn.html();
                     btn.html(
                         '<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Processing...'
-                        ).prop('disabled', true);
+                    ).prop('disabled', true);
 
                     $.ajax({
                         type: "POST",
@@ -477,7 +658,7 @@
                     const originalText = btn.html();
                     btn.html(
                         '<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Processing...'
-                        ).prop('disabled', true);
+                    ).prop('disabled', true);
 
                     $.ajax({
                         type: "POST",
@@ -512,7 +693,7 @@
                     const originalText = btn.html();
                     btn.html(
                         '<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Processing...'
-                        ).prop('disabled', true);
+                    ).prop('disabled', true);
 
                     $.ajax({
                         type: "POST",
@@ -567,6 +748,8 @@
         lunchStrat();
         lunchOut();
         WorkEnd();
+        statusMarks();
+        takeLeaves();
     </script>
 
     <style>
@@ -599,6 +782,14 @@
             document.body.style.overflow = 'hidden';
         }
 
+        function OpenLeave() {
+            const modal = document.getElementById('takeLeave');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            document.body.style.overflow = 'hidden';
+        }
+
         function closeModal() {
             const modal = document.getElementById('workModal');
             modal.classList.add('hidden');
@@ -607,6 +798,14 @@
             document.body.style.overflow = 'auto';
         }
 
+
+        function leavecloseModal() {
+            const modal = document.getElementById('takeLeave');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+
+            document.body.style.overflow = 'auto';
+        }
 
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
@@ -620,6 +819,19 @@
                 closeModal();
             }
         });
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+
+        document.getElementById('takeLeave').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
 
         ClassicEditor
             .create(document.querySelector('#editor'), {

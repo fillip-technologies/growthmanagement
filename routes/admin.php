@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\AttendanceInfoController;
 use App\Http\Controllers\ManegemantController;
 use App\Http\Controllers\Task\DragTaskController;
 use Illuminate\Support\Facades\Route;
@@ -16,11 +17,11 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-    Route::post('/addtotask/{id}',[ProjectController::class, 'addtotask'])->name('addtotask');
-    Route::post('/assing/drag/task',[DragTaskController::class, 'assignDragTask'])->name('assignDragTask');
-    Route::get('/delete/add/task',[DragTaskController::class, 'deleteAddTask'])->name('deleteAddTask');
-     Route::get('/delete/assing/task',[DragTaskController::class, 'assingdeletetask'])->name('assingdeletetask');
-    Route::get('/drag/task',[DragTaskController::class, 'dragTask'])->name('drag.task');
+    Route::post('/addtotask/{id}', [ProjectController::class, 'addtotask'])->name('addtotask');
+    Route::post('/assing/drag/task', [DragTaskController::class, 'assignDragTask'])->name('assignDragTask');
+    Route::get('/delete/add/task', [DragTaskController::class, 'deleteAddTask'])->name('deleteAddTask');
+    Route::get('/delete/assing/task', [DragTaskController::class, 'assingdeletetask'])->name('assingdeletetask');
+    Route::get('/drag/task', [DragTaskController::class, 'dragTask'])->name('drag.task');
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
     Route::get('get/all', [ManegemantController::class, 'get_emp'])->name('employees');
     Route::get('create/emp', [ManegemantController::class, 'create'])->name('create');
@@ -53,11 +54,12 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::post('/module/store', [ManegemantController::class, 'module_store'])
         ->name('module.store');
 
-
-
     Route::get('/weekly/report', [AdminController::class, 'weeklyReport'])->name('week.report');
-    Route::get('/get/model',[ProjectController::class, 'getmoduls'])->name('get.module');
-Route::get('/all/report',[AdminController::class,'report'])->name('report');
+    Route::get('/get/model', [ProjectController::class, 'getmoduls'])->name('get.module');
+    Route::get('/all/report', [AdminController::class, 'report'])->name('report');
+    Route::get('/attendance/list', [AdminController::class, 'attendanceList'])->name('attendance.list');
+    Route::get('/attendanceList', [AdminController::class, 'attendanceList'])->name('attendanceList');
+    Route::get('/attendance/export', [AdminController::class, 'export'])->name('attendance.export');
     // reports
 
     Route::get('report/{id}/user/{uid}', [ManegemantController::class, 'report'])->name('report');
@@ -67,4 +69,5 @@ Route::get('/all/report',[AdminController::class,'report'])->name('report');
     Route::get('/settings', function () {
         return 'Admin settings page';
     })->name('settings');
+
 });

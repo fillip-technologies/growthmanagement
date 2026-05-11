@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ApplyLeaveMail;
 use App\Models\AddTask;
 use App\Models\AttendanceInfo;
+use App\Models\TakeLeave;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AttendanceInfoController extends Controller
 {
@@ -169,9 +173,7 @@ class AttendanceInfoController extends Controller
             'project_id' => 'required',
         ]);
 
-
-
-            AttendanceInfo::updateOrCreate(
+        AttendanceInfo::updateOrCreate(
             [
                 'employee_id' => $request->employee_id,
                 'date' => today(),
@@ -184,5 +186,84 @@ class AttendanceInfoController extends Controller
         );
 
         return back()->with('success', 'Today work saved successfully');
+    }
+
+    public function dailyAttendance(Request $request)
+    {
+
+        try {
+            $request->validate([
+                'status' => 'required',
+            ]);
+
+            AttendanceInfo::updateOrCreate(
+                [
+                    'employee_id' => $request->empId,
+                    'date' => today(),
+                ],
+                [
+                    'day' => now()->format('l'),
+                    'status' => $request->status,
+                ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Attendance Marked...',
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Something Went wrong',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+
+    }
+
+    public function TakeLeave(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'employee_id' => 'required',
+                'from_date' => 'required|date',
+                'to_date' => 'required|date|after_or_equal:from_date',
+                'reason' => 'required',
+            ]);
+
+            $leave = TakeLeave::create([
+                'employee_id' => $request->employee_id,
+                'from_date' => $request->from_date,
+                'to_date' => $request->to_date,
+                'reason' => $request->reason,
+            ]);
+
+            $mailData = [
+                'from_date' => $leave->from_date,
+                'to_date' => $leave->to_date,
+                'reason' => $leave->reason,
+            ];
+
+            $user = User::where('id', $request->employee_id)
+                ->select('name', 'email', 'phone')
+                ->first();
+
+            Mail::to('developer4.filliptechnologies@gmail.com')->send(new ApplyLeaveMail($user, $mailData));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Leave Apply Successfully with Email',
+                'fire' => 'done',
+                'data' => $leave,
+            ], 201);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Something Went Wrong',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
