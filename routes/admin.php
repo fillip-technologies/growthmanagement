@@ -57,7 +57,7 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
 
     Route::get('/weekly/report', [AdminController::class, 'weeklyReport'])->name('week.report');
     Route::get('/get/model',[ProjectController::class, 'getmoduls'])->name('get.module');
-
+Route::get('/all/report',[AdminController::class,'report'])->name('report');
     // reports
 
     Route::get('report/{id}/user/{uid}', [ManegemantController::class, 'report'])->name('report');

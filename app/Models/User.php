@@ -88,6 +88,14 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class,'role_id');
     }
 
+    public function addtask(){
+        return $this->hasMany(AddTask::class);
+    }
+
+    public function attendance(){
+        return $this->hasMany(AttendanceInfo::class);
+    }
+
 
 
 

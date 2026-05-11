@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AddTask;
 use App\Models\AssingTask;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -21,16 +22,26 @@ class EmployeeController extends Controller
 
     public function status(Request $request)
     {
+
         $request->validate([
             'status' => 'required',
+            'progress' => 'nullable',
+            'employee_id' => 'nullable',
             'project_id' => 'required',
         ]);
-
         $getdata = Project::findOrFail($request->project_id);
         $getdata->update([
             'status' => $request->status,
         ]);
+        $task = AddTask::where('project_id', $request->project_id)->first();
+        if ($task) {
+            $task->update([
+                'progress' => $request->progress,
+                'employee_id' => $request->employee_id,
+            ]);
 
-        return back()->with('success', 'Status Updated');
+        }
+
+        return back()->with('success', 'Status Updated Successfully');
     }
 }

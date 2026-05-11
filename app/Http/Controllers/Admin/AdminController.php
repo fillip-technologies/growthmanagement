@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AddTask;
 use App\Models\Project;
 use App\Models\Tasks;
 use Carbon\Carbon;
@@ -60,5 +61,12 @@ public function weeklyReport()
         ->get();
 
     return view('admin.reports.weekly', compact('tasks'));
+}
+
+
+public function report(){
+    $reports = AddTask::with(['project','user'])->paginate(10);
+
+    return view('admin.reports.report',compact('reports'));
 }
 }

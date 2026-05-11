@@ -38,6 +38,14 @@
     </a>
 
     @if ($isAdminOrHR)
+      <a href=""
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+              bg-gray-900/60 backdrop-blur-xl border border-gray-800
+              hover:bg-orange-600 hover:text-white hover:border-orange-400
+              transition-all duration-300 group">
+            <i class="fa-solid fa-clock mr-4 text-orange-500 group-hover:text-white"></i>
+            Attendance
+        </a>
         <a href="{{ route('employees') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
@@ -51,7 +59,7 @@
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
               transition-all duration-300 group">
-            <i class="fa-solid fa-chart-line mr-4 text-orange-500 group-hover:text-white"></i>
+            <i class="fa-solid fa-people-arrows mr-4 text-orange-500 group-hover:text-white"></i>
             Drag Tasks
         </a>
 
@@ -60,7 +68,7 @@
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
               transition-all duration-300 group">
-            <i class="fa-solid fa-chart-line mr-4 text-orange-500 group-hover:text-white"></i>
+            <i class="fa-solid fa-square-check mr-4 text-orange-500 group-hover:text-white"></i>
             Tasks
         </a>
 
@@ -81,7 +89,25 @@
             <i class="fa-solid fa-file-alt mr-4 text-orange-500 group-hover:text-white"></i>
             Weekly Reports
         </a>
+
+
+        <a href="{{ route('report') }}"
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+              bg-gray-900/60 backdrop-blur-xl border border-gray-800
+              hover:bg-orange-600 hover:text-white hover:border-orange-400
+              transition-all duration-300 group">
+           <i class="fa-solid fa-chart-pie mr-4 text-orange-500 group-hover:text-white"></i>
+            Reports
+        </a>
     @elseif ($isEmployee)
+    <a href="{{ route('emp.attendance') }}"
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+              bg-gray-900/60 backdrop-blur-xl border border-gray-800
+              hover:bg-orange-600 hover:text-white hover:border-orange-400
+              transition-all duration-300 group">
+            <i class="fa-solid fa-clock mr-4 text-orange-500 group-hover:text-white"></i>
+            Attendance
+        </a>
         <a href="{{ route('employee.task') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
@@ -91,6 +117,14 @@
             My Tasks
         </a>
     @elseif ($isIntern)
+    <a href="{{ route('intern.attendance') }}"
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+              bg-gray-900/60 backdrop-blur-xl border border-gray-800
+              hover:bg-orange-600 hover:text-white hover:border-orange-400
+              transition-all duration-300 group">
+            <i class="fa-solid fa-clock mr-4 text-orange-500 group-hover:text-white"></i>
+            Attendance
+        </a>
         <a href="{{ route('intern.task') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800

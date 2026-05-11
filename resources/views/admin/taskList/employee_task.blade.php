@@ -41,12 +41,12 @@
                         <div class="text-xs opacity-90">Total Tasks</div>
                     </div>
                     <div class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-xl shadow-lg">
-                        <div class="text-2xl font-bold">{{ $tasks->where('progress', 100)->count() }}</div>
+                        <div class="text-2xl font-bold">{{ App\Models\Project::where('status','completed')->count() }}</div>
                         <div class="text-xs opacity-90">Completed</div>
                     </div>
                     <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-3 rounded-xl shadow-lg">
                         <div class="text-2xl font-bold">
-                            {{ $tasks->where('progress', '<', 100)->where('progress', '>', 0)->count() }}</div>
+                            {{ App\Models\Project::where('status','ongoing')->count() }}</div>
                         <div class="text-xs opacity-90">In Progress</div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                 @php
                     $project = $task->addtask->project ?? null;
                     $modules = $project->modules ?? [];
-                    $progress = $task->progress ?? 0;
+                    $progress = $task->addtask->progress ?? 0;
 
                     $progressColor = $progress < 30 ? 'red' : ($progress < 70 ? 'yellow' : 'green');
                     $progressText = $progress < 30 ? 'Critical' : ($progress < 70 ? 'In Progress' : 'On Track');
@@ -189,7 +189,7 @@
                         <!-- Progress Bar -->
                         <div>
                             <div class="flex justify-between text-xs font-medium mb-1">
-                                <span class="text-gray-600">Task Progress</span>
+                                <span class="text-gray-600">Working Persentage %</span>
                                 <span
                                     class="{{ $progressColor === 'green' ? 'text-green-600' : ($progressColor === 'yellow' ? 'text-yellow-600' : 'text-red-600') }} font-bold">
                                     {{ $progress }}%
@@ -205,21 +205,48 @@
 
                     <!-- Card Footer -->
                     <div class="p-5 bg-gray-50 border-t border-gray-100">
-                        <form action="{{ route('employee.status') }}" method="POST" class="flex gap-3">
+
+                        <form action="{{ route('employee.status') }}" method="POST"
+                            class="grid grid-cols-1 md:grid-cols-4 gap-3 items-center">
+
                             @csrf
+                            <input type="hidden" name="employee_id" value="{{ EmpLogin()->id ?? '' }}">
                             <input type="hidden" name="project_id" value="{{ $project->id }}">
+
+                            <!-- Progress -->
+                            <input type="number" name="progress" min="0" max="100"
+                                value="{{ $task->progress ?? '' }}" placeholder="Progress %"
+                                class="max-w-full px-3 py-2 border border-gray-300 rounded-lg
+                               focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+
+                            <!-- Status -->
                             <select name="status"
-                                class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                                onchange="this.form.submit()">
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg
+                                    focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+
                                 <option value="">Update Status</option>
-                                <option value="ongoing" @selected(($project->status ?? '') === 'ongoing')>🟡 Ongoing</option>
-                                <option value="completed" @selected(($project->status ?? '') === 'completed')>✅ Completed</option>
-                                <option value="pending" @selected(($project->status ?? '') === 'pending')>⏰ Pending</option>
+
+                                <option value="ongoing" @selected(($project->status ?? '') === 'ongoing')>
+                                    🟡 Ongoing
+                                </option>
+
+                                <option value="completed" @selected(($project->status ?? '') === 'completed')>
+                                    ✅ Completed
+                                </option>
+
+                                <option value="pending" @selected(($project->status ?? '') === 'pending')>
+                                    ⏰ Pending
+                                </option>
                             </select>
-                            <button type="button" onclick="viewTaskDetails({{ $task->id }})"
-                                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
-                                <i class="fas fa-eye"></i>
+
+                            <!-- Submit Button -->
+                            <button type="submit"
+                                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                Update
                             </button>
+
+
+
                         </form>
                     </div>
                 </div>

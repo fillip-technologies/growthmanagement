@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class AddTask extends Model
 {
     protected $table = "add_tasks";
-    protected $fillable = ['project_id'];
+    protected $fillable = ['project_id','employee_id','progress'];
     protected $primaryKey = 'id';
 
     public function project(){
@@ -19,7 +19,11 @@ class AddTask extends Model
         return $this->hasMany(AssingTask::class);
     }
 
-    
+    public function user(){
+        return $this->belongsTo(User::class,'employee_id');
+    }
+
+
 
 
 }

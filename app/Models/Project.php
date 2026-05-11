@@ -32,5 +32,8 @@ class Project extends Model
     public function addtask(){
         return $this->hasMany(AddTask::class);
     }
+    public function attendance(){
+        return $this->hasMany(AttendanceInfo::class);
+    }
 
 }

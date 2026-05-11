@@ -41,11 +41,12 @@
                         <div class="text-xs opacity-90">Total Tasks</div>
                     </div>
                     <div class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-xl shadow-lg">
-                        <div class="text-2xl font-bold">{{ $tasks->where('progress', 100)->count() }}</div>
+                        <div class="text-2xl font-bold">{{App\Models\Project::where('status','completed')->count() }}</div>
                         <div class="text-xs opacity-90">Completed</div>
                     </div>
                     <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-3 rounded-xl shadow-lg">
-                        <div class="text-2xl font-bold">{{ $tasks->where('progress', '<', 100)->where('progress', '>', 0)->count() }}</div>
+                        <div class="text-2xl font-bold">
+                            {{ App\Models\Project::where('status','ongoing')->count() }}</div>
                         <div class="text-xs opacity-90">In Progress</div>
                     </div>
                 </div>
@@ -58,16 +59,18 @@
                 <div class="flex-1 relative">
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                     <input type="text" id="searchInput" placeholder="Search by employee name, project, or module..."
-                           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div class="flex gap-3">
-                    <select id="statusFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <select id="statusFilter"
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                         <option value="">All Status</option>
                         <option value="ongoing">Ongoing</option>
                         <option value="completed">Completed</option>
                         <option value="pending">Pending</option>
                     </select>
-                    <select id="progressFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <select id="progressFilter"
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                         <option value="">All Progress</option>
                         <option value="0-30">0-30%</option>
                         <option value="31-70">31-70%</option>
@@ -90,17 +93,21 @@
                     $progressText = $progress < 30 ? 'Critical' : ($progress < 70 ? 'In Progress' : 'On Track');
                 @endphp
 
-                <div class="task-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group">
+                <div
+                    class="task-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group">
 
                     <!-- Card Header -->
                     <div class="bg-gradient-to-r from-gray-50 to-gray-100 p-5 border-b border-gray-200">
                         <div class="flex items-start justify-between">
                             <div class="flex items-center gap-3">
                                 <div class="relative">
-                                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
                                         {{ strtoupper(substr($task->user->name ?? 'U', 0, 1)) }}
                                     </div>
-                                    <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-white"></div>
+                                    <div
+                                        class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-white">
+                                    </div>
                                 </div>
                                 <div>
                                     <h3 class="font-semibold text-gray-900 text-lg">{{ $task->user->name ?? 'N/A' }}</h3>
@@ -108,7 +115,8 @@
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <span class="px-2 py-1 text-xs rounded-full {{ $progressColor === 'green' ? 'bg-green-100 text-green-700' : ($progressColor === 'yellow' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700') }}">
+                                <span
+                                    class="px-2 py-1 text-xs rounded-full {{ $progressColor === 'green' ? 'bg-green-100 text-green-700' : ($progressColor === 'yellow' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700') }}">
                                     {{ $progressText }}
                                 </span>
                             </div>
@@ -123,14 +131,16 @@
                                 <h4 class="font-semibold text-blue-600 text-lg">{{ $project->name ?? 'N/A' }}</h4>
                                 <span class="text-xs text-gray-500">ID: #{{ $task->id }}</span>
                             </div>
-                            <p class="text-sm text-gray-600 line-clamp-2">{{ $project->description ?? 'No description available' }}</p>
+                            <p class="text-sm text-gray-600 line-clamp-2">
+                                {{ $project->description ?? 'No description available' }}</p>
                         </div>
 
                         <!-- Project Details Grid -->
                         <div class="grid grid-cols-2 gap-3">
                             <div class="bg-gray-50 rounded-lg p-2">
                                 <div class="text-xs text-gray-500">Start Date</div>
-                                <div class="text-sm font-medium text-gray-700">{{ Crbon::parse($project->start_date)->date_format('y/m/d') ?? 'N/A' }}</div>
+                                <div class="text-sm font-medium text-gray-700">
+                                    {{ Crbon::parse($project->start_date)->date_format('y/m/d') ?? 'N/A' }}</div>
                             </div>
                             <div class="bg-gray-50 rounded-lg p-2">
                                 <div class="text-xs text-gray-500">End Date</div>
@@ -139,7 +149,8 @@
                             <div class="bg-gray-50 rounded-lg p-2">
                                 <div class="text-xs text-gray-500">Priority</div>
                                 <div class="text-sm font-medium">
-                                    <span class="px-2 py-0.5 rounded-full text-xs {{ ($project->priority ?? '') == 'high' ? 'bg-red-100 text-red-700' : (($project->priority ?? '') == 'medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-blue-100 text-blue-700') }}">
+                                    <span
+                                        class="px-2 py-0.5 rounded-full text-xs {{ ($project->priority ?? '') == 'high' ? 'bg-red-100 text-red-700' : (($project->priority ?? '') == 'medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-blue-100 text-blue-700') }}">
                                         {{ ucfirst($project->priority ?? 'N/A') }}
                                     </span>
                                 </div>
@@ -147,7 +158,8 @@
                             <div class="bg-gray-50 rounded-lg p-2">
                                 <div class="text-xs text-gray-500">Status</div>
                                 <div class="text-sm font-medium">
-                                    <span class="px-2 py-0.5 rounded-full text-xs {{ ($project->status ?? '') == 'completed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
+                                    <span
+                                        class="px-2 py-0.5 rounded-full text-xs {{ ($project->status ?? '') == 'completed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
                                         {{ ucfirst($project->status ?? 'N/A') }}
                                     </span>
                                 </div>
@@ -155,7 +167,7 @@
                         </div>
 
                         <!-- Modules -->
-                        @if(!empty($modules) && count($modules) > 0)
+                        @if (!empty($modules) && count($modules) > 0)
                             <div>
                                 <div class="text-xs text-gray-500 mb-2">Modules</div>
                                 <div class="flex flex-wrap gap-2">
@@ -171,14 +183,15 @@
                         <!-- Progress Bar -->
                         <div>
                             <div class="flex justify-between text-xs font-medium mb-1">
-                                <span class="text-gray-600">Task Progress</span>
-                                <span class="{{ $progressColor === 'green' ? 'text-green-600' : ($progressColor === 'yellow' ? 'text-yellow-600' : 'text-red-600') }} font-bold">
+                                <span class="text-gray-600">Working Persentage %</span>
+                                <span
+                                    class="{{ $progressColor === 'green' ? 'text-green-600' : ($progressColor === 'yellow' ? 'text-yellow-600' : 'text-red-600') }} font-bold">
                                     {{ $progress }}%
                                 </span>
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                                 <div class="h-2 rounded-full transition-all duration-500 {{ $progressColor === 'green' ? 'bg-green-500' : ($progressColor === 'yellow' ? 'bg-yellow-500' : 'bg-red-500') }}"
-                                     style="width: {{ $progress }}%">
+                                    style="width: {{ $progress }}%">
                                 </div>
                             </div>
                         </div>
@@ -186,18 +199,52 @@
 
                     <!-- Card Footer -->
                     <div class="p-5 bg-gray-50 border-t border-gray-100">
-                        <form action="{{ route('employee.status') }}" method="POST" class="flex gap-3">
+
+                        <form action="{{ route('employee.status') }}" method="POST"
+                            class="grid grid-cols-1 md:grid-cols-4 gap-3 items-center">
+
                             @csrf
+                            <input type="hidden" name="employee_id" value="{{ EmpLogin()->id ?? '' }}">
                             <input type="hidden" name="project_id" value="{{ $project->id }}">
-                            <select name="status" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" onchange="this.form.submit()">
+
+                            <!-- Progress -->
+                            <input type="number" name="progress" min="0" max="100"
+                                value="{{ $task->progress ?? '' }}" placeholder="Progress %"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg
+                               focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+
+                            <!-- Status -->
+                            <select name="status"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg
+                                    focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+
                                 <option value="">Update Status</option>
-                                <option value="ongoing" @selected(($project->status ?? '') === "ongoing")>🟡 Ongoing</option>
-                                <option value="completed" @selected(($project->status ?? '') === "completed")>✅ Completed</option>
-                                <option value="pending" @selected(($project->status ?? '') === "pending")>⏰ Pending</option>
+
+                                <option value="ongoing" @selected(($project->status ?? '') === 'ongoing')>
+                                    🟡 Ongoing
+                                </option>
+
+                                <option value="completed" @selected(($project->status ?? '') === 'completed')>
+                                    ✅ Completed
+                                </option>
+
+                                <option value="pending" @selected(($project->status ?? '') === 'pending')>
+                                    ⏰ Pending
+                                </option>
                             </select>
-                            <button type="button" onclick="viewTaskDetails({{ $task->id }})" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+
+                            <!-- Submit Button -->
+                            <button type="submit"
+                                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                Update
+                            </button>
+
+                            <!-- View Button -->
+                            <button type="button" onclick="viewTaskDetails({{ $task->id }})"
+                                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
                                 <i class="fas fa-eye"></i>
                             </button>
+
                         </form>
                     </div>
                 </div>
@@ -240,14 +287,12 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
-
-
     </style>
 
     <script>
@@ -271,7 +316,8 @@
                     moduleText += module.textContent.toLowerCase();
                 });
 
-                if (searchTerm && !employeeName.includes(searchTerm) && !projectName.includes(searchTerm) && !moduleText.includes(searchTerm)) {
+                if (searchTerm && !employeeName.includes(searchTerm) && !projectName.includes(searchTerm) && !
+                    moduleText.includes(searchTerm)) {
                     show = false;
                 }
 
@@ -286,7 +332,8 @@
 
                 // Progress filter
                 if (show && progressFilter) {
-                    const progressText = task.querySelector('.text-green-600, .text-yellow-600, .text-red-600')?.textContent || '';
+                    const progressText = task.querySelector('.text-green-600, .text-yellow-600, .text-red-600')
+                        ?.textContent || '';
                     const progress = parseInt(progressText);
 
                     if (progressFilter === '0-30' && (progress < 0 || progress > 30)) show = false;

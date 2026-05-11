@@ -21,15 +21,26 @@ class InternController extends Controller
 
     public function status(Request $request)
     {
-       $request->validate([
-            'status' => 'required',
-            'project_id'=>'required'
-        ]);
 
+        $request->validate([
+            'status' => 'required',
+            'progress' => 'nullable',
+            'employee_id' => 'nullable',
+            'project_id' => 'required',
+        ]);
         $getdata = Project::findOrFail($request->project_id);
         $getdata->update([
-            'status'=>$request->status,
+            'status' => $request->status,
         ]);
-        return back()->with('success','Status Updated');
+        $task = AddTask::where('project_id', $request->project_id)->first();
+        if ($task) {
+            $task->update([
+                'progress' => $request->progress,
+                'employee_id' => $request->employee_id,
+            ]);
+
+        }
+
+        return back()->with('success', 'Status Updated Successfully');
     }
 }
