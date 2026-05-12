@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AddTask;
 use App\Models\AttendanceInfo;
 use App\Models\Project;
+use App\Models\TakeLeave;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -91,7 +92,9 @@ class AdminController extends Controller
         return Excel::download(new AttendanceExport, 'attendance.xlsx');
     }
 
-    // public function leaveStatus (Request $request){
-    //     print_r($request->all());
-    // }
+    public function leaveLive(Request $request)
+    {
+        $datas =  TakeLeave::with(['employee'])->paginate(10);
+        return view('admin.attendance.leaveList',compact('datas'));
+    }
 }

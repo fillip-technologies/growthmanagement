@@ -503,6 +503,9 @@
     </style>
 
     <script>
+
+
+
         function takeLeaves() {
 
             $("#takeLeaveForm").submit(function(e) {

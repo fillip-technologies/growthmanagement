@@ -266,4 +266,16 @@ class AttendanceInfoController extends Controller
             ], 500);
         }
     }
+
+    public function leaveStatus(Request $request)
+    {
+        $request->validate([
+            'employee_id' => 'required',
+            'status' => 'required',
+        ]);
+
+        $data = TakeLeave::where('employee_id', $request->employee_id);
+        dd($data);
+
+    }
 }

@@ -60,6 +60,8 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/attendance/list', [AdminController::class, 'attendanceList'])->name('attendance.list');
     Route::get('/attendanceList', [AdminController::class, 'attendanceList'])->name('attendanceList');
     Route::get('/attendance/export', [AdminController::class, 'export'])->name('attendance.export');
+    Route::post('/leave/status',[AttendanceInfoController::class, 'leaveStatus'])->name('leaveStatus');
+    Route::get('/leave/live',[AdminController::class, 'leaveLive'])->name('leaveList');
     // reports
 
     Route::get('report/{id}/user/{uid}', [ManegemantController::class, 'report'])->name('report');
