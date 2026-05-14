@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ApplyLeaveMail;
+use App\Mail\ApproveMail;
 use App\Models\AddTask;
 use App\Models\AttendanceInfo;
 use App\Models\TakeLeave;
@@ -275,7 +276,97 @@ class AttendanceInfoController extends Controller
         ]);
 
         $data = TakeLeave::where('employee_id', $request->employee_id);
-        dd($data);
 
+    }
+
+    public function ViewLeave(Request $request)
+    {
+        try {
+            $id = trim($request->id);
+            $viewdata = TakeLeave::with(['employee'])->findOrFail($id);
+
+            return response()->json([
+                'message' => 'Leave data',
+                'success' => true,
+                'data' => $viewdata,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something Went Wrong',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+
+    }
+
+    public function statusApproved(Request $request)
+    {
+        try {
+            $id = trim($request->id);
+            $getdata = TakeLeave::with('employee')->findOrFail($id);
+            if ($getdata) {
+                $getdata->update([
+                    'status' => 'approved',
+                ]);
+            }
+            Mail::to($getdata->employee->email)->send(new ApproveMail($getdata));
+            return response()->json([
+                'message' => 'Leave Approved SuccessFul',
+                'success' => true,
+                'data' => $getdata,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'messahe' => 'Something Wend Wrong',
+                'success' => false,
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function statusReject(Request $request)
+    {
+        try {
+            $id = trim($request->id);
+            $getdata = TakeLeave::findOrFail($id);
+            if ($getdata) {
+                $getdata->update([
+                    'status' =>'reject',
+                ]);
+            }
+
+            return response()->json([
+                'message' => 'Leave Rejected SuccessFul',
+                'success' => true,
+                'data' => $getdata,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'messahe' => 'Something Wend Wrong',
+                'success' => false,
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function statusDelete(Request $request)
+    {
+        try {
+            $id = trim($request->id);
+            $getdata = TakeLeave::findOrFail($id)->delete();
+
+            return response()->json([
+                'message' => 'Status deleted SuccessFul',
+                'success' => true,
+                'data' => $getdata,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'messahe' => 'Something Wend Wrong',
+                'success' => false,
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

@@ -8,7 +8,6 @@ use App\Http\Controllers\ManegemantController;
 use App\Http\Controllers\Task\DragTaskController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/', [AdminController::class, 'login_admin'])->name('admin');
 Route::post('login', [LoginController::class, 'login'])->name('admin.login');
 Route::get('admin/store', [LoginController::class, 'store'])->name('login.store');
@@ -60,9 +59,8 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/attendance/list', [AdminController::class, 'attendanceList'])->name('attendance.list');
     Route::get('/attendanceList', [AdminController::class, 'attendanceList'])->name('attendanceList');
     Route::get('/attendance/export', [AdminController::class, 'export'])->name('attendance.export');
-    Route::post('/leave/status',[AttendanceInfoController::class, 'leaveStatus'])->name('leaveStatus');
-    Route::get('/leave/live',[AdminController::class, 'leaveLive'])->name('leaveList');
-    // reports
+    Route::post('/leave/status', [AttendanceInfoController::class, 'leaveStatus'])->name('leaveStatus');
+    Route::get('/leave/live', [AdminController::class, 'leaveLive'])->name('leaveList');
 
     Route::get('report/{id}/user/{uid}', [ManegemantController::class, 'report'])->name('report');
     Route::get('/users', function () {
@@ -71,5 +69,10 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/settings', function () {
         return 'Admin settings page';
     })->name('settings');
+
+    Route::get('viwe/leave', [AttendanceInfoController::class, 'ViewLeave'])->name('viwe.leave');
+    Route::post('/leave/approved', [AttendanceInfoController::class, 'statusApproved'])->name('status.approved');
+    Route::post('/leave/reject', [AttendanceInfoController::class, 'statusReject'])->name('status.reject');
+    Route::delete('/leave/delete', [AttendanceInfoController::class, 'statusDelete'])->name('status.delete');
 
 });
