@@ -47,7 +47,7 @@
                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <span
-                        class="font-semibold">{{ optional($eventCount)->lunch_count == 1 ? 'Brack Started' : 'Brack Start' }}</span>
+                        class="font-semibold">{{ optional($eventCount)->lunch_count == 1 ? 'Break Started' : 'Break Start' }}</span>
                 </button>
                 <button id="lunchOutBtn"
                     class="px-5 py-2.5 bg-gradient-to-r from-sky-400 to-sky-500 hover:from-sky-500 hover:to-sky-600 text-white font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 transform hover:scale-105">
@@ -56,7 +56,7 @@
                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
                         </path>
                     </svg>
-                    <span class="font-semibold">Brack Out</span>
+                    <span class="font-semibold">Break Out</span>
                 </button>
 
                 @if (optional($eventCount)->event_count == 1)

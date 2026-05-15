@@ -11,7 +11,6 @@ use App\Models\TakeLeave;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
@@ -54,11 +53,11 @@ class AdminController extends Controller
 
     public function weeklyReport()
     {
-        $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
-        $endOfWeek = Carbon::now()->endOfWeek()->toDateString();
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
 
         $tasks = Project::whereBetween('end_date', [$startOfWeek, $endOfWeek])
-            ->orderBy('end_date', 'asc')
+            ->orderBy('end_date', 'desc')
             ->get();
 
         return view('admin.reports.weekly', compact('tasks'));
@@ -67,6 +66,7 @@ class AdminController extends Controller
     public function report()
     {
         $reports = AddTask::with(['project', 'user'])->paginate(10);
+
         return view('admin.reports.report', compact('reports'));
     }
 

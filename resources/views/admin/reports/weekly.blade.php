@@ -173,13 +173,13 @@
                                 <!-- Modules -->
                                 <td class="px-6 py-5">
                                     <div class="flex flex-wrap gap-1.5">
-                                        @foreach (array_slice($task->modules ?? [], 0, 2) as $module)
+                                        @foreach (array_slice(json_decode($task->modules) ?? [], 0, 2) as $module)
                                             <span
                                                 class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-lg text-xs font-medium">
                                                 {{ $module }}
                                             </span>
                                         @endforeach
-                                        @if (count($task->modules ?? []) > 2)
+                                        @if (count(json_decode($task->modules) ?? []) > 2)
                                             <span
                                                 class="bg-gray-100 text-gray-600 px-2.5 py-1 rounded-lg text-xs font-medium">
                                                 +{{ count($task->modules) - 2 }}
