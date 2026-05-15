@@ -173,11 +173,11 @@
                         </div>
 
                         <!-- Modules -->
-                        @if (!empty($modules) && count($modules) > 0)
+                        @if (!empty(json_decode($project->modules)) && count(json_decode($project->modules)) > 0)
                             <div>
                                 <div class="text-xs text-gray-500 mb-2">Modules</div>
                                 <div class="flex flex-wrap gap-2">
-                                    @foreach ($modules as $module)
+                                    @foreach (json_decode($project->modules) ?? [] as $module)
                                         <span class="px-2 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-medium">
                                             {{ $module }}
                                         </span>

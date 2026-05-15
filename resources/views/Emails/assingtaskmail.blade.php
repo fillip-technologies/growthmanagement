@@ -135,7 +135,7 @@
                                                 @php
                                                     $modules = is_array($task->project->modules)
                                                         ? $task->project->modules
-                                                        : json_decode($rask->project->modules, true);
+                                                        : json_decode($task->project->modules, true);
                                                 @endphp
 
                                                 @if (is_array($modules))

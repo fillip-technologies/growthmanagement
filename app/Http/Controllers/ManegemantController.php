@@ -31,41 +31,88 @@ class ManegemantController extends Controller
         return view('admin.employees.create');
     }
 
+    private function uploadDocument($file, $folder)
+    {
+        $destinationPath = public_path('uploads/'.$folder);
+        if (! file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
+        }
+        $fileName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+        $file->move($destinationPath, $fileName);
+
+        return 'uploads/'.$folder.'/'.$fileName;
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|min:3',
             'phone' => 'required|regex:/^\+?[0-9]{10,12}$/',
-            'profile' => 'nullable|file',
+            'profile' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
             'designation' => 'required|string',
             'status' => 'required|in:active,inactive',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
             'role_id' => 'required',
-            'joinig_date' => 'required',
-            'employeeID' => 'required',
-            'department' => 'required',
+            'joinig_date' => 'required|date',
+            'employeeID' => 'required|string|unique:users,employeeID',
+            'department' => 'required|string',
+            'adhar_card' => 'nullable|file',
+            'pan_card' => 'nullable|file',
+            '10th_certificate' => 'nullable|file',
+            '12th_certificate' => 'nullable|file',
+            'graduation' => 'nullable|file',
         ]);
 
-        $filename = FileUpload($request);
-        $planPassword = $request->password;
+        $filename = null;
+        $adharCardPath = null;
+        $panCardPath = null;
+        $tenthCertPath = null;
+        $twelfthCertPath = null;
+        $graduationPath = null;
+
+        if ($request->hasFile('profile')) {
+            $filename = $this->uploadDocument($request->file('profile'), 'employees');
+        }
+        if ($request->hasFile('adhar_card')) {
+            $adharCardPath = $this->uploadDocument($request->file('adhar_card'), 'adhar_cards');
+        }
+        if ($request->hasFile('pan_card')) {
+            $panCardPath = $this->uploadDocument($request->file('pan_card'), 'pan_cards');
+        }
+        if ($request->hasFile('10th_certificate')) {
+            $tenthCertPath = $this->uploadDocument($request->file('10th_certificate'), 'certificates/10th');
+        }
+        if ($request->hasFile('12th_certificate')) {
+            $twelfthCertPath = $this->uploadDocument($request->file('12th_certificate'), 'certificates/12th');
+        }
+        if ($request->hasFile('graduation')) {
+            $graduationPath = $this->uploadDocument($request->file('graduation'), 'certificates/graduation');
+        }
+        $plainPassword = $request->password;
         $employee = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'profile' => $filename,
-            'department'=>$request->department,
-            'joinig_date'=>$request->joinig_date,
-            'employeeID'=>$request->employeeID,
+            'department' => $request->department,
+            'joinig_date' => $request->joinig_date,
+            'employeeID' => $request->employeeID,
             'designation' => $request->designation,
             'password' => Hash::make($request->password),
             'role_id' => $request->role_id,
             'status' => $request->status ?? 'active',
+
+            'adhar_card' => $adharCardPath,
+            'pan_card' => $panCardPath,
+            '10th_certificate' => $tenthCertPath,
+            '12th_certificate' => $twelfthCertPath,
+            'graduation' => $graduationPath,
         ]);
 
-        Mail::to($request->email)->send(new UserRegistrationMail($employee, $planPassword));
+        Mail::to($request->email)->send(new UserRegistrationMail($employee, $plainPassword));
 
-        return redirect()->route('employees')->with('success', 'User Added email sent successfully :)');
+        return redirect()->route('employees')->with('success', 'User Added and email sent successfully :)');
     }
 
     public function show(string $id)
@@ -79,42 +126,111 @@ class ManegemantController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
+
         $request->validate([
             'name' => 'required|string|min:3',
             'phone' => 'required|regex:/^\+?[0-9]{10,12}$/',
-            'profile' => 'nullable|file',
+            'profile' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
             'designation' => 'required|string',
             'status' => 'required|in:active,inactive',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,'.$id,
             'role_id' => 'required',
+            'joinig_date' => 'required|date',
+            'employeeID' => 'required|string|unique:users,employeeID,'.$id,
+            'department' => 'required|string',
+            'password' => 'nullable|string|min:6',
+            'adhar_card' => 'nullable|file',
+            'pan_card' => 'nullable|file',
+            '10th_certificate' => 'nullable|file',
+            '12th_certificate' => 'nullable|file',
+            'graduation' => 'nullable|file',
         ]);
-        $oldFile = $user->profile;
+
+        $profilePath = $user->profile;
         if ($request->hasFile('profile')) {
-            if (file_exists(public_path($user->profile))) {
+            if ($user->profile && file_exists(public_path($user->profile))) {
                 unlink(public_path($user->profile));
             }
-            $oldFile = FileUpload($request);
+            $profilePath = FileUpload($request);
         }
 
-        $user->update([
+        $adharPath = $user->adhar_card;
+        if ($request->hasFile('adhar_card')) {
+            if ($user->adhar_card && file_exists(public_path($user->adhar_card))) {
+                unlink(public_path($user->adhar_card));
+            }
+            $adharPath = $this->uploadDocument($request->file('adhar_card'), 'adhar_cards');
+        }
+
+        $panPath = $user->pan_card;
+        if ($request->hasFile('pan_card')) {
+            if ($user->pan_card && file_exists(public_path($user->pan_card))) {
+                unlink(public_path($user->pan_card));
+            }
+            $panPath = $this->uploadDocument($request->file('pan_card'), 'pan_cards');
+        }
+
+        $tenthPath = $user->{'10th_certificate'};
+        if ($request->hasFile('10th_certificate')) {
+            if ($user->{'10th_certificate'} && file_exists(public_path($user->{'10th_certificate'}))) {
+                unlink(public_path($user->{'10th_certificate'}));
+            }
+            $tenthPath = $this->uploadDocument($request->file('10th_certificate'), 'certificates/10th');
+        }
+
+        $twelfthPath = $user->{'12th_certificate'};
+        if ($request->hasFile('12th_certificate')) {
+            if ($user->{'12th_certificate'} && file_exists(public_path($user->{'12th_certificate'}))) {
+                unlink(public_path($user->{'12th_certificate'}));
+            }
+            $twelfthPath = $this->uploadDocument($request->file('12th_certificate'), 'certificates/12th');
+        }
+
+        $graduationPath = $user->graduation;
+        if ($request->hasFile('graduation')) {
+            if ($user->graduation && file_exists(public_path($user->graduation))) {
+                unlink(public_path($user->graduation));
+            }
+            $graduationPath = $this->uploadDocument($request->file('graduation'), 'certificates/graduation');
+        }
+
+        $updateData = [
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'profile' => $oldFile,
+            'profile' => $profilePath,
+            'department' => $request->department,
+            'joinig_date' => $request->joinig_date,
+            'employeeID' => $request->employeeID,
             'designation' => $request->designation,
             'role_id' => $request->role_id,
             'status' => $request->status ?? 'active',
-        ]);
+            'adhar_card' => $adharPath,
+            'pan_card' => $panPath,
+            '10th_certificate' => $tenthPath,
+            '12th_certificate' => $twelfthPath,
+            'graduation' => $graduationPath,
+        ];
 
-        return redirect()->route('employees')->with('success', 'User Added SuccessFully :)');
+        // Update password only if provided
+        if ($request->filled('password')) {
+            $updateData['password'] = Hash::make($request->password);
+        }
+
+        $user->update($updateData);
+
+        return redirect()->route('employees')->with('success', 'User Updated Successfully :)');
     }
 
     public function destroy($id)
     {
-        User::findOrFail($id)->delete();
+        $data = User::findOrFail($id);
+        if ($data->profile && file_exists(public_path($data->profile))) {
+            unlink(public_path($data->profile));
+        }
+        $data->delete();
 
-        return redirect('admin/get/all')->with('success', 'User Deleted SuccessFully :)');
-
+        return back()->with('success', 'Employee Deleted Successfully');
     }
 
     public function task_index()

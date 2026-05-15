@@ -163,11 +163,9 @@
         </script>
         @endif
 
-        {{-- Main Form --}}
+      
         <form action="{{ route('project.update', $project->id) }}" method="POST" class="animate-fade-up" style="animation-delay: 0.1s">
             @csrf
-            @method('PUT')
-
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                 {{-- Main Content Column --}}
@@ -267,8 +265,8 @@
                             </div>
 
                             <div id="module-wrapper" class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar pr-2">
-                                @if (count($modules) > 0)
-                                    @foreach ($modules as $index => $module)
+                                @if (json_decode($project->modules))
+                                    @foreach (json_decode($project->modules) ?? [] as $index => $module)
                                         <div class="module-item flex gap-3 items-center bg-gray-50 rounded-xl p-3 border border-gray-200 hover:border-orange-300 transition-all duration-200 group">
                                             <div class="flex-shrink-0">
                                                 <i class="fas fa-microchip text-orange-400"></i>

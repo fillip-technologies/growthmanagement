@@ -247,7 +247,8 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 mt-4 mb-4 gap-4">
+                        {{-- Row 5: Employee ID & Joining Date & Department --}}
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="relative group">
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">
                                     <i class="fas fa-id-badge mr-2 text-orange-500"></i>Employee ID
@@ -300,6 +301,77 @@
                                 @enderror
                             </div>
                         </div>
+
+                        {{-- NEW SECTION: Document Uploads (Aadhar, Pan, Certificates) --}}
+                        <div class="border-t border-gray-200 pt-6 mt-2">
+                            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <i class="fas fa-folder-open text-orange-500"></i> Document Uploads
+                                <span class="text-xs font-normal text-gray-400 ml-2">(Optional, PDF/Image supported)</span>
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {{-- Aadhar Card --}}
+                                <div class="relative group">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">
+                                        <i class="fas fa-id-card mr-2 text-orange-500"></i>Aadhar Card
+                                    </label>
+                                    <input type="file" name="adhar_card" accept="image/*,application/pdf"
+                                        class="w-full py-2 px-3 border border-gray-300 rounded-xl shadow-sm text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 transition">
+                                    @error('adhar_card')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                {{-- Pan Card --}}
+                                <div class="relative group">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">
+                                        <i class="fas fa-credit-card mr-2 text-orange-500"></i>Pan Card
+                                    </label>
+                                    <input type="file" name="pan_card" accept="image/*,application/pdf"
+                                        class="w-full py-2 px-3 border border-gray-300 rounded-xl shadow-sm text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 transition">
+                                    @error('pan_card')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                {{-- 10th Certificate --}}
+                                <div class="relative group">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">
+                                        <i class="fas fa-graduation-cap mr-2 text-orange-500"></i>10th Certificate
+                                    </label>
+                                    <input type="file" name="10th_certificate" accept="image/*,application/pdf"
+                                        class="w-full py-2 px-3 border border-gray-300 rounded-xl shadow-sm text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 transition">
+                                    @error('10th_certificate')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                {{-- 12th Certificate --}}
+                                <div class="relative group">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">
+                                        <i class="fas fa-diploma mr-2 text-orange-500"></i>12th Certificate
+                                    </label>
+                                    <input type="file" name="12th_certificate" accept="image/*,application/pdf"
+                                        class="w-full py-2 px-3 border border-gray-300 rounded-xl shadow-sm text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 transition">
+                                    @error('12th_certificate')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                {{-- Graduation Certificate (Full width optionally) --}}
+                                <div class="relative group md:col-span-2">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">
+                                        <i class="fas fa-university mr-2 text-orange-500"></i>Graduation Certificate
+                                    </label>
+                                    <input type="file" name="graduation" accept="image/*,application/pdf"
+                                        class="w-full py-2 px-3 border border-gray-300 rounded-xl shadow-sm text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 transition">
+                                    <p class="text-xs text-gray-400 mt-1">Supported formats: JPG, PNG, PDF (Max 5MB each)</p>
+                                    @error('graduation')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
                         {{-- Extra note or hint --}}
                         <div class="bg-orange-50/50 rounded-xl p-4 border border-orange-100">
                             <div class="flex items-start gap-3">

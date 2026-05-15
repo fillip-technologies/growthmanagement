@@ -68,7 +68,7 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $project = Project::findorFail($id);
-
+// dd($project);
         return view('admin.projects.edit', compact('project'));
     }
 

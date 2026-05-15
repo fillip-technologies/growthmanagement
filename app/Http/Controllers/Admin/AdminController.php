@@ -11,13 +11,13 @@ use App\Models\TakeLeave;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
     public function login_admin()
     {
-
         return view('admin.login.signin');
     }
 
@@ -67,7 +67,6 @@ class AdminController extends Controller
     public function report()
     {
         $reports = AddTask::with(['project', 'user'])->paginate(10);
-
         return view('admin.reports.report', compact('reports'));
     }
 
@@ -94,7 +93,8 @@ class AdminController extends Controller
 
     public function leaveLive(Request $request)
     {
-        $datas =  TakeLeave::with(['employee'])->paginate(10);
-        return view('admin.attendance.leaveList',compact('datas'));
+        $datas = TakeLeave::with(['employee'])->paginate(10);
+
+        return view('admin.attendance.leaveList', compact('datas'));
     }
 }

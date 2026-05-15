@@ -201,7 +201,6 @@
                                     </div>
                                 </td>
 
-                                <!-- Status with Modern Badges -->
                                 <td class="px-6 py-5 align-top whitespace-nowrap">
                                     @php
                                         $status = strtolower($task->project->status ?? 'pending');

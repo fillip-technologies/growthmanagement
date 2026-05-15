@@ -295,35 +295,28 @@
 
     @if ($errors->any())
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
+            window.onload = function() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Login Failed',
                     html: `{!! implode('<br>', $errors->all()) !!}`,
                     confirmButtonColor: '#f59e0b',
-                    background: '#1f2937',
-                    color: '#fff',
-                    customClass: {
-                        popup: 'rounded-2xl'
-                    }
                 });
-            });
+            }
         </script>
     @endif
 
     @if (session('success'))
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
+            window.onload = function() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Success!',
                     text: "{{ session('success') }}",
                     timer: 3000,
-                    showConfirmButton: false,
-                    background: '#1f2937',
-                    color: '#fff'
+                    showConfirmButton: false
                 });
-            });
+            }
         </script>
     @endif
 
@@ -450,7 +443,7 @@
                                         class="fas fa-envelope input-icon absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 group-focus-within:text-orange-400 transition-all"></i>
                                     <input type="email" name="email" placeholder="Email Address"
                                         class="input-field w-full pl-12 pr-4 py-3 rounded-xl text-white placeholder-white/50 focus:outline-none transition-all"
-                                        required>
+                                        >
                                 </div>
                             </div>
 
@@ -461,7 +454,7 @@
                                         class="fas fa-lock input-icon absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 group-focus-within:text-orange-400 transition-all"></i>
                                     <input type="password" name="password" id="password" placeholder="Password"
                                         class="input-field w-full pl-12 pr-12 py-3 rounded-xl text-white placeholder-white/50 focus:outline-none transition-all"
-                                        required>
+                                        >
                                     <button type="button" onclick="togglePassword()"
                                         class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/50 hover:text-orange-400 transition-all">
                                         <i id="passwordToggleIcon" class="fas fa-eye"></i>

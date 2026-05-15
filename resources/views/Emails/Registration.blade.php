@@ -108,7 +108,7 @@
                                border-radius:30px;
                                font-size:15px;
                                display:inline-block;">
-                                    View Task
+                                Click to Login
                                 </a>
                             </div>
 

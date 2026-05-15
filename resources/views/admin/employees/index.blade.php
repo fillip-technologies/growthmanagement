@@ -5,7 +5,7 @@
 
 @section('content')
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     {{-- HEADER SECTION --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
@@ -87,11 +87,14 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">#</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">EmployeeID</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Employee</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Joining Date</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Designation</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Contact</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Role</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Department</th>
                         <th class="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
@@ -101,6 +104,10 @@
                             {{-- INDEX --}}
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $loop->iteration }}
+                            </td>
+
+                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ $data->employeeID }}
                             </td>
 
                             {{-- EMPLOYEE --}}
@@ -119,6 +126,10 @@
                                         <div class="text-xs text-gray-400">ID: #{{ $data->id }}</div>
                                     </div>
                                 </div>
+                            </td>
+
+                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ $data->joinig_date }}
                             </td>
 
                             {{-- DESIGNATION --}}
@@ -148,6 +159,10 @@
                                     <span class="w-1.5 h-1.5 rounded-full {{ $data->status === 'active' ? 'bg-green-500' : 'bg-red-500' }}"></span>
                                     {{ ucfirst($data->status) }}
                                 </span>
+                            </td>
+
+                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ $data->department }}
                             </td>
 
                             {{-- ACTIONS --}}

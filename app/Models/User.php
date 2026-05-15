@@ -33,7 +33,12 @@ class User extends Authenticatable
         'status',
         'department',
         'joinig_date',
-        'employeeID'
+        'employeeID',
+        'adhar_card',
+        'pan_card',
+        '10th_certificate',
+        '12th_certificate',
+        'graduation'
     ];
 
     /**
