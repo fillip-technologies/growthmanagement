@@ -1,4 +1,3 @@
-
 @extends('admin.include.layout')
 @section('heading', 'Employees')
 @section('title', 'Add Employees')
@@ -11,7 +10,8 @@
         <div class="max-w-5xl mx-auto">
 
             {{-- Header Card with Wave Decoration --}}
-            <div class="relative bg-white rounded-2xl shadow-2xl overflow-hidden mb-8 transform transition duration-500 hover:scale-[1.01]">
+            <div
+                class="relative bg-white rounded-2xl shadow-2xl overflow-hidden mb-8 transform transition duration-500 hover:scale-[1.01]">
                 <div class="absolute top-0 right-0 w-40 h-40 bg-orange-100 rounded-full -mr-16 -mt-16 opacity-70"></div>
                 <div class="absolute bottom-0 left-0 w-32 h-32 bg-blue-100 rounded-full -ml-12 -mb-12 opacity-60"></div>
                 <div class="relative p-6 md:p-8">
@@ -72,7 +72,8 @@
             @endif
 
             {{-- Main Form Card --}}
-            <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-white/30 transition duration-300">
+            <div
+                class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-white/30 transition duration-300">
                 <form action="{{ route('add.employees') }}" method="POST" enctype="multipart/form-data" id="employeeForm">
                     @csrf
                     <div class="p-6 md:p-8 space-y-8">
@@ -88,10 +89,12 @@
                                     <input type="text" name="name" value="{{ old('name') }}"
                                         class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 shadow-sm"
                                         placeholder="John Doe">
-                                    <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
+                                    <i
+                                        class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
                                 </div>
                                 @error('name')
-                                    <p class="text-red-500 text-xs mt-1 flex items-center gap-1"><i class="fas fa-exclamation-circle"></i>{{ $message }}</p>
+                                    <p class="text-red-500 text-xs mt-1 flex items-center gap-1"><i
+                                            class="fas fa-exclamation-circle"></i>{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -104,10 +107,12 @@
                                     <input type="email" name="email" value="{{ old('email') }}"
                                         class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 shadow-sm"
                                         placeholder="john@example.com">
-                                    <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
+                                    <i
+                                        class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
                                 </div>
                                 @error('email')
-                                    <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle"></i> {{ $message }}</p>
+                                    <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle"></i>
+                                        {{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -123,7 +128,8 @@
                                     <input type="text" name="designation" value="{{ old('designation') }}"
                                         class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 shadow-sm"
                                         placeholder="Software Engineer">
-                                    <i class="fas fa-briefcase absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
+                                    <i
+                                        class="fas fa-briefcase absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
                                 </div>
                                 @error('designation')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -139,13 +145,16 @@
                                     <input type="password" name="password" id="password" value="{{ old('password') }}"
                                         class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 shadow-sm"
                                         placeholder="••••••••">
-                                    <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
-                                    <i class="fas fa-eye-slash absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-orange-500 transition" id="togglePassword"></i>
+                                    <i
+                                        class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
+                                    <i class="fas fa-eye-slash absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-orange-500 transition"
+                                        id="togglePassword"></i>
                                 </div>
                                 @error('password')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror
-                                <div class="text-xs text-gray-400 mt-1 hidden" id="passwordStrength">Use 8+ characters for strong password</div>
+                                <div class="text-xs text-gray-400 mt-1 hidden" id="passwordStrength">Use 8+ characters for
+                                    strong password</div>
                             </div>
                         </div>
 
@@ -161,8 +170,11 @@
                                         <input type="file" name="profile" id="profileInput" accept="image/*"
                                             class="w-full py-2 px-3 border border-gray-300 rounded-xl shadow-sm text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 transition">
                                     </div>
-                                    <div class="w-12 h-12 rounded-full bg-gray-100 overflow-hidden shadow-md flex-shrink-0" id="imagePreviewContainer">
-                                        <img id="imagePreview" src="https://ui-avatars.com/api/?background=ea580c&color=fff&rounded=true&bold=true&size=48&name=User" class="w-full h-full object-cover" alt="Preview">
+                                    <div class="w-12 h-12 rounded-full bg-gray-100 overflow-hidden shadow-md flex-shrink-0"
+                                        id="imagePreviewContainer">
+                                        <img id="imagePreview"
+                                            src="https://ui-avatars.com/api/?background=ea580c&color=fff&rounded=true&bold=true&size=48&name=User"
+                                            class="w-full h-full object-cover" alt="Preview">
                                     </div>
                                 </div>
                                 @error('profile')
@@ -180,11 +192,15 @@
                                         class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 appearance-none bg-white shadow-sm">
                                         <option value="">-- Select Role --</option>
                                         @foreach (role() as $role)
-                                            <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>{{ ucfirst($role->role ?? '') }}</option>
+                                            <option value="{{ $role->id }}"
+                                                {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                                                {{ ucfirst($role->role ?? '') }}</option>
                                         @endforeach
                                     </select>
-                                    <i class="fas fa-user-tag absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
-                                    <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                                    <i
+                                        class="fas fa-user-tag absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                                    <i
+                                        class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                                 </div>
                                 @error('role_id')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -204,7 +220,8 @@
                                         class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 shadow-sm"
                                         placeholder="+1 234 567 8900" maxlength="12"
                                         oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,12)">
-                                    <i class="fas fa-phone-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
+                                    <i
+                                        class="fas fa-phone-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
                                 </div>
                                 @error('phone')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -219,8 +236,10 @@
                                 <select name="status"
                                     class="w-full py-3 px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white shadow-sm">
                                     <option value="">-- Select Status --</option>
-                                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>🟢 Active</option>
-                                    <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>🔴 Inactive</option>
+                                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>🟢 Active
+                                    </option>
+                                    <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>🔴
+                                        Inactive</option>
                                 </select>
                                 @error('status')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -228,12 +247,67 @@
                             </div>
                         </div>
 
+                        <div class="grid grid-cols-1 md:grid-cols-3 mt-4 mb-4 gap-4">
+                            <div class="relative group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">
+                                    <i class="fas fa-id-badge mr-2 text-orange-500"></i>Employee ID
+                                </label>
+                                <div class="relative">
+                                    <input type="text" name="employeeID" value="{{ old('employeeID') }}"
+                                        class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 shadow-sm">
+                                    <i
+                                        class="fas fa-id-card absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
+                                </div>
+                                @error('employeeID')
+                                    <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle"></i>
+                                        {{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="relative group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">
+                                    <i class="fas fa-calendar-alt mr-2 text-orange-500"></i>Joining Date
+                                </label>
+                                <div class="relative">
+                                    <input type="date" name="joinig_date" value="{{ old('joinig_date') }}"
+                                        class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 shadow-sm">
+                                    <i
+                                        class="fas fa-calendar-day absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-orange-500 transition"></i>
+                                </div>
+                                @error('joinig_date')
+                                    <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle"></i>
+                                        {{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="relative group">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">
+                                    <i class="fas fa-building mr-2 text-orange-500"></i>Department
+                                </label>
+                                <select name="department"
+                                    class="w-full py-3 px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white shadow-sm">
+                                    <option value="">-- Select Department --</option>
+                                    @foreach (department() ?? [] as $dept)
+                                        <option value="{{ $dept }}"
+                                            {{ old('department') == $dept ? 'selected' : '' }}>
+                                            {{ $dept }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('department')
+                                    <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle"></i>
+                                        {{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
                         {{-- Extra note or hint --}}
                         <div class="bg-orange-50/50 rounded-xl p-4 border border-orange-100">
                             <div class="flex items-start gap-3">
                                 <i class="fas fa-info-circle text-orange-500 mt-0.5"></i>
                                 <div class="text-sm text-gray-600">
-                                    <span class="font-semibold">Heads up!</span> All fields with <span class="text-red-500">*</span> are required. Employee will receive a welcome email after creation.
+                                    <span class="font-semibold">Heads up!</span> All fields with <span
+                                        class="text-red-500">*</span> are required. Employee will receive a welcome email
+                                    after creation.
                                 </div>
                             </div>
                         </div>
@@ -241,7 +315,8 @@
                     </div> {{-- end padding --}}
 
                     {{-- Form Actions --}}
-                    <div class="bg-gray-50/80 px-6 md:px-8 py-5 flex flex-col sm:flex-row justify-end gap-3 border-t border-gray-200">
+                    <div
+                        class="bg-gray-50/80 px-6 md:px-8 py-5 flex flex-col sm:flex-row justify-end gap-3 border-t border-gray-200">
                         <button type="reset"
                             class="px-6 py-2.5 rounded-xl border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition duration-200 flex items-center justify-center gap-2">
                             <i class="fas fa-eraser"></i> Reset
@@ -276,7 +351,8 @@
                 }
                 reader.readAsDataURL(file);
             } else {
-                imagePreview.src = "https://ui-avatars.com/api/?background=ea580c&color=fff&rounded=true&bold=true&size=48&name=User";
+                imagePreview.src =
+                    "https://ui-avatars.com/api/?background=ea580c&color=fff&rounded=true&bold=true&size=48&name=User";
             }
         });
 
@@ -305,12 +381,16 @@
 
     <style>
         /* Custom smooth transitions */
-        input, select, button {
+        input,
+        select,
+        button {
             transition: all 0.2s ease;
         }
+
         .group:hover i {
             transition: color 0.2s;
         }
+
         /* Custom file input button style */
         input[type="file"]::file-selector-button {
             transition: background 0.2s;

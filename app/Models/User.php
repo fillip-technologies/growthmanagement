@@ -31,6 +31,9 @@ class User extends Authenticatable
         'profile',
         'phone',
         'status',
+        'department',
+        'joinig_date',
+        'employeeID'
     ];
 
     /**

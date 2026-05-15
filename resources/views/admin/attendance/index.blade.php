@@ -17,7 +17,6 @@
 
             <div class="flex flex-wrap gap-3">
                 {{-- <div class="status">
-
                     <select name="status" id="statusMark"
                         class="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 bg-gray-50 hover:bg-white">
                         <option value="">-- Mark Attendance --</option>

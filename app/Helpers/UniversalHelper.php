@@ -27,3 +27,14 @@ if (! function_exists('FileUpload')) {
         return null;
     }
 }
+
+if (! function_exists('department')) {
+    function department()
+    {
+        return [
+            'Hr Department',
+            'Marketing Department',
+            'IT Department',
+        ];
+    }
+}

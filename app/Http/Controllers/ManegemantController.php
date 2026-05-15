@@ -42,6 +42,9 @@ class ManegemantController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
             'role_id' => 'required',
+            'joinig_date' => 'required',
+            'employeeID' => 'required',
+            'department' => 'required',
         ]);
 
         $filename = FileUpload($request);
@@ -51,6 +54,9 @@ class ManegemantController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'profile' => $filename,
+            'department'=>$request->department,
+            'joinig_date'=>$request->joinig_date,
+            'employeeID'=>$request->employeeID,
             'designation' => $request->designation,
             'password' => Hash::make($request->password),
             'role_id' => $request->role_id,
@@ -105,8 +111,9 @@ class ManegemantController extends Controller
 
     public function destroy($id)
     {
-            User::findOrFail($id)->delete();
-            return redirect('admin/get/all')->with('success', 'User Deleted SuccessFully :)');
+        User::findOrFail($id)->delete();
+
+        return redirect('admin/get/all')->with('success', 'User Deleted SuccessFully :)');
 
     }
 
@@ -141,8 +148,8 @@ class ManegemantController extends Controller
             'project_id' => 'required|exists:projects,id',
             'status' => 'required|in:pending,in_progress,completed',
             'description' => 'nullable|string',
-            'modules'=>'nullable|array',
-            'modules.*'=>'nullable'
+            'modules' => 'nullable|array',
+            'modules.*' => 'nullable',
         ]);
 
         $files = [];
@@ -156,12 +163,11 @@ class ManegemantController extends Controller
         }
 
         $assingmodel = [];
-        if($request->modules){
-            foreach($request->modules as $modules){
+        if ($request->modules) {
+            foreach ($request->modules as $modules) {
                 $assingmodel[] = $modules;
             }
         }
-      
 
         $task = Tasks::create([
             'title' => $request->title,
@@ -173,7 +179,7 @@ class ManegemantController extends Controller
             'description' => $request->description,
             'attachments' => json_encode($files),
             'project_id' => $request->project_id,
-            'assingmodul'=> json_encode($assingmodel)
+            'assingmodul' => json_encode($assingmodel),
         ]);
 
         $user = User::find($request->assigned_to);
@@ -246,7 +252,6 @@ class ManegemantController extends Controller
 
         return redirect('admin/task/all')
             ->with('success', 'Task Updated & email sent successfully :)');
-
 
     }
 
