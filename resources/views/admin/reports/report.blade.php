@@ -6,8 +6,7 @@
 @section('content')
 
     <div class="max-w-7xl mx-auto mt-8 px-4 sm:px-6 lg:px-8">
-        <!-- Header Section with Gradient Accent -->
-        <!-- Quick Stats Cards -->
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 mb-10">
             <div class="bg-white rounded-xl p-4 shadow-sm border-l-4 border-orange-500 hover:shadow-md transition">
                 <div class="flex items-center justify-between">
@@ -49,7 +48,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="bg-white rounded-xl p-4 shadow-sm border-l-4 border-blue-500 hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
@@ -62,6 +60,7 @@
                 </div>
             </div>
         </div>
+
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
             <div>
                 <div class="flex items-center gap-2 mb-1">
@@ -74,14 +73,14 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <!-- Live Date Badge -->
+
                 <div
                     class="hidden sm:flex items-center gap-2 bg-white px-4 py-2 rounded-xl shadow-sm border border-gray-100">
                     <i class="fa-regular fa-calendar-alt text-orange-500 text-sm"></i>
                     <span class="text-xs text-gray-600 font-medium">{{ now()->format('d M, Y') }}</span>
                 </div>
 
-                <!-- Stats Counter -->
+
                 <div
                     class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-5 py-2.5 rounded-xl shadow-md shadow-orange-200">
                     <div class="flex items-center gap-2">
@@ -92,13 +91,13 @@
             </div>
         </div>
 
-        <!-- Table Card with Refined Design -->
+
         <div
             class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-200 hover:shadow-xl">
-            <!-- Table Container with Smooth Scrolling -->
+
             <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300">
                 <table class="min-w-full text-sm">
-                    <!-- Enhanced Table Head -->
+
                     <thead>
                         <tr class="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200">
                             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">#
@@ -124,7 +123,7 @@
                     <tbody class="divide-y divide-gray-100 bg-white">
                         @forelse ($reports as $key => $task)
                             <tr class="hover:bg-orange-50/40 transition-all duration-150 group">
-                                <!-- ID with Elegant Circle -->
+
                                 <td class="px-6 py-5 whitespace-nowrap align-top">
                                     <div
                                         class="w-8 h-8 rounded-full bg-gradient-to-br from-orange-100 to-orange-200 text-orange-700 flex items-center justify-center text-xs font-bold shadow-sm group-hover:scale-105 transition">
@@ -132,7 +131,7 @@
                                     </div>
                                 </td>
 
-                                <!-- Project Details Enhanced -->
+
                                 <td class="px-6 py-5 align-top">
                                     <div class="space-y-3">
                                         <h3
@@ -166,7 +165,7 @@
                                     </div>
                                 </td>
 
-                                <!-- Employee Details Enhanced -->
+
                                 <td class="px-6 py-5 align-top">
                                     <div class="flex items-start gap-4">
                                         <div class="relative">
@@ -227,7 +226,7 @@
                                     @endif
                                 </td>
 
-                                <!-- Progress Bar Enhanced -->
+                              
                                 <td class="px-6 py-5 align-top min-w-[200px]">
                                     @php
                                         $progress = $task->progress ?? 0;
@@ -266,8 +265,6 @@
                                         @endif
                                     </div>
                                 </td>
-
-                                <!-- Actions with Tooltip Support -->
                                 <td class="px-6 py-5 align-top whitespace-nowrap">
                                     <div class="flex items-center justify-center gap-2">
                                         <a href="#"
@@ -276,14 +273,12 @@
                                             <span
                                                 class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition pointer-events-none whitespace-nowrap">View</span>
                                         </a>
-
                                         <a href="#"
                                             class="relative group/btn w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center hover:bg-amber-600 hover:text-white transition-all duration-200 shadow-sm">
                                             <i class="fa-solid fa-pen text-sm"></i>
                                             <span
                                                 class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition pointer-events-none whitespace-nowrap">Edit</span>
                                         </a>
-
                                         <a href="#"
                                             onclick="return confirm('⚠️ Are you absolutely sure? This action cannot be undone.')"
                                             class="relative group/btn w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center hover:bg-rose-600 hover:text-white transition-all duration-200 shadow-sm">
@@ -294,7 +289,6 @@
                                     </div>
                                 </td>
                             </tr>
-
                         @empty
                             <tr>
                                 <td colspan="6" class="px-6 py-20 text-center">
@@ -318,7 +312,6 @@
                 </table>
             </div>
 
-            <!-- Enhanced Footer with Pagination -->
             @if ($reports->count() > 0)
                 <div
                     class="px-6 py-4 bg-gradient-to-r from-gray-50 to-white border-t border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -344,7 +337,7 @@
 
     </div>
 
-    <!-- Custom Scrollbar Styles -->
+
     <style>
         .scrollbar-thin::-webkit-scrollbar {
             height: 6px;
