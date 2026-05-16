@@ -4,9 +4,11 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\AttendanceInfoController;
+use App\Http\Controllers\ChatApp\ChatManagementController;
 use App\Http\Controllers\ManegemantController;
 use App\Http\Controllers\Task\DragTaskController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', [AdminController::class, 'login_admin'])->name('admin');
 Route::post('login', [LoginController::class, 'login'])->name('admin.login');
@@ -16,6 +18,7 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+
     Route::post('/addtotask/{id}', [ProjectController::class, 'addtotask'])->name('addtotask');
     Route::post('/assing/drag/task', [DragTaskController::class, 'assignDragTask'])->name('assignDragTask');
     Route::get('/delete/add/task', [DragTaskController::class, 'deleteAddTask'])->name('deleteAddTask');
@@ -37,8 +40,7 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/task/view/{id}', [ManegemantController::class, 'view_task'])->name('task.view');
     Route::post('task/{id}/update', [ManegemantController::class, 'update_task'])->name('tasks.update');
     Route::delete('task/{id}/delete', [ManegemantController::class, 'delete_task'])->name('tasks.delete');
-    Route::post('/task/update/store', [ManegemantController::class, 'store_update'])
-        ->name('task.update.store');
+    Route::post('/task/update/store', [ManegemantController::class, 'store_update'])->name('task.update.store');
     Route::get('/getempprefarmans', [ManegemantController::class, 'getempprefarmans'])->name('getempprefarmans');
     Route::get('/project/list', [ProjectController::class, 'index'])->name('project.list');
     Route::get('project/create', [ProjectController::class, 'create'])->name('project.create');
@@ -74,5 +76,8 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::post('/leave/approved', [AttendanceInfoController::class, 'statusApproved'])->name('status.approved');
     Route::post('/leave/reject', [AttendanceInfoController::class, 'statusReject'])->name('status.reject');
     Route::delete('/leave/delete', [AttendanceInfoController::class, 'statusDelete'])->name('status.delete');
+
+    Route::post('/send/admin/sms',[ChatManagementController::class, 'sentAdminSms'])->name('admin.chat.sms');
+    Route::get('/get/admin/sms',[ChatManagementController::class, 'getSmsAdmin'])->name('get.admin.chat');
 
 });

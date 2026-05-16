@@ -3,15 +3,15 @@
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\AttendanceInfoController;
+use App\Http\Controllers\ChatApp\ChatManagementController;
 use Illuminate\Support\Facades\Route;
-
 
 Route::prefix('employee')->middleware('employee')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('employee.dashboard');
     Route::get('/task', [EmployeeController::class, 'employeeTask'])->name('employee.task');
-     Route::post('/assing/project/status',[EmployeeController::class, 'status'])->name('employee.status');
+    Route::post('/assing/project/status', [EmployeeController::class, 'status'])->name('employee.status');
     Route::get('/logout', [LoginController::class, 'internLogout'])->name('employee.logout');
     Route::get('/attendance', [AttendanceInfoController::class, 'index'])->name('emp.attendance');
     Route::post('/attendance/start-work', [AttendanceInfoController::class, 'startWork'])->name('attendance.start-work');
@@ -22,10 +22,10 @@ Route::prefix('employee')->middleware('employee')->group(function () {
     Route::get('/attendance/{id}/edit', [AttendanceInfoController::class, 'edit'])->name('attendance.edit');
     Route::put('/attendance/{id}', [AttendanceInfoController::class, 'update'])->name('attendance.update');
     Route::delete('/attendance/{id}', [AttendanceInfoController::class, 'destroy'])->name('attendance.destroy');
-    Route::post('/today/works',[AttendanceInfoController::class, 'TodayWorks'])->name('today.works');
-        Route::post('/dailyAttendance',[AttendanceInfoController::class, 'dailyAttendance'])->name('dailyAttendance');
-        Route::post('take/leave',[AttendanceInfoController::class, 'TakeLeave'])->name('TakeLeave');
+    Route::post('/today/works', [AttendanceInfoController::class, 'TodayWorks'])->name('today.works');
+    Route::post('/dailyAttendance', [AttendanceInfoController::class, 'dailyAttendance'])->name('dailyAttendance');
+    Route::post('take/leave', [AttendanceInfoController::class, 'TakeLeave'])->name('TakeLeave');
 
-
-
+    Route::post('/send/admin/sms', [ChatManagementController::class, 'employeeSms'])->name('employee.chat.sms');
+    Route::get('/get/sms', [ChatManagementController::class, 'getSmsEmp'])->name('get.employee.chat');
 });

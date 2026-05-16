@@ -41,12 +41,13 @@
                         <div class="text-xs opacity-90">Total Tasks</div>
                     </div>
                     <div class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-xl shadow-lg">
-                        <div class="text-2xl font-bold">{{ App\Models\Project::where('status','completed')->count() }}</div>
+                        <div class="text-2xl font-bold">{{ App\Models\Project::where('status', 'completed')->count() }}
+                        </div>
                         <div class="text-xs opacity-90">Completed</div>
                     </div>
                     <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-3 rounded-xl shadow-lg">
                         <div class="text-2xl font-bold">
-                            {{ App\Models\Project::where('status','ongoing')->count() }}</div>
+                            {{ App\Models\Project::where('status', 'ongoing')->count() }}</div>
                         <div class="text-xs opacity-90">In Progress</div>
                     </div>
                 </div>
@@ -129,8 +130,18 @@
                         <div>
                             <div class="flex items-center justify-between mb-2">
                                 <h4 class="font-semibold text-blue-600 text-lg">{{ $project->name ?? 'N/A' }}</h4>
-                                <span class="text-xs text-gray-500">ID: #{{ $task->id }}</span>
+                                <button type="button" onclick="empopenChat({{ $project->id }},{{ $task->user->id }})"
+                                    id="chatToggle" data-empID="{{ $task->user->id }}"
+                                    data-project_id="{{ $project->id }}"
+                                    class="relative group/btn w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all duration-200 shadow-sm">
+                                    <i class="fa-solid fa-bell text-sm"></i>
+                                    <span
+                                        class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition pointer-events-none whitespace-nowrap">
+                                        Send Message
+                                    </span>
+                                </button>
                             </div>
+
                             <p class="text-sm text-gray-600 line-clamp-2">
                                 {{ $project->description ?? 'No description available' }}</p>
                         </div>
@@ -261,7 +272,35 @@
             @endforelse
         </div>
     </div>
+    <div id="chatBox"
+        class="fixed bottom-24 right-5 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 hidden flex-col overflow-hidden z-50">
 
+        <!-- Header -->
+        <div class="bg-blue-600 text-white px-4 py-3 flex items-center justify-between">
+            <h2 class="font-semibold text-lg">Live Chat</h2>
+
+            <button id="closeChat" class="text-white hover:text-gray-200 text-xl">
+                ×
+            </button>
+        </div>
+
+
+        <div id="chatBody" class="h-80 overflow-y-auto p-4 space-y-3 bg-gray-50"></div>
+
+        <input type="hidden" id="employee_id">
+        <input type="hidden" id="project_id">
+
+        <!-- INPUT -->
+        <div class="p-3 border-t bg-white flex items-center gap-2">
+            <input type="text" id="text_filed" placeholder="Type message..."
+                class="flex-1 border rounded-full px-4 py-2 outline-none focus:ring-2 focus:ring-blue-400">
+
+            <button id="sent_message" type="button"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition">
+                Send
+            </button>
+        </div>
+    </div>
     <style>
         .task-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -298,7 +337,6 @@
     </style>
 
     <script>
-        // Search and filter functionality
         function filterTasks() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const statusFilter = document.getElementById('statusFilter').value;
@@ -309,7 +347,7 @@
             tasks.forEach(task => {
                 let show = true;
 
-                // Search by employee name or project
+
                 const employeeName = task.querySelector('h3')?.textContent.toLowerCase() || '';
                 const projectName = task.querySelector('h4')?.textContent.toLowerCase() || '';
                 const modules = task.querySelectorAll('.bg-blue-50');
@@ -323,7 +361,6 @@
                     show = false;
                 }
 
-                // Status filter
                 if (show && statusFilter) {
                     const statusSpan = task.querySelector('.bg-yellow-100, .bg-green-100');
                     const statusText = statusSpan?.textContent.toLowerCase() || '';
@@ -332,7 +369,6 @@
                     }
                 }
 
-                // Progress filter
                 if (show && progressFilter) {
                     const progressText = task.querySelector('.text-green-600, .text-yellow-600, .text-red-600')
                         ?.textContent || '';
@@ -348,7 +384,6 @@
             });
         }
 
-        // View task details function
         function viewTaskDetails(taskId) {
             Swal.fire({
                 title: 'Task Details',
@@ -369,5 +404,161 @@
                 Swal.close();
             }
         }, 3000);
+
+        const chatToggle = document.getElementById('chatToggle');
+        const chatBox = document.getElementById('chatBox');
+        const closeChat = document.getElementById('closeChat');
+
+
+        chatToggle.addEventListener('click', () => {
+            chatBox.classList.toggle('hidden');
+        });
+
+
+        closeChat.addEventListener('click', () => {
+            chatBox.classList.add('hidden');
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            document.querySelectorAll("#chatToggle").forEach(btn => {
+                btn.addEventListener("click", function() {
+
+                    let empID = this.getAttribute("data-empID");
+                    let projectID = this.getAttribute("data-project_id");
+
+                    document.getElementById("employee_id").value = empID;
+                    document.getElementById("project_id").value = projectID;
+
+                    document.getElementById("chatBox").classList.remove("hidden");
+                });
+            });
+            document.getElementById("closeChat").addEventListener("click", function() {
+                document.getElementById("chatBox").classList.add("hidden");
+            });
+        });
     </script>
+
+    <script>
+        let currentProjectId = null;
+        let currentEmployeeId = null;
+
+        function empopenChat(project_id, employee_id) {
+
+            currentProjectId = project_id;
+            currentEmployeeId = employee_id;
+
+            $("#chatBox").removeClass("hidden");
+            $("#project_id").val(project_id);
+            $("#employee_id").val(employee_id);
+
+            getSms(project_id, employee_id);
+        }
+
+        function getSms(project_id, employee_id) {
+
+            $.ajax({
+                type: "GET",
+                url: "{{ route('get.employee.chat') }}",
+                data: {
+                    project_id: project_id
+                },
+
+                success: function(response) {
+
+                    let html = "";
+
+                    if (!response.data.length) {
+
+                        html = `
+                        <div class="text-center text-gray-400">
+                            No messages yet
+                        </div>
+                    `;
+
+                    } else {
+
+                        response.data.forEach(chat => {
+
+                            let isMine = chat.chatCount == 2;
+
+                            if (isMine) {
+
+                                html += `
+                                <div class="flex justify-end mb-2">
+                                    <div class="bg-blue-600 text-white px-4 py-2 rounded-2xl max-w-[75%]">
+                                        ${chat.textSMS}
+                                    </div>
+                                </div>
+                            `;
+
+                            } else {
+
+                                html += `
+                                <div class="flex mb-2">
+                                    <div class="bg-gray-200 text-gray-800 px-4 py-2 rounded-2xl max-w-[75%]">
+                                        ${chat.textSMS}
+                                    </div>
+                                </div>
+                            `;
+                            }
+                        });
+                    }
+
+                    $("#chatBody").html(html);
+
+
+                    $("#chatBody").scrollTop($("#chatBody")[0].scrollHeight);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+
+          
+            $("#sent_message").on('click', function(e) {
+
+                e.preventDefault();
+
+                var empID = $("#employee_id").val();
+                var projectID = $("#project_id").val();
+                var sms = $("#text_filed").val();
+
+                if (!sms || !sms.trim()) return;
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('employee.chat.sms') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        project_id: projectID,
+                        textsms: sms,
+                        employee_id: empID,
+                    },
+
+                    success: function(response) {
+
+                        $("#text_filed").val("");
+
+                        getSms(projectID, empID);
+                    },
+
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+            $("#closeChat").on("click", function() {
+                $("#chatBox").addClass("hidden");
+            });
+            setInterval(() => {
+                if (currentProjectId && currentEmployeeId) {
+
+                    getSms(currentProjectId, currentEmployeeId);
+                }
+
+            }, 2000);
+        });
+    </script>
+
 @endsection

@@ -108,6 +108,10 @@ class User extends Authenticatable
         return $this->hasMany(TakeLeave::class,'employee_id');
     }
 
+    public function discuss(){
+        return $this->hasMany(Discuss::class);
+    }
+
 
 
 

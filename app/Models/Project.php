@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Models;
-use App\Models\ProjectLog;
-use App\Models\Module;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,25 +13,34 @@ class Project extends Model
         'end_date',
         'status',
         'priority',
-        'modules'
+        'modules',
 
     ];
 
-    protected $casts = ['modules'=>'array'];
+    protected $casts = ['modules' => 'array'];
+
     public function logs()
     {
         return $this->hasMany(ProjectLog::class);
     }
+
     public function modules()
     {
         return $this->hasMany(Module::class);
     }
 
-    public function addtask(){
+    public function addtask()
+    {
         return $this->hasMany(AddTask::class);
     }
-    public function attendance(){
+
+    public function attendance()
+    {
         return $this->hasMany(AttendanceInfo::class);
     }
 
+    public function discuss()
+    {
+        return $this->hasMany(Discuss::class);
+    }
 }
