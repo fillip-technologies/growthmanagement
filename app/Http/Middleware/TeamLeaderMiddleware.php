@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminAuthMiddleware
+class TeamLeaderMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,11 +16,12 @@ class AdminAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-         if(Auth::guard('super_admin')->check()){
-               return $next($request);
-        }else{
-            return redirect()->route('admin')->with('error','Authentication Failed For Super Admin');
-        }
+
+    if(Auth::guard('team_leader')->check()){
+    return $next($request);
+    }else{
+    return redirect()->route('admin')->with('error','Username & Password Invalide For Team Leader');
+    }
 
     }
 }

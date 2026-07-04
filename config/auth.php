@@ -40,7 +40,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'admin' => [
+        'super_admin' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -48,11 +48,25 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'hr' => [
+        'hr_manager' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'intern' => [
+        'sales_manager' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'marketing_manager' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'project_manager' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'team_leader' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -80,7 +94,7 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-        'admins' => [
+        'super_admins' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
@@ -88,14 +102,30 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-        'hrs' => [
+        'hr_managers' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-        'interns' => [
+        'sales_managers' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        'marketing_managers' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        'project_manager'=>[
+            'driver'=>'eloquent',
+            'model'=>env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        'team_leader'=>[
+            'driver'=>'eloquent',
+            'model'=>env('AUTH_MODEL', App\Models\User::class),
         ]
+
 
         // 'users' => [
         //     'driver' => 'database',

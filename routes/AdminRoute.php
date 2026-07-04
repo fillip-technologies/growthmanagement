@@ -14,7 +14,7 @@ Route::get('/', [AdminController::class, 'login_admin'])->name('admin');
 Route::post('login', [LoginController::class, 'login'])->name('admin.login');
 Route::get('admin/store', [LoginController::class, 'store'])->name('login.store');
 
-Route::prefix('admin')->middleware(['admin'])->group(function () {
+Route::prefix('admin')->middleware(['super_admin'])->group(function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');

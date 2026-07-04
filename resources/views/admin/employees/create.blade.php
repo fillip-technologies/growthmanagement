@@ -188,13 +188,12 @@
                                     <i class="fas fa-user-tag mr-2 text-orange-500"></i>Role
                                 </label>
                                 <div class="relative">
-                                    <select name="role_id"
+                                    <select name="role"
                                         class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 appearance-none bg-white shadow-sm">
                                         <option value="">-- Select Role --</option>
-                                        @foreach (role() as $role)
-                                            <option value="{{ $role->id }}"
-                                                {{ old('role_id') == $role->id ? 'selected' : '' }}>
-                                                {{ ucfirst($role->role ?? '') }}</option>
+                                        @foreach (role() as $key=> $items)
+                                            <option value="{{ $key }}">
+                                                {{ ucfirst( $items ?? '') }}</option>
                                         @endforeach
                                     </select>
                                     <i

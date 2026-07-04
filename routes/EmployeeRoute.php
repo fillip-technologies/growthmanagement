@@ -12,7 +12,7 @@ Route::prefix('employee')->middleware('employee')->group(function () {
     })->name('employee.dashboard');
     Route::get('/task', [EmployeeController::class, 'employeeTask'])->name('employee.task');
     Route::post('/assing/project/status', [EmployeeController::class, 'status'])->name('employee.status');
-    Route::get('/logout', [LoginController::class, 'internLogout'])->name('employee.logout');
+    Route::get('/logout', [LoginController::class, 'emplogout'])->name('employee.logout');
     Route::get('/attendance', [AttendanceInfoController::class, 'index'])->name('emp.attendance');
     Route::post('/attendance/start-work', [AttendanceInfoController::class, 'startWork'])->name('attendance.start-work');
     Route::post('/attendance/lunch-start', [AttendanceInfoController::class, 'lunchStart'])->name('attendance.lunch-start');

@@ -19,6 +19,6 @@ class EmployeeAuthMiddleware
         if (Auth::guard('employee')->check()) {
             return $next($request);
         }
-        return redirect('/');
+          return redirect()->route('admin')->with('error','Username & Password Invalide For Employee');
     }
 }

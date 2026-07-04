@@ -13,6 +13,7 @@
             <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Employees</h1>
             <p class="text-sm text-gray-500 mt-1">Manage and monitor your team members</p>
         </div>
+        @if(!Auth::guard('team_leader')->check())
         <div>
             <a href="{{ route('create') }}"
                class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-sm transition duration-200 ease-in-out transform hover:scale-[1.02]">
@@ -22,6 +23,7 @@
                 Add Employee
             </a>
         </div>
+        @endif
     </div>
 
     {{-- STATS CARDS --}}
@@ -146,7 +148,7 @@
                             {{-- ROLE --}}
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">
-                                    {{ ucfirst($data->role->role ?? 'N/A') }}
+                                    {{ ucfirst($data->role ?? 'N/A') }}
                                 </span>
                             </td>
 

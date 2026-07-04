@@ -11,12 +11,14 @@ use App\Models\TakeLeave;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
     public function login_admin()
     {
+        // dd(Hash::make('admin@123'));
         return view('admin.login.signin');
     }
 

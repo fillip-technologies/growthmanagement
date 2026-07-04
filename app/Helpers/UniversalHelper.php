@@ -1,13 +1,17 @@
 <?php
 
 use App\Models\Role;
+use App\Models\User;
 
 if (! function_exists('role')) {
     function role()
     {
-        $roles = Role::select('id', 'role')->get();
-
-        return $roles;
+       return [
+            'super_admin'=>'Super Admin',
+            'employee'=>"Employee",
+            'project_manager'=>'Project Manager',
+            'team_leader'=>'Team Leader'
+       ];
     }
 }
 

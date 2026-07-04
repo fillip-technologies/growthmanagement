@@ -1,34 +1,24 @@
 @php
-    $adminUser = Auth::guard('admin')->user();
-    $hrUser = Auth::guard('hr')->user();
-    $employeeUser = Auth::guard('employee')->user();
-    $internUser = Auth::guard('intern')->user();
 
-    $isAdminOrHR =
-        (Auth::guard('admin')->check() && $adminUser?->role?->role === 'admin') ||
-        (Auth::guard('hr')->check() && $hrUser?->role?->role === 'hr');
-
-    $isEmployee = Auth::guard('employee')->check() && $employeeUser?->role?->role === 'employee';
-
-    $isIntern = Auth::guard('intern')->check() && $internUser?->role?->role === 'intern';
-
-    if ($isAdminOrHR) {
-        $route = route('admin.dashboard');
-    } elseif ($isEmployee) {
-        $route = route('employee.dashboard');
-    } else {
-        $route = route('intern.dashboard');
+    $dashboard = '';
+    if (Auth::guard('super_admin')->check()) {
+        $dashboard = route('admin.dashboard');
+    } elseif (Auth::guard('employee')->check()) {
+        $dashboard = route('employee.dashboard');
+    } elseif (Auth::guard('project_manager')->check()) {
+        $dashboard = route('employee.dashboard');
+    } elseif (Auth::guard('team_leader')->check()) {
+        $dashboard = route('teamhead.dashboard');
     }
 @endphp
-<nav class="mt-6 flex-1 overflow-y-auto bg-gradient-to-b from-slate-900 via-slate-900 text-white p-2">
 
+<nav class="mt-6 flex-1 overflow-y-auto bg-gradient-to-b from-slate-900 via-slate-900 text-white p-2">
     <div class="px-4 mb-6 mt-4">
         <p class="text-xs uppercase text-orange-500 font-bold tracking-wider opacity-80">
             Navigation
         </p>
     </div>
-
-    <a href="{{ $route }}"
+    <a href="{{ $dashboard }}"
         class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -36,9 +26,8 @@
         <i class="fas fa-tachometer-alt mr-4 text-orange-500 group-hover:text-white"></i>
         Dashboard
     </a>
-
-    @if ($isAdminOrHR)
-      <a href="{{ route('attendanceList') }}"
+    @if (Auth::guard('super_admin')->check() || Auth::guard('project_manager')->check())
+        <a href="{{ route('attendanceList') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -62,7 +51,7 @@
             <i class="fa fa-users mr-4 text-orange-500 group-hover:text-white"></i>
             Employees
         </a>
-         <a href="{{ route('drag.task') }}"
+        <a href="{{ route('drag.task') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -104,11 +93,11 @@
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
               transition-all duration-300 group">
-           <i class="fa-solid fa-chart-pie mr-4 text-orange-500 group-hover:text-white"></i>
+            <i class="fa-solid fa-chart-pie mr-4 text-orange-500 group-hover:text-white"></i>
             Reports
         </a>
-    @elseif ($isEmployee)
-    <a href="{{ route('emp.attendance') }}"
+    @elseif(Auth::guard('employee')->check())
+        <a href="{{ route('emp.attendance') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -124,23 +113,16 @@
             <i class="fa-solid fa-chart-line mr-4 text-orange-500 group-hover:text-white"></i>
             My Tasks
         </a>
-    @elseif ($isIntern)
-    <a href="{{ route('intern.attendance') }}"
+    @elseif (Auth::guard('team_leader')->check())
+        <a href="{{ route('teammember') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
               transition-all duration-300 group">
-            <i class="fa-solid fa-clock mr-4 text-orange-500 group-hover:text-white"></i>
-            Attendance
-        </a>
-        <a href="{{ route('intern.task') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-              bg-gray-900/60 backdrop-blur-xl border border-gray-800
-              hover:bg-orange-600 hover:text-white hover:border-orange-400
-              transition-all duration-300 group">
-            <i class="fa-solid fa-chart-line mr-4 text-orange-500 group-hover:text-white"></i>
-            My Tasks
+            <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
+            Team Members
         </a>
     @endif
+
 
 </nav>

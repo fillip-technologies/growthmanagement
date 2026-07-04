@@ -225,7 +225,7 @@
         }
 
         $currentDate = date('l, F j, Y');
-        $adminName = Auth::guard('admin')->user()->name ?? 'Admin';
+        $adminName = Auth::guard('super_admin')->user()->name ?? 'Admin';
 
         // Stats with realistic data (you can replace with actual DB counts)
         $totalUsers = \App\Models\User::count() ?? 0;
@@ -240,7 +240,7 @@
         $orderGrowth = $totalOrders > 0 ? rand(1, 8) : 0;
     @endphp
 
-  
+
 
     <div class="relative z-10 min-h-screen py-6 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">

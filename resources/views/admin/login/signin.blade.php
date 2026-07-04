@@ -295,20 +295,17 @@
 
     @if ($errors->any())
         <script>
-            window.onload = function() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Login Failed',
                     html: `{!! implode('<br>', $errors->all()) !!}`,
                     confirmButtonColor: '#f59e0b',
                 });
-            }
         </script>
     @endif
 
     @if (session('success'))
         <script>
-            window.onload = function() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Success!',
@@ -316,7 +313,20 @@
                     timer: 3000,
                     showConfirmButton: false
                 });
-            }
+
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Errors!',
+                    text: "{{ session('error') }}",
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+
         </script>
     @endif
 
@@ -404,36 +414,40 @@
                             @csrf
 
                             <!-- User Type Tabs -->
-                            <div class="flex gap-2 mb-8 bg-white/10 rounded-xl p-1">
-                                <label class="flex-1 cursor-pointer">
-                                    <input type="radio" name="user_type" value="admin" checked
-                                        onchange="switchTab(this)" class="hidden peer">
-                                    <div
-                                        class="radio-tab text-center py-2.5 rounded-lg text-white/80 peer-checked:text-white peer-checked:bg-orange-500/30 transition-all">
-                                        <i class="fas fa-user-shield mr-2"></i>
-                                        Admin
-                                    </div>
+                            <!-- Role Selection -->
+                            <div class="mb-5">
+                                <label for="roleSelect"
+                                    class="mb-2 flex items-center text-sm font-semibold text-white">
+                                    <i class="fas fa-user-tag text-white mr-2"></i>
+                                    I am a
                                 </label>
 
-                                <label class="flex-1 cursor-pointer">
-                                    <input type="radio" name="user_type" value="employee" onchange="switchTab(this)"
-                                        class="hidden peer">
-                                    <div
-                                        class="radio-tab text-center py-2.5 rounded-lg text-white/80 peer-checked:text-white peer-checked:bg-orange-500/30 transition-all">
-                                        <i class="fas fa-users mr-2"></i>
-                                        Employee
-                                    </div>
-                                </label>
+                                <div class="relative">
+                                    <select id="roleSelect" name="role" required
+                                        class="w-full appearance-none rounded-xl border border-gray-300  px-4 py-3 pr-12 text-gray-700 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 focus:outline-none hover:border-indigo-400">
 
-                                <label class="flex-1 cursor-pointer">
-                                    <input type="radio" name="user_type" value="intern" onchange="switchTab(this)"
-                                        class="hidden peer">
+                                        <option value="" disabled selected>— Select your role —</option>
+                                        <option value="super_admin">👑 Super Admin</option>
+                                        <option value="project_manager">📋 Project Manager</option>
+                                        <option value="team_leader">📈 Development Head</option>
+                                        <option value="marketing_manager">📊 Marketing Manager</option>
+                                        {{-- <option value="hr_manager">📊 HR Manager</option> --}}
+                                        <option value="employee">🧑‍💻 Employee</option>
+                                    </select>
+
+                                    <!-- Dropdown Arrow -->
                                     <div
-                                        class="radio-tab text-center py-2.5 rounded-lg text-white/80 peer-checked:text-white peer-checked:bg-orange-500/30 transition-all">
-                                        <i class="fas fa-graduation-cap mr-2"></i>
-                                        Intern
+                                        class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
                                     </div>
-                                </label>
+                                </div>
+
+                                <p class="mt-2 text-xs text-gray-300">
+                                    Select your login role to continue.
+                                </p>
                             </div>
 
                             <!-- Email Field -->
@@ -442,8 +456,7 @@
                                     <i
                                         class="fas fa-envelope input-icon absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 group-focus-within:text-orange-400 transition-all"></i>
                                     <input type="email" name="email" placeholder="Email Address"
-                                        class="input-field w-full pl-12 pr-4 py-3 rounded-xl text-white placeholder-white/50 focus:outline-none transition-all"
-                                        >
+                                        class="input-field w-full pl-12 pr-4 py-3 rounded-xl text-white placeholder-white/50 focus:outline-none transition-all">
                                 </div>
                             </div>
 
@@ -453,8 +466,7 @@
                                     <i
                                         class="fas fa-lock input-icon absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 group-focus-within:text-orange-400 transition-all"></i>
                                     <input type="password" name="password" id="password" placeholder="Password"
-                                        class="input-field w-full pl-12 pr-12 py-3 rounded-xl text-white placeholder-white/50 focus:outline-none transition-all"
-                                        >
+                                        class="input-field w-full pl-12 pr-12 py-3 rounded-xl text-white placeholder-white/50 focus:outline-none transition-all">
                                     <button type="button" onclick="togglePassword()"
                                         class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/50 hover:text-orange-400 transition-all">
                                         <i id="passwordToggleIcon" class="fas fa-eye"></i>

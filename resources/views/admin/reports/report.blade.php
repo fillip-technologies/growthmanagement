@@ -249,7 +249,7 @@
                                     <div class="flex items-center justify-center gap-2">
                                         <button type="button"
                                             onclick="openChat({{ $task->project->id ?? 0 }}, {{ $task->user->id ?? 0 }})"
-                                            id="chatToggle" data-empID="{{ $task->user->id }}"
+                                            id="chatToggle" data-empID="{{ $task->user->id ?? 0 }}"
                                             data-project_id="{{ $task->project->id }}"
                                             class="relative group/btn w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all duration-200 shadow-sm">
                                             <i class="fa-solid fa-bell text-sm"></i>

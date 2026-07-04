@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class HrAuthMiddleware
+class HrManagerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,12 @@ class HrAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-         if(Auth::guard('hr')->check()){
-               return $next($request);
-        }else{
-            return redirect()->route('admin');
-        }
+
+    if(Auth::guard('hr_manager')->check()){
+    return $next($request);
+    }else{
+         return redirect()->route('admin')->with('error','Username & Password Invailid For Hr Manager');
+    }
+
     }
 }

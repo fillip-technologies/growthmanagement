@@ -192,9 +192,9 @@
                                     <select name="role_id"
                                         class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 appearance-none bg-white shadow-sm">
                                         <option value="">-- Select Role --</option>
-                                        @foreach (role() as $role)
-                                            <option value="{{ $role->id }}" @selected(old('role_id', $user->role_id) == $role->id)>
-                                                {{ ucfirst($role->role ?? '') }}
+                                        @foreach (role() as $key => $role)
+                                            <option value="{{ $key }}" @selected($user->role == $key)>
+                                                {{ ucfirst($role ?? '') }}
                                             </option>
                                         @endforeach
                                     </select>

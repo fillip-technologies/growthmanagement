@@ -12,19 +12,24 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
-            Route::middleware('web')->group(base_path('routes/employee.php'));
-            Route::middleware('web')->group(base_path('routes/hr.php'));
-            Route::middleware('web')->group(base_path('routes/admin.php'));
-            Route::middleware('web')->group(base_path('routes/intern.php'));
+            Route::middleware('web')->group(base_path('routes/EmployeeRoute.php'));
+            Route::middleware('web')->group(base_path('routes/HrManagerRoute.php'));
+            Route::middleware('web')->group(base_path('routes/AdminRoute.php'));
+            Route::middleware('web')->group(base_path('routes/ProjectManagerRoute.php'));
+            Route::middleware('web')->group(base_path('routes/MarketingManagerRoute.php'));
+            Route::middleware('web')->group(base_path('routes/SalesManagerRoute.php'));
+            Route::middleware('web')->group(base_path('routes/TeamLeaderRoute.php'));
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'admin' => App\Http\Middleware\AdminAuthMiddleware::class,
+            'super_admin' => App\Http\Middleware\AdminAuthMiddleware::class,
             'employee' => App\Http\Middleware\EmployeeAuthMiddleware::class,
-            'hr' => App\Http\Middleware\HrAuthMiddleware::class,
-            'intern' => App\Http\Middleware\InternAuthMiddleware::class,
-
+            'hr_manager'=> App\Http\Middleware\HrManagerMiddleware::class,
+            'team_leader'=> App\Http\Middleware\TeamLeaderMiddleware::class,
+            'project_manager'=> App\Http\Middleware\ProjectManagerManagerMiddleware::class,
+            'sales_manager'=> App\Http\Middleware\SalesManagerMiddleware::class,
+            'marketing_manager'=> App\Http\Middleware\MarketingManagerMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

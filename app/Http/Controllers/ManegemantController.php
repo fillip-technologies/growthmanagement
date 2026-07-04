@@ -21,8 +21,7 @@ class ManegemantController extends Controller
 {
     public function get_emp()
     {
-        $employees = User::with('role')->where('role_id', '!=', '1')->paginate(10);
-
+        $employees = User::where('role', '!=', 'super_admin')->paginate(10);
         return view('admin.employees.index', compact('employees'));
     }
 
@@ -53,7 +52,7 @@ class ManegemantController extends Controller
             'status' => 'required|in:active,inactive',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
-            'role_id' => 'required',
+            'role' => 'required',
             'joinig_date' => 'required|date',
             'employeeID' => 'required|string|unique:users,employeeID',
             'department' => 'required|string',

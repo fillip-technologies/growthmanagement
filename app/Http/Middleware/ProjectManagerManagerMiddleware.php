@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class InternAuthMiddleware
+class ProjectManagerManagerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,11 @@ class InternAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-         if(Auth::guard('intern')->check()){
-               return $next($request);
+        if(Auth::guard('project_manager')->check()){
+         return $next($request);
         }else{
-            return redirect()->route('admin');
+            return redirect()->route('admin')->with('error','Username & Password Invalide For Project Manager');
         }
+
     }
 }

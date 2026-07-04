@@ -84,18 +84,18 @@
                 $name = null;
                 $logout = null;
 
-                if (Auth::guard('admin')->check()) {
-                    $rolename = Auth::guard('admin')->user()->role->role ?? '';
-                    $name = Auth::guard('admin')->user()->name ?? '';
+                if (Auth::guard('super_admin')->check()) {
+                    $rolename = Auth::guard('super_admin')->user()->role ?? '';
+                    $name = Auth::guard('super_admin')->user()->name ?? '';
                     $logout = route('admin.logout') ?? "";
                 } elseif (Auth::guard('employee')->check()) {
-                    $rolename = Auth::guard('employee')->user()->role->role ?? '';
+                    $rolename = Auth::guard('employee')->user()->role ?? '';
                     $name = Auth::guard('employee')->user()->name ?? '';
-                     $logout = route('employee.logout') ?? "";
-                }  elseif (Auth::guard('intern')->check()) {
-                    $rolename = Auth::guard('intern')->user()->role->role ?? '';
-                    $name = Auth::guard('intern')->user()->name ?? '';
-                     $logout = route('intern.logout') ?? "";
+                    $logout = route('employee.logout') ?? "";
+                }  elseif (Auth::guard('team_leader')->check()) {
+                    $rolename = Auth::guard('team_leader')->user()->role ?? '';
+                    $name = Auth::guard('team_leader')->user()->name ?? '';
+                     $logout = route('teamhead.logout') ?? "";
                 }
             @endphp
 
