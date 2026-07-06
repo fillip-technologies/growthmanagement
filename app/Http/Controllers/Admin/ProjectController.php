@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AddTask;
+use App\Models\AttendanceInfo;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -143,5 +144,10 @@ class ProjectController extends Controller
 
         return back()->with('success', 'Add Task SuccessFul');
 
+    }
+
+    public function projectInfo($id){
+        $data = AttendanceInfo::with(['employee','project'])->findOrFail($id);
+        return view('admin.projects.project_info',compact('data'));
     }
 }

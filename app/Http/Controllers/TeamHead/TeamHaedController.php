@@ -5,6 +5,7 @@ namespace App\Http\Controllers\TeamHead;
 use App\Http\Controllers\Controller;
 use App\Models\AddTask;
 use App\Models\AssingTask;
+use App\Models\AttendanceInfo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,5 +44,10 @@ class TeamHaedController extends Controller
     {
         $reports = AddTask::with(['project', 'user'])->paginate(10);
         return view('admin.reports.report', compact('reports'));
+    }
+
+    public function projectInfo($id){
+        $data = AttendanceInfo::with(['employee','project'])->findOrFail($id);
+        return view('admin.projects.project_info',compact('data'));
     }
 }

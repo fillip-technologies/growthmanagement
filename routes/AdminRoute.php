@@ -7,7 +7,9 @@ use App\Http\Controllers\AttendanceInfoController;
 use App\Http\Controllers\ChatApp\ChatManagementController;
 use App\Http\Controllers\ManegemantController;
 use App\Http\Controllers\Task\DragTaskController;
+use App\Http\Controllers\TeamHead\TeamHaedController;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::get('/', [AdminController::class, 'login_admin'])->name('admin');
@@ -79,5 +81,7 @@ Route::prefix('admin')->middleware(['super_admin'])->group(function () {
 
     Route::post('/send/admin/sms',[ChatManagementController::class, 'sentAdminSms'])->name('admin.chat.sms');
     Route::get('/get/admin/sms',[ChatManagementController::class, 'getSmsAdmin'])->name('get.admin.chat');
+   Route::get('project/information/{id}',[TeamHaedController::class, 'projectInfo'])->name('admin.project.info');
 
 });
+
