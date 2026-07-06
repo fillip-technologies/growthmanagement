@@ -225,7 +225,17 @@
         }
 
         $currentDate = date('l, F j, Y');
-        $adminName = Auth::guard('super_admin')->user()->name ?? 'Admin';
+        $adminName = "";
+        if(Auth::guard('super_admin')->check()){
+        $adminName= SuperAdminLogin()->name;
+        }elseif (Auth::guard('team_leader')->check()) {
+            $adminName= TeamLeaderLogin()->name;
+        }elseif (Auth::guard('project_manager')->check()) {
+            $adminName= ProjectManagerLogin()->name;
+        }elseif (Auth::guard('employee')->check()) {
+            $adminName= EmpLogin()->name;
+        }
+
 
         // Stats with realistic data (you can replace with actual DB counts)
         $totalUsers = \App\Models\User::count() ?? 0;

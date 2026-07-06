@@ -86,6 +86,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" id="tasksContainer">
             @forelse ($tasks as $key => $task)
                 @php
+
                     $project = $task->addtask->project ?? null;
                     $modules = $project->modules ?? [];
                     $progress = $task->addtask->progress ?? 0;
@@ -181,14 +182,33 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class="bg-gray-50 rounded-lg p-2">
+                                <div class="text-xs text-gray-500">Assigned By</div>
+                                <div class="text-sm font-medium">
+                                    
+                                    @php
+                                        $user = \App\Models\User::find($task->assigned_by);
+                                    @endphp
+
+                                    {{ $user->name ?? 'N/A' }}
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Modules -->
-                        @if (!empty(json_decode($project->modules)) && count(json_decode($project->modules)) > 0)
+                        @php
+                            $modules = is_array($project->modules)
+                                ? $project->modules
+                                : json_decode($project->modules, true);
+
+                            $modules = $modules ?? [];
+                        @endphp
+
+                        @if (count($modules))
                             <div>
                                 <div class="text-xs text-gray-500 mb-2">Modules</div>
                                 <div class="flex flex-wrap gap-2">
-                                    @foreach (json_decode($project->modules) ?? [] as $module)
+                                    @foreach ($modules as $module)
                                         <span class="px-2 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-medium">
                                             {{ $module }}
                                         </span>
@@ -515,7 +535,7 @@
 
         $(document).ready(function() {
 
-          
+
             $("#sent_message").on('click', function(e) {
 
                 e.preventDefault();

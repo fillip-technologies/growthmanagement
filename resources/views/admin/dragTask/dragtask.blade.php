@@ -1,4 +1,3 @@
-
 @extends('admin.include.layout')
 @section('heading', 'Task Assignment')
 @section('title', 'Drag & Drop Task Assignment')
@@ -165,7 +164,7 @@
         }
     </style>
 
-   
+
 
     @if ($errors->any())
         <script>
@@ -226,7 +225,7 @@
                             <div class="flex items-center gap-3">
                                 <div class="px-4 py-2 bg-orange-50 rounded-full">
                                     <i class="fas fa-tasks text-orange-500 mr-2"></i>
-                                    <span class="text-sm font-semibold text-orange-600">{{ $tasks->count() }} Tasks
+                                    <span class="text-sm font-semibold text-orange-600">{{ $tasks->count() ?? 0 }} Tasks
                                         Available</span>
                                 </div>
                                 <div class="px-4 py-2 bg-emerald-50 rounded-full">
@@ -476,9 +475,22 @@
         </div>
     </div>
 
-    <form id="assignForm" action="{{ route('assignDragTask') }}" method="POST" style="display: none;">
+    <form id="assignForm"
+        action="{{ Auth::guard('team_leader')->check() ? route('teamhead.assignDragTask') : route('assignDragTask') }}"
+        method="POST" style="display: none;">
         @csrf
+        @php
+            $id = null;
+            if (Auth::guard('team_leader')->check()) {
+                $id = Auth::guard('team_leader')->id();
+            } elseif (Auth::guard('project_manager')->check()) {
+                $id = Auth::guard('project_manager')->id();
+            } elseif (Auth::guard('super_admin')->check()) {
+                $id = Auth::guard('super_admin')->id();
+            }
+        @endphp
         <input type="hidden" name="task_id" id="task_id">
+        <input type="hidden" name="assigned_by" value="{{ $id }}">
         <input type="hidden" name="employee_id" id="employee_id">
     </form>
 
@@ -580,7 +592,7 @@
                             success: function(res) {
                                 if (res.status == true) {
                                     msg.text(res.message).removeClass('hidden')
-                                .fadeIn();
+                                        .fadeIn();
                                     setTimeout(function() {
                                         location.reload();
                                     }, 1000);
@@ -602,9 +614,15 @@
             msg.hide();
 
             $(document).on('click', '.delete-assigned-btn', function() {
+
                 var id = $(this).data('assin-id');
                 var taskName = $(this).data('task-name');
                 var employeeName = $(this).data('employee-name');
+                @if (Auth::guard('team_leader')->check())
+                    let deleteUrl = "{{ route('teamhead.assingdeletetask') }}";
+                @elseif (Auth::guard('project_manager')->check() || Auth::guard('super_admin')->check())
+                    let deleteUrl = "{{ route('assingdeletetask') }}";
+                @endif
 
                 Swal.fire({
                     title: 'Remove Assignment?',
@@ -622,7 +640,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('assingdeletetask') }}",
+                            url: deleteUrl,
                             type: "GET",
                             data: {
                                 id: id

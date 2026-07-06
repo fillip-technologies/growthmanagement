@@ -68,7 +68,6 @@ class AdminController extends Controller
     public function report()
     {
         $reports = AddTask::with(['project', 'user'])->paginate(10);
-
         return view('admin.reports.report', compact('reports'));
     }
 

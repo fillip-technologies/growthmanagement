@@ -25,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $employees = User::with('role')->where('role_id', '!=', '1')->get();
+        $employees = User::with('role')->where('role', '!=', 'super_admin')->get();
 
         return view('admin.projects.create', compact('employees'));
     }

@@ -96,6 +96,10 @@
                     $rolename = Auth::guard('team_leader')->user()->role ?? '';
                     $name = Auth::guard('team_leader')->user()->name ?? '';
                      $logout = route('teamhead.logout') ?? "";
+                } elseif (Auth::guard('project_manager')->check()) {
+                    $rolename = Auth::guard('project_manager')->user()->role ?? '';
+                    $name = Auth::guard('project_manager')->user()->name ?? '';
+                     $logout = route('admin.logout') ?? "";
                 }
             @endphp
 

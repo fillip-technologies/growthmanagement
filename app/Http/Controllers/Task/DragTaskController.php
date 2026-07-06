@@ -8,6 +8,7 @@ use App\Models\AddTask;
 use App\Models\AssingTask;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class DragTaskController extends Controller
@@ -15,23 +16,33 @@ class DragTaskController extends Controller
     public function dragTask()
     {
 
-        $employees = User::where('role_id', '!=', '1')->get();
+        $employees = User::where('role', '!=', 'super_admin')->get();
         $tasks = AddTask::with('project')->get();
         $asingTask = AssingTask::with('addtask', 'user')->get();
-
         return view('admin.dragTask.dragtask', compact('employees', 'tasks', 'asingTask'));
     }
 
     public function assignDragTask(Request $request)
     {
+     
         $request->validate([
             'task_id' => 'required',
             'employee_id' => 'required',
+            'assigned_by'=>'required|exists:users,id',
         ]);
+        $id = null;
+        if (Auth::guard('team_leader')->check()) {
+        $id = Auth::guard('team_leader')->id();
+        } elseif (Auth::guard('project_manager')->check()) {
+        $id = Auth::guard('project_manager')->id();
+        }elseif(Auth::guard('super_admin')->check()){
+        $id = Auth::guard('super_admin')->id();
+        }
 
         $data = AssingTask::create([
             'addtask_id' => $request->task_id,
             'employee_id' => $request->employee_id,
+            'assigned_by' => $id,
         ]);
         $task = AddTask::with('project')->where('id', $request->task_id)->first();
         $user = User::find($request->employee_id);
@@ -69,7 +80,7 @@ class DragTaskController extends Controller
 
     public function assingdeletetask(Request $request)
     {
-      
+
         try {
               $id = trim($request->id);
               AssingTask::findOrFail($id)->delete();

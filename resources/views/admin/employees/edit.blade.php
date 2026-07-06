@@ -189,7 +189,7 @@
                                     <i class="fas fa-user-tag mr-2 text-orange-500"></i>Role
                                 </label>
                                 <div class="relative">
-                                    <select name="role_id"
+                                    <select name="role"
                                         class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 appearance-none bg-white shadow-sm">
                                         <option value="">-- Select Role --</option>
                                         @foreach (role() as $key => $role)
@@ -203,7 +203,7 @@
                                     <i
                                         class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                                 </div>
-                                @error('role_id')
+                                @error('role')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror
                             </div>

@@ -16,7 +16,7 @@ class AdminAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-         if(Auth::guard('super_admin')->check()){
+         if(Auth::guard('super_admin')->check() || Auth::guard('project_manager')->check()){
                return $next($request);
         }else{
             return redirect()->route('admin')->with('error','Authentication Failed For Super Admin');

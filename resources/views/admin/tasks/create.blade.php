@@ -138,11 +138,11 @@
                                         class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 appearance-none bg-white">
                                         <option value="">-- Select User --</option>
                                         @php
-                                            $users = App\Models\User::with('role')->where('role_id', '!=', 1)->get();
+                                            $users = App\Models\User::with('role')->where('role', '!=', 'super_admin')->get();
                                         @endphp
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}" {{ old('assigned_to') == $user->id ? 'selected' : '' }}>
-                                                {{ $user->name }} @if($user->role) ({{ $user->role->role }}) @endif
+                                                {{ $user->name }} @if($user->role) ({{ $user->role }}) @endif
                                             </option>
                                         @endforeach
                                     </select>

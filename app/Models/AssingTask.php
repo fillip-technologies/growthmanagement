@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class AssingTask extends Model
 {
     protected $table = "assing_tasks";
-    protected $fillable = ['addtask_id','employee_id'];
+    protected $fillable = ['addtask_id','employee_id','assigned_by'];
     protected $primaryKey = 'id';
 
     public function addtask(){

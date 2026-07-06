@@ -58,7 +58,20 @@ class LoginController extends Controller
             }else {
                 return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
             }
-        }else{
+            }elseif ($request->role == 'project_manager') {
+                if(Auth::guard('project_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
+                    $request->session()->regenerate();
+                    $authUser= Auth::guard('project_manager')->user();
+                    if($authUser->role == 'project_manager'){
+                        return redirect()->route('admin.dashboard');
+                    }else{
+                    return redirect()->route('admin')->with('error', 'Invalid Credentials');
+                    }
+
+                }else {
+                    return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
+                }
+            }else{
             return redirect('/')->with('error','Username And Password Invalide');
         }
     }
