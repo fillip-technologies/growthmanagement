@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RegistrationEvent;
 use App\Mail\TaskSendEmail;
 use App\Mail\UserRegistrationMail;
 use App\Models\Module;
@@ -88,6 +89,7 @@ class ManegemantController extends Controller
         if ($request->hasFile('graduation')) {
             $graduationPath = $this->uploadDocument($request->file('graduation'), 'certificates/graduation');
         }
+
         $plainPassword = $request->password;
         $employee = User::create([
             'name' => $request->name,
@@ -101,7 +103,6 @@ class ManegemantController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status ?? 'active',
-
             'adhar_card' => $adharCardPath,
             'pan_card' => $panCardPath,
             '10th_certificate' => $tenthCertPath,
@@ -109,8 +110,7 @@ class ManegemantController extends Controller
             'graduation' => $graduationPath,
         ]);
 
-        Mail::to($request->email)->send(new UserRegistrationMail($employee, $plainPassword));
-
+        RegistrationEvent::dispatch($employee, $plainPassword);
         return redirect()->route('employees')->with('success', 'User Added and email sent successfully :)');
     }
 
@@ -211,7 +211,7 @@ class ManegemantController extends Controller
             'graduation' => $graduationPath,
         ];
 
-        // Update password only if provided
+
         if ($request->filled('password')) {
             $updateData['password'] = Hash::make($request->password);
         }
@@ -302,7 +302,7 @@ class ManegemantController extends Controller
         if ($task) {
             return redirect('admin/task/all')->with('success', 'Task created & email sent successfully :)');
         }
-
+        
         return redirect('admin/task/all')->with('error', 'Task created & email sent Failed !');
 
     }
