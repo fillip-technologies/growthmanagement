@@ -12,7 +12,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminController extends Controller
 {
@@ -98,4 +100,49 @@ class AdminController extends Controller
 
         return view('admin.attendance.leaveList', compact('datas'));
     }
+
+
+
+public function clientLeads()
+{
+    try {
+
+        $response = Http::get('https://lead.filliptechnologies.com/api/leadlist');
+
+       if ($response->successful()) {
+
+            $leads = collect($response->json('data.leads', []));
+
+            $perPage = 10;
+            $currentPage = LengthAwarePaginator::resolveCurrentPage();
+            $currentItems = $leads->slice(($currentPage - 1) * $perPage, $perPage)->values();
+            $paginatedLeads = new LengthAwarePaginator(
+                $currentItems,
+                $leads->count(),
+                $perPage,
+                $currentPage,
+                [
+                    'path' => request()->url(),
+                    'query' => request()->query(),
+                ]
+            );
+
+            return view('admin.leads.ClientLeads', compact('paginatedLeads'));
+        }
+        return response()->json([
+            'status' => false,
+            'message' => 'Unable to fetch lead list.',
+            'error' => $response->body(),
+        ], $response->status());
+
+    } catch (\Exception $e) {
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Something went wrong.',
+            'error' => $e->getMessage(),
+        ], 500);
+
+    }
+}
 }

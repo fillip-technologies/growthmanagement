@@ -35,6 +35,16 @@
             <i class="fa-solid fa-clock mr-4 text-orange-500 group-hover:text-white"></i>
             Attendance
         </a>
+
+        <a href="{{ route('attendanceList') }}"
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+    bg-gray-900/60 backdrop-blur-xl border border-gray-800
+    hover:bg-orange-600 hover:text-white hover:border-orange-400
+    transition-all duration-300 group">
+
+            <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
+            Leads
+        </a>
         <a href="{{ route('leaveList') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
@@ -123,7 +133,7 @@
             Team Members
         </a>
 
-         <a href="{{ route('teamhead.employee.task') }}"
+        <a href="{{ route('teamhead.employee.task') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -150,7 +160,7 @@
             Reports
         </a>
 
-          <a href="{{ route('teamhead.attendanceList') }}"
+        <a href="{{ route('teamhead.attendanceList') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Task;
 
+use App\Events\AssingneTaskEvent;
 use App\Http\Controllers\Controller;
 use App\Mail\AssingtaskMail;
 use App\Models\AddTask;
@@ -24,7 +25,7 @@ class DragTaskController extends Controller
 
     public function assignDragTask(Request $request)
     {
-     
+
         $request->validate([
             'task_id' => 'required',
             'employee_id' => 'required',
@@ -44,9 +45,11 @@ class DragTaskController extends Controller
             'employee_id' => $request->employee_id,
             'assigned_by' => $id,
         ]);
-        $task = AddTask::with('project')->where('id', $request->task_id)->first();
-        $user = User::find($request->employee_id);
-        Mail::to($user->email)->send(new AssingtaskMail($task, $user));
+         $task = AddTask::with('project')->where('id', $request->task_id)->first();
+         $user = User::find($request->employee_id);
+         Mail::to($user->email)
+        ->send(new AssingtaskMail($user, $task));
+
         if ($data) {
             return back()->with('success', 'Task Assing SuccessFul with email');
         } else {
@@ -80,7 +83,6 @@ class DragTaskController extends Controller
 
     public function assingdeletetask(Request $request)
     {
-
         try {
               $id = trim($request->id);
               AssingTask::findOrFail($id)->delete();
