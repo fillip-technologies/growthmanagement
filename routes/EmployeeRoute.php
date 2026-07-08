@@ -1,15 +1,18 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\AttendanceInfoController;
 use App\Http\Controllers\ChatApp\ChatManagementController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::prefix('employee')->middleware('employee')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('employee.dashboard');
+     Route::get('auther/profile',[AdminController::class, 'autherprofile'])->name('employee.autherprofile');
     Route::get('/task', [EmployeeController::class, 'employeeTask'])->name('employee.task');
     Route::post('/assing/project/status', [EmployeeController::class, 'status'])->name('employee.status');
     Route::get('/logout', [LoginController::class, 'emplogout'])->name('employee.logout');

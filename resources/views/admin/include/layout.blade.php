@@ -83,23 +83,29 @@
                 $rolename = null;
                 $name = null;
                 $logout = null;
+                $profile = null;
 
                 if (Auth::guard('super_admin')->check()) {
                     $rolename = Auth::guard('super_admin')->user()->role ?? '';
                     $name = Auth::guard('super_admin')->user()->name ?? '';
+                    $profile = route('autherprofile');
                     $logout = route('admin.logout') ?? '';
                 } elseif (Auth::guard('employee')->check()) {
                     $rolename = Auth::guard('employee')->user()->role ?? '';
                     $name = Auth::guard('employee')->user()->name ?? '';
                     $logout = route('employee.logout') ?? '';
+                    $profile = route('employee.autherprofile');
                 } elseif (Auth::guard('team_leader')->check()) {
                     $rolename = Auth::guard('team_leader')->user()->role ?? '';
                     $name = Auth::guard('team_leader')->user()->name ?? '';
                     $logout = route('teamhead.logout') ?? '';
+                    $profile = route('teamhead.autherprofile');
                 } elseif (Auth::guard('project_manager')->check()) {
                     $rolename = Auth::guard('project_manager')->user()->role ?? '';
                     $name = Auth::guard('project_manager')->user()->name ?? '';
                     $logout = route('admin.logout') ?? '';
+                    $profile = route('autherprofile');
+
                 }
             @endphp
 
@@ -107,7 +113,7 @@
                 <div class="flex items-center">
 
                     <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                        <a href="{{ route('autherprofile') }}">
+                        <a href="{{$profile}}">
                             <i class="fas fa-user text-gray-300"></i>
                         </a>
 
