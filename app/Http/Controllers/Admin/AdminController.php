@@ -103,46 +103,55 @@ class AdminController extends Controller
 
 
 
-public function clientLeads()
+public function clientLeads(Request $request)
 {
     try {
 
         $response = Http::get('https://lead.filliptechnologies.com/api/leadlist');
 
-       if ($response->successful()) {
-
-            $leads = collect($response->json('data.leads', []));
-
-            $perPage = 10;
-            $currentPage = LengthAwarePaginator::resolveCurrentPage();
-            $currentItems = $leads->slice(($currentPage - 1) * $perPage, $perPage)->values();
-            $paginatedLeads = new LengthAwarePaginator(
-                $currentItems,
-                $leads->count(),
-                $perPage,
-                $currentPage,
-                [
-                    'path' => request()->url(),
-                    'query' => request()->query(),
-                ]
-            );
-
-            return view('admin.leads.ClientLeads', compact('paginatedLeads'));
+        if (!$response->successful()) {
+            return back()->with('error', 'Unable to fetch leads.');
         }
-        return response()->json([
-            'status' => false,
-            'message' => 'Unable to fetch lead list.',
-            'error' => $response->body(),
-        ], $response->status());
+
+        $leads = collect($response->json('data.leads', []));
+
+        // Search
+        if ($request->filled('search')) {
+            $search = strtolower($request->search);
+
+            $leads = $leads->filter(function ($lead) use ($search) {
+                return str_contains(strtolower($lead['name'] ?? ''), $search)
+                    || str_contains(strtolower($lead['email'] ?? ''), $search)
+                    || str_contains(strtolower($lead['phone'] ?? ''), $search);
+            })->values();
+        }
+
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
+        $currentItems = $leads->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $paginatedLeads = new LengthAwarePaginator(
+            $currentItems,
+            $leads->count(),
+            $perPage,
+            $currentPage,
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
+        );
+
+        return view('admin.leads.ClientLeads', compact('paginatedLeads'));
 
     } catch (\Exception $e) {
-
-        return response()->json([
-            'status' => false,
-            'message' => 'Something went wrong.',
-            'error' => $e->getMessage(),
-        ], 500);
-
+        return back()->with('error', $e->getMessage());
     }
 }
+
+public function autherprofile(){
+    return view('profiles.profile');
+}
+
+
 }

@@ -20,6 +20,7 @@ Route::prefix('admin')->middleware(['super_admin'])->group(function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+    Route::get('auther/profile',[AdminController::class, 'autherprofile'])->name('autherprofile');
     Route::get('clientLeads',[AdminController::class, 'clientLeads'])->name('admin.clientLeads');
     Route::post('/addtotask/{id}', [ProjectController::class, 'addtotask'])->name('addtotask');
     Route::post('/assing/drag/task', [DragTaskController::class, 'assignDragTask'])->name('assignDragTask');

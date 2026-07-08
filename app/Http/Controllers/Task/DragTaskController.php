@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Task;
-
-use App\Events\AssingneTaskEvent;
+ 
 use App\Http\Controllers\Controller;
 use App\Mail\AssingtaskMail;
 use App\Models\AddTask;

@@ -87,19 +87,19 @@
                 if (Auth::guard('super_admin')->check()) {
                     $rolename = Auth::guard('super_admin')->user()->role ?? '';
                     $name = Auth::guard('super_admin')->user()->name ?? '';
-                    $logout = route('admin.logout') ?? "";
+                    $logout = route('admin.logout') ?? '';
                 } elseif (Auth::guard('employee')->check()) {
                     $rolename = Auth::guard('employee')->user()->role ?? '';
                     $name = Auth::guard('employee')->user()->name ?? '';
-                    $logout = route('employee.logout') ?? "";
-                }  elseif (Auth::guard('team_leader')->check()) {
+                    $logout = route('employee.logout') ?? '';
+                } elseif (Auth::guard('team_leader')->check()) {
                     $rolename = Auth::guard('team_leader')->user()->role ?? '';
                     $name = Auth::guard('team_leader')->user()->name ?? '';
-                     $logout = route('teamhead.logout') ?? "";
+                    $logout = route('teamhead.logout') ?? '';
                 } elseif (Auth::guard('project_manager')->check()) {
                     $rolename = Auth::guard('project_manager')->user()->role ?? '';
                     $name = Auth::guard('project_manager')->user()->name ?? '';
-                     $logout = route('admin.logout') ?? "";
+                    $logout = route('admin.logout') ?? '';
                 }
             @endphp
 
@@ -107,7 +107,10 @@
                 <div class="flex items-center">
 
                     <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                        <i class="fas fa-user text-gray-300"></i>
+                        <a href="{{ route('autherprofile') }}">
+                            <i class="fas fa-user text-gray-300"></i>
+                        </a>
+
                     </div>
 
                     <div class="ml-3">

@@ -71,50 +71,30 @@
         </div>
 
         <!-- Search & Filters -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-            <div class="flex flex-col md:flex-row gap-4">
-                <div class="flex-1 relative">
-                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                    <input type="text" id="searchLeads"
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        placeholder="Search leads by name, email, or phone...">
-                </div>
+        <form method="GET" action="{{ route('admin.clientLeads') }}">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                <div class="flex flex-col md:flex-row gap-4">
 
-                <div class="flex flex-wrap gap-3">
-                    <select id="statusFilter"
-                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-colors">
-                        <option value="">All Status</option>
-                        <option value="new">New</option>
-                        <option value="contacted">Contacted</option>
-                        <option value="in_progress">In Progress</option>
-                        <option value="converted">Converted</option>
-                        <option value="lost">Lost</option>
-                    </select>
-
-                    <select id="industryFilter"
-                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-colors">
-                        <option value="">All Industries</option>
-                        <option value="technology">Technology</option>
-                        <option value="healthcare">Healthcare</option>
-                        <option value="finance">Finance</option>
-                        <option value="retail">Retail</option>
-                    </select>
-
-                    <button
-                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Search -->
+                    <div class="flex-1 relative">
+                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
-                        Apply Filters
+
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg"
+                            placeholder="Search by name, email or phone">
+                    </div>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">
+                        Search
                     </button>
+
                 </div>
             </div>
-        </div>
+        </form>
+
 
         <!-- Table -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
@@ -183,7 +163,7 @@
                                         {{ ucfirst($status) }}
                                     </span>
                                 </td>
-                                
+
                             </tr>
                         @empty
                             <tr>
