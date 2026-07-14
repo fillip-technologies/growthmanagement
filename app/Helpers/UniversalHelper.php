@@ -10,7 +10,9 @@ if (! function_exists('role')) {
             'super_admin'=>'Super Admin',
             'employee'=>"Employee",
             'project_manager'=>'Project Manager',
-            'team_leader'=>'Team Leader'
+            'team_leader'=>'Team Leader',
+            "marketing_manager"=>"Marketing Manager",
+            "account_manager"=> "Account Manager",
        ];
     }
 }
