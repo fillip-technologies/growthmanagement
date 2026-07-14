@@ -78,12 +78,25 @@ if (! function_exists('SalesLogin')) {
 if (! function_exists('MarketingLogin')) {
     function MarketingLogin()
     {
-        if (Auth::guard('sales_manager')->check()) {
-            $data = Auth::guard('sales_manager')->user();
+        if (Auth::guard('marketing_manager')->check()) {
+            $data = Auth::guard('marketing_manager')->user();
             return $data;
         } else {
             return redirect()->route('admin');
         }
     }
 }
+
+if (! function_exists('ACManagerLogin')) {
+    function ACManagerLogin()
+    {
+        if (Auth::guard('account_manager')->check()) {
+            $data = Auth::guard('account_manager')->user();
+            return $data;
+        } else {
+            return redirect()->route('admin');
+        }
+    }
+}
+
 

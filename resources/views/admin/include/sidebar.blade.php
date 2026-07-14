@@ -9,6 +9,12 @@
         $dashboard = route('employee.dashboard');
     } elseif (Auth::guard('team_leader')->check()) {
         $dashboard = route('teamhead.dashboard');
+    } elseif (Auth::guard('account_manager')) {
+        $dashboard = route('acmanager.dashboard');
+    } elseif (Auth::guard('marketing_manager')->check()) {
+        $dashboard = route('marketing.dashboard');
+    } elseif (Auth::guard('hr_manager')->check()) {
+        $dashboard = route('hr.dashboard');
     }
 @endphp
 
@@ -161,6 +167,20 @@
         </a>
 
         <a href="{{ route('teamhead.attendanceList') }}"
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+              bg-gray-900/60 backdrop-blur-xl border border-gray-800
+              hover:bg-orange-600 hover:text-white hover:border-orange-400
+              transition-all duration-300 group">
+            <i class="fa-solid fa-clock mr-4 text-orange-500 group-hover:text-white"></i>
+            Attendance
+        </a>
+    @elseif(Auth::guard('account_manager')->check())
+
+    @elseif(Auth::guard('marketing_manager')->check())
+
+    @elseif(Auth::guard('hr_manager')->check())
+
+    <a href="{{ route('hr.attendanceList') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
