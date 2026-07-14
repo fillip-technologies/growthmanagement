@@ -112,6 +112,10 @@ class User extends Authenticatable
         return $this->hasMany(Discuss::class);
     }
 
+    public function accountget(){
+        return $this->hasMany(AccountAccess::class,'created_by');
+    }
+
 
 
 

@@ -53,11 +53,15 @@
                 <div class="mt-1">
                     <span
                         class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full
-                    @if ($data->project->status == 'completed') bg-emerald-100 text-emerald-800
-                    @elseif($data->project->status == 'in-progress') bg-blue-100 text-blue-800
-                    @elseif($data->project->status == 'on-hold') bg-amber-100 text-amber-800
-                    @else bg-gray-100 text-gray-800 @endif">
-                        {{ ucfirst($data->project->status ?? 'N/A') }}
+        @if (optional($data->project)->status == 'completed') bg-emerald-100 text-emerald-800
+        @elseif(optional($data->project)->status == 'in-progress')
+            bg-blue-100 text-blue-800
+        @elseif(optional($data->project)->status == 'on-hold')
+            bg-amber-100 text-amber-800
+        @else
+            bg-gray-100 text-gray-800 @endif">
+
+                        {{ ucfirst(optional($data->project)->status ?? 'N/A') }}
                     </span>
                 </div>
             </div>
@@ -86,8 +90,9 @@
                     </div>
                 </div>
                 <div class="text-sm font-semibold text-gray-800 mt-1">
-                    {{ \Carbon\Carbon::parse($data->project->start_date)->format('M d, Y') }} -
-                    {{ $data->project->end_date ? \Carbon\Carbon::parse($data->project->end_date)->format('M d, Y') : 'Ongoing' }}
+                    {{ $data->project?->start_date ? \Carbon\Carbon::parse($data->project->start_date)->format('M d, Y') : 'N/A' }}
+                    -
+                    {{ $data->project?->end_date ? \Carbon\Carbon::parse($data->project->end_date)->format('M d, Y') : 'Ongoing' }}
                 </div>
             </div>
         </div>
@@ -119,12 +124,15 @@
                             <div>
                                 <label class="text-xs font-medium text-gray-400 uppercase tracking-wider">Start Date</label>
                                 <p class="text-base font-medium text-gray-900 mt-1">
-                                    {{ \Carbon\Carbon::parse($data->project->start_date)->format('F d, Y') }}</p>
+                                    {{ $data->project?->start_date ? \Carbon\Carbon::parse($data->project->start_date)->format('F d, Y') : 'N/A' }}
+                                </p>
                             </div>
                             <div>
                                 <label class="text-xs font-medium text-gray-400 uppercase tracking-wider">End Date</label>
                                 <p class="text-base font-medium text-gray-900 mt-1">
-                                    {{ $data->project->end_date ? \Carbon\Carbon::parse($data->project->end_date)->format('F d, Y') : 'Ongoing' }}
+                                    {{ optional($data->project)->end_date
+                                        ? \Carbon\Carbon::parse(optional($data->project)->end_date)->format('F d, Y')
+                                        : 'Ongoing' }}
                                 </p>
                             </div>
                             <div class="sm:col-span-2">
