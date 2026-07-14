@@ -13,6 +13,7 @@ if (! function_exists('role')) {
             'team_leader'=>'Team Leader',
             "marketing_manager"=>"Marketing Manager",
             "account_manager"=> "Account Manager",
+            "hr_manager"=> "Hr Manager",
        ];
     }
 }
@@ -41,6 +42,7 @@ if (! function_exists('department')) {
             'Hr Department',
             'Marketing Department',
             'IT Department',
+            'Sales Department',
         ];
     }
 }

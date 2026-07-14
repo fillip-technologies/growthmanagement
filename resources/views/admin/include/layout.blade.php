@@ -106,6 +106,24 @@
                     $logout = route('admin.logout') ?? '';
                     $profile = route('autherprofile');
 
+                }elseif (Auth::guard('hr_manager')->check()) {
+                    $rolename = Auth::guard('hr_manager')->user()->role ?? '';
+                    $name = Auth::guard('hr_manager')->user()->name ?? '';
+                    $logout = route('hrmanagerLogout') ?? '';
+                    $profile = route('autherprofile');
+
+                }elseif (Auth::guard('marketing_manager')->check()) {
+                    $rolename = Auth::guard('marketing_manager')->user()->role ?? '';
+                    $name = Auth::guard('marketing_manager')->user()->name ?? '';
+                    $logout = route('hrmanagerLogout') ?? '';
+                    $profile = route('autherprofile');
+
+                }elseif (Auth::guard('account_manager')->check()) {
+                    $rolename = Auth::guard('account_manager')->user()->role ?? '';
+                    $name = Auth::guard('account_manager')->user()->name ?? '';
+                    $logout = route('acmanagerLogout') ?? '';
+                    $profile = route('autherprofile');
+
                 }
             @endphp
 

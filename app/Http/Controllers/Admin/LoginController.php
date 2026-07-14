@@ -45,7 +45,7 @@ class LoginController extends Controller
             }else {
                 return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
             }
-        }elseif ($request->role == 'team_leader') {
+    }elseif ($request->role == 'team_leader') {
             if(Auth::guard('team_leader')->attempt(['email'=>$request->email,'password'=>$request->password])){
                 $request->session()->regenerate();
                 $authUser= Auth::guard('team_leader')->user();
@@ -58,12 +58,51 @@ class LoginController extends Controller
             }else {
                 return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
             }
-            }elseif ($request->role == 'project_manager') {
+       }elseif ($request->role == 'project_manager') {
                 if(Auth::guard('project_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
                     $request->session()->regenerate();
                     $authUser= Auth::guard('project_manager')->user();
                     if($authUser->role == 'project_manager'){
                         return redirect()->route('admin.dashboard');
+                    }else{
+                    return redirect()->route('admin')->with('error', 'Invalid Credentials');
+                    }
+
+                }else {
+                    return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
+                }
+              }elseif ($request->role == 'hr_manager') {
+                if(Auth::guard('hr_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
+                    $request->session()->regenerate();
+                    $authUser= Auth::guard('hr_manager')->user();
+                    if($authUser->role == 'hr_manager'){
+                        return redirect()->route('hr.dashboard');
+                    }else{
+                    return redirect()->route('admin')->with('error', 'Invalid Credentials');
+                    }
+
+                }else {
+                    return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
+                }
+             }elseif ($request->role == 'marketing_manager') {
+                if(Auth::guard('marketing_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
+                    $request->session()->regenerate();
+                    $authUser= Auth::guard('marketing_manager')->user();
+                    if($authUser->role == 'marketing_manager'){
+                        return redirect()->route('marketing.dashboard');
+                    }else{
+                    return redirect()->route('admin')->with('error', 'Invalid Credentials');
+                    }
+
+                }else {
+                    return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
+                }
+            }elseif ($request->role == 'account_manager') {
+                if(Auth::guard('account_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
+                    $request->session()->regenerate();
+                    $authUser= Auth::guard('account_manager')->user();
+                    if($authUser->role == 'account_manager'){
+                        return redirect()->route('acmanager.dashboard');
                     }else{
                     return redirect()->route('admin')->with('error', 'Invalid Credentials');
                     }
@@ -93,6 +132,32 @@ class LoginController extends Controller
     return redirect('/');
 }
 
+ public function hrmanagerLogout(Request $request)
+{
+    Auth::guard('hr_manager')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/');
+}
+
+public function acmanagerLogout(Request $request)
+{
+    Auth::guard('account_manager')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/');
+}
+
+
+ public function marketingmanagerLogout(Request $request)
+{
+    Auth::guard('marketing_manager')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/');
+}
 
     public function update_password()
     {

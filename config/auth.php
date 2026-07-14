@@ -70,6 +70,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'account_manager' => [
+            'driver'=>'session',
+            'provider'=>'users'
+        ]
     ],
 
     /*
@@ -124,13 +129,14 @@ return [
         'team_leader'=>[
             'driver'=>'eloquent',
             'model'=>env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        'account_manager'=>[
+            'driver'=>'eloquent',
+            'model'=>env('AUTH_MODEL', App\Models\User::class),
         ]
 
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

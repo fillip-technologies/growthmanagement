@@ -430,8 +430,9 @@
                                         <option value="super_admin">👑 Super Admin</option>
                                         <option value="project_manager">📋 Project Manager</option>
                                         <option value="team_leader">📈 Development Head</option>
-                                        {{-- <option value="marketing_manager">📊 Marketing Manager</option> --}}
-                                        {{-- <option value="hr_manager">📊 HR Manager</option> --}}
+                                        <option value="marketing_manager">📊 Marketing Manager</option>
+                                        <option value="hr_manager">📊 HR Manager</option>
+                                        <option value="account_manager">📊 Account Manager</option>
                                         <option value="employee">🧑‍💻 Employee</option>
                                     </select>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\RegistrationEvent;
 use App\Mail\TaskSendEmail;
 use App\Mail\UserRegistrationMail;
+use App\Models\AccountAccess;
 use App\Models\Module;
 use App\Models\Performances;
 use App\Models\Project;
@@ -15,6 +16,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -90,6 +92,8 @@ class ManegemantController extends Controller
             $graduationPath = $this->uploadDocument($request->file('graduation'), 'certificates/graduation');
         }
 
+
+
         $plainPassword = $request->password;
         $employee = User::create([
             'name' => $request->name,
@@ -110,6 +114,7 @@ class ManegemantController extends Controller
             'graduation' => $graduationPath,
         ]);
 
+        
         RegistrationEvent::dispatch($employee, $plainPassword);
         return redirect()->route('employees')->with('success', 'User Added and email sent successfully :)');
     }
@@ -302,7 +307,7 @@ class ManegemantController extends Controller
         if ($task) {
             return redirect('admin/task/all')->with('success', 'Task created & email sent successfully :)');
         }
-        
+
         return redirect('admin/task/all')->with('error', 'Task created & email sent Failed !');
 
     }

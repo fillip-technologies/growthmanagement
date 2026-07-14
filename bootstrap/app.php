@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('web')->group(base_path('routes/MarketingManagerRoute.php'));
             Route::middleware('web')->group(base_path('routes/SalesManagerRoute.php'));
             Route::middleware('web')->group(base_path('routes/TeamLeaderRoute.php'));
+            Route::middleware('web')->group(base_path('routes/AccountManagerRoute.php'));
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {
@@ -29,7 +30,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'team_leader'=> App\Http\Middleware\TeamLeaderMiddleware::class,
             'project_manager'=> App\Http\Middleware\ProjectManagerManagerMiddleware::class,
             'sales_manager'=> App\Http\Middleware\SalesManagerMiddleware::class,
-            'marketing_manager'=> App\Http\Middleware\MarketingManagerMiddleware::class
+            'marketing_manager'=> App\Http\Middleware\MarketingManagerMiddleware::class,
+            "account_manager"=> App\Http\Middleware\AccountManagerMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
