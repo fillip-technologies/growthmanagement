@@ -74,9 +74,22 @@
                 </div>
             </div>
         </div>
+@php
+    $searchRoure = null;
+    $listRoute = null;
+    $exportRoute = null;
 
+    if(Auth::guard('super_admin')->check()){
+    $searchRoure = route('attendance.list');
+    $exportRoutr = route('attendance.export') ;
+    }elseif(Auth::guard('hr_manager')->check()) {
+      $searchRoure =  route('hr.attendance.list');
+      $exportRoute =  route('hr.attendance.export');
+
+    }
+@endphp
         <!-- Filter Section -->
-        <form method="GET" action="{{ route('attendance.list') }}"
+        <form method="GET" action="{{ $searchRoure }}"
             class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
             <div class="flex flex-col lg:flex-row gap-4 justify-between items-end">
                 <div class="flex-1 w-full">
@@ -99,7 +112,7 @@
                         </svg>
                         Apply Filter
                     </button>
-                    <a href="{{ route('attendance.list') }}"
+                    <a href="{{ $searchRoure }}"
                         class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition-all duration-200 flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -107,7 +120,7 @@
                         </svg>
                         Reset
                     </a>
-                    <a href="{{ route('attendance.export') }}"
+                    <a href="{{ $exportRoute }}"
                         class="px-5 py-2.5 bg-green-800 hover:bg-green-600 text-white rounded-xl transition-all duration-200 flex items-center gap-2">
                         <i class="fa-solid fa-download w-4 h-4"></i>
 

@@ -212,6 +212,26 @@
     <div id="leaveModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden">
     </div>
 
+    @php
+        $stapprove = null;
+        $streject = null;
+        $deleteRoute = null;
+        $viewRoute = null;
+
+        if(Auth::guard('super_admin')->check()){
+         $stapprove = route('status.approved');
+         $streject = route('status.reject');
+         $viewRoute = route('viwe.leave') ;
+         $deleteRoute =  route('status.delete');
+        }elseif (Auth::guard('hr_manager')->check()) {
+        $stapprove = route('hr.status.approved');
+        $streject = route('hr.status.reject');
+        $deleteRoute =  route('hr.status.delete');
+        $viewRoute = route('viwe.leave') ;
+        }
+
+    @endphp
+
     <script>
         function showNotification(message, type = 'success') {
             const colors = {
@@ -242,9 +262,12 @@
         }
 
         function statusapprove(id) {
+            var route = @json($stapprove);
+            console.log(route);
+
             $.ajax({
                 type: "POST",
-                url: "{{ route('status.approved') }}",
+                url: route,
                 data: {
                     _token: "{{ csrf_token() }}",
                     id: id
@@ -265,9 +288,10 @@
         }
 
         function statusreject(id) {
+            var rejectroute = @json($streject);
             $.ajax({
                 type: "POST",
-                url: "{{ route('status.reject') }}",
+                url: rejectroute,
                 data: {
                     _token: "{{ csrf_token() }}",
                     id: id
@@ -288,9 +312,10 @@
         }
 
         function deletedata(id) {
+            var deleteRoute = @json($deleteRoute);
             $.ajax({
                 type: "DELETE",
-                url: "{{ route('status.delete') }}",
+                url: deleteRoute,
                 data: {
                     _token: "{{ csrf_token() }}",
                     id: id
@@ -312,10 +337,10 @@
         function viewDetails(id) {
 
             var leaveModal = $("#leaveModal");
-
+var viewRoute = @json($viewRoute);
             $.ajax({
                 type: "GET",
-                url: "{{ route('viwe.leave') }}",
+                url: viewRoute,
                 data: {
                     id: id
                 },

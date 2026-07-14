@@ -97,7 +97,6 @@ class AdminController extends Controller
     public function leaveLive(Request $request)
     {
         $datas = TakeLeave::with(['employee'])->paginate(10);
-
         return view('admin.attendance.leaveList', compact('datas'));
     }
 
