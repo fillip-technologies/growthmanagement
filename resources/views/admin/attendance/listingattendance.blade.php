@@ -203,6 +203,8 @@
                                             $route = null;
                                             if (Auth::guard('team_leader')->check()) {
                                                 $route = route('project.info', $attendance->id);
+                                            }elseif (Auth::guard('hr_manager')->check()) {
+                                                 $route = route('hr.project.info', $attendance->id);
                                             } else {
                                                 $route = route('admin.project.info', $attendance->id);
                                             }
