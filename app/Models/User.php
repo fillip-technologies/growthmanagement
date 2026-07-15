@@ -116,6 +116,14 @@ class User extends Authenticatable
         return $this->hasMany(AccountAccess::class,'created_by');
     }
 
+    public function mark_task_assing(){
+        return $this->hasMany(MarkeringAsingTask::class,'employee_id');
+    }
+
+    public function marketproject(){
+        return $this->hasMany(MarketingProject::class,"created_by");
+    }
+
 
 
 

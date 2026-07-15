@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AssingtaskMail;
+use App\Models\AddTask;
+use App\Models\AssingTask;
+use App\Models\MarkeringAsingTask;
 use App\Models\MarketingProject;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class MarketingProjectController extends Controller
 {
@@ -124,5 +130,45 @@ class MarketingProjectController extends Controller
         }
         $deletedata->delete();
         return back()->with('success','Project Deleted SuccessFul');
+    }
+
+     public function dragTask()
+    {
+     if(Auth::guard('marketing_manager')->check()){
+        $employees = User::where('department', 'Marketing Department')->get();
+        $tasks = MarketingProject::all();
+        $asingTask = MarkeringAsingTask::with(['marketingpro','user'])->get();
+        return view('marketing.dragTask.dragtask',compact('employees','tasks','asingTask'));
+        }
+
+    }
+
+    public function assignDragTask(Request $request)
+    {
+
+        $request->validate([
+            'task_id' => 'required',
+            'employee_id' => 'required',
+            'assigned_by'=>'required|exists:users,id',
+        ]);
+        $id = null;
+        if (Auth::guard('marketing_manager')->check()) {
+        $id = Auth::guard('marketing_manager')->id();
+        }
+
+        $data = MarkeringAsingTask::create([
+            'mrk_project_id' => $request->task_id,
+            'employee_id' => $request->employee_id,
+            'created_by' => $id,
+        ]);
+         $task = MarketingProject::where('id', $request->task_id)->first();
+         $user = User::find($request->employee_id);
+         Mail::to($user->email)
+        ->send(new AssingtaskMail($user, $task));
+        if ($data) {
+            return back()->with('success', 'Task Assing SuccessFul with email');
+        } else {
+            return back()->with('error', 'Something went wring');
+        }
     }
 }

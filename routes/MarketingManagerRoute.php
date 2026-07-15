@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Marketing\MarketingProjectController;
+use App\Http\Controllers\Task\DragTaskController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -20,6 +22,8 @@ Route::get('dashboard', function () {
         Route::get('/editproduct/{id}','editproduct')->name('mrk.editproduct');
         Route::post('updatdproduct/{id}','updatdproduct')->name('updatdproduct');
         Route::delete('/deleteProject/{id}','deleteProject')->name('deleteProject');
+        Route::get('dragTask','dragTask')->name('mrk.dragTask');
+        Route::post('assignDragTask','assignDragTask')->name('mrk.assignDragTask');
     });
     Route::get('clientLeads',[AdminController::class, 'clientLeads'])->name('marketing.clientLeads');
     Route::get('manager/logout',[LoginController::class, 'marketingmanagerLogout'])->name('hrmanagerLogout');

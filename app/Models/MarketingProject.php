@@ -13,4 +13,7 @@ class MarketingProject extends Model
     public function user(){
         return $this->belongsTo(User::class,'created_by');
     }
+    public function mark_task_assing(){
+        return $this->hasMany(MarkeringAsingTask::class,'mrk_project_id');
+    }
 }
