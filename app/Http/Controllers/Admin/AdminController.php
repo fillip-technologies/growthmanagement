@@ -140,6 +140,7 @@ public function clientLeads(Request $request)
                 'query' => request()->query(),
             ]
         );
+        
 
         return view('admin.leads.ClientLeads', compact('paginatedLeads'));
 

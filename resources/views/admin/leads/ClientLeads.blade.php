@@ -69,9 +69,16 @@
                 </div>
             </div>
         </div>
-
+@php
+    $search = null;
+    if(Auth::guard('super_admin')->check()){
+        $search = route('admin.clientLeads');
+    }else {
+        $search = route('marketing.clientLeads');
+    }
+@endphp
         <!-- Search & Filters -->
-        <form method="GET" action="{{ route('admin.clientLeads') }}">
+        <form method="GET" action="{{ $search }}">
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
                 <div class="flex flex-col md:flex-row gap-4">
 

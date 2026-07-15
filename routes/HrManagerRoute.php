@@ -7,9 +7,6 @@ use App\Http\Controllers\TeamHead\TeamHaedController;
 use Illuminate\Support\Facades\Route;
 
 
-
-
-
 Route::prefix('hr')->middleware(['hr_manager'])->group(function(){
 Route::get('dashboard', function () {
         return view('admin.dashboard');
