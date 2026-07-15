@@ -19,6 +19,7 @@ Route::get('dashboard', function () {
         Route::post('/createProject','createProject')->name('mark.createProject');
         Route::get('/editproduct/{id}','editproduct')->name('mrk.editproduct');
         Route::post('updatdproduct/{id}','updatdproduct')->name('updatdproduct');
+        Route::delete('/deleteProject/{id}','deleteProject')->name('deleteProject');
     });
     Route::get('clientLeads',[AdminController::class, 'clientLeads'])->name('marketing.clientLeads');
     Route::get('manager/logout',[LoginController::class, 'marketingmanagerLogout'])->name('hrmanagerLogout');

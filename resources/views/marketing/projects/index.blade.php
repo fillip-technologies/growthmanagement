@@ -404,7 +404,7 @@
                                             <i class="fas fa-edit text-sm"></i>
                                         </a>
 
-                                        <form action="" method="POST" class="delete-form inline" data-name="{{ $p->name }}">
+                                        <form action="{{ route('deleteProject',$p->id) }}" method="POST" class="delete-form inline" data-name="{{ $p->name }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button"
@@ -414,14 +414,14 @@
                                             </button>
                                         </form>
 
-                                        <form action="" method="POST" class="inline">
-                                            @csrf
+
+                                            
                                             <a href="{{ asset($p->attechment) }}" type="submit"
                                                 class="action-btn p-2 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-500 hover:text-white transition-all duration-200"
                                                 title="Add to Task">
                                                 <i class="fas fa-eye text-sm"></i>
                                         </a>
-                                        </form>
+
                                     </div>
                                 </td>
                             </tr>

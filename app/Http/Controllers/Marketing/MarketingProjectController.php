@@ -115,4 +115,14 @@ class MarketingProjectController extends Controller
             return back()->with('error','Something went wrong');
         }
     }
+
+    public function deleteProject($id){
+        $deletedata = MarketingProject::findOrFail($id);
+        $existFile = $deletedata->attechment;
+        if($existFile && file_exists(public_path($existFile))){
+          unlink(public_path($existFile));
+        }
+        $deletedata->delete();
+        return back()->with('success','Project Deleted SuccessFul');
+    }
 }
