@@ -70,7 +70,7 @@
             {{-- Main Form Card --}}
             <div
                 class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-white/30 transition duration-300">
-                <form action="{{ route('update.employees', $user->id) }}" method="POST" enctype="multipart/form-data"
+                <form action="{{ Auth::guard('marketing_manager')->check() ? route('marketing.update.employees', $user->id) : route('update.employees', $user->id) }}" method="POST" enctype="multipart/form-data"
                     id="employeeForm">
                     @csrf
                     <div class="p-6 md:p-8 space-y-8">

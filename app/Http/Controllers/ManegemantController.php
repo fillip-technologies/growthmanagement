@@ -114,7 +114,7 @@ class ManegemantController extends Controller
             'graduation' => $graduationPath,
         ]);
 
-        
+
         RegistrationEvent::dispatch($employee, $plainPassword);
         return redirect()->route('employees')->with('success', 'User Added and email sent successfully :)');
     }
@@ -223,7 +223,7 @@ class ManegemantController extends Controller
 
         $user->update($updateData);
 
-        return redirect()->route('employees')->with('success', 'User Updated Successfully :)');
+        return back()->with('success', 'User Updated Successfully :)');
     }
 
     public function destroy($id)

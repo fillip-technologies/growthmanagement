@@ -3,10 +3,12 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\ManegemantController;
 use App\Http\Controllers\Marketing\MarketingEmployeeController;
 use App\Http\Controllers\Marketing\MarketingProjectController;
 use App\Http\Controllers\Task\DragTaskController;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::prefix('marketing/manager')->middleware(['marketing_manager'])->group(function(){
@@ -24,6 +26,9 @@ Route::get('dashboard', function () {
         Route::get('/drag/task', [MarketingEmployeeController::class, 'MarketingdragTask'])->name('marketing.drag.task');
         Route::post('/assing/drag/task', [DragTaskController::class, 'assignDragTask'])->name('marketing.assignDragTask');
         Route::get('/delete/assing/task', [DragTaskController::class, 'assingdeletetask'])->name('marketing.assingdeletetask');
+      Route::get('members',[MarketingEmployeeController::class, 'teammember'])->name('marketing.teammember');
+      Route::get('/emp/{id}', [ManegemantController::class, 'show'])->name('marketing.show');
+    Route::post('/update/employees/{id}', [ManegemantController::class, 'update'])->name('marketing.update.employees');
 
     // Route::controller(MarketingProjectController::class)->group(function(){
     //     Route::get('listproject','listproject')->name('mark.listproject');

@@ -166,11 +166,18 @@
                              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $data->department }}
                             </td>
-
+@php
+    $showRoute = null;
+    if(Auth::guard('super_admin')->check()){
+        $showRoute =route('show', $data->id);
+    }elseif (Auth::guard('marketing_manager')->check()) {
+        $showRoute =route('marketing.show', $data->id);
+    }
+@endphp
                             {{-- ACTIONS --}}
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 <div class="flex items-center justify-center gap-2">
-                                    <a href="{{ route('show', $data->id) }}"
+                                    <a href="{{$showRoute}}"
                                        class="p-2 rounded-lg text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200"
                                        title="View / Edit">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
