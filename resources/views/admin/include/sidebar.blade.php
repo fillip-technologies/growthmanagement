@@ -186,6 +186,15 @@
             <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
             Team Members
         </a>
+          <a href="{{ route('marketing.employee.task') }}"
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+              bg-gray-900/60 backdrop-blur-xl border border-gray-800
+              hover:bg-orange-600 hover:text-white hover:border-orange-400
+              transition-all duration-300 group">
+            <i class="fa-solid fa-chart-line mr-4 text-orange-500 group-hover:text-white"></i>
+            My Tasks
+        </a>
+
         <a href="{{ route('marketing.clientLeads') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
     bg-gray-900/60 backdrop-blur-xl border border-gray-800

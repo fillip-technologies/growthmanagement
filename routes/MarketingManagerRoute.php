@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ManegemantController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Marketing\MarketingEmployeeController;
 use App\Http\Controllers\Marketing\MarketingProjectController;
 use App\Http\Controllers\Task\DragTaskController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -31,16 +33,8 @@ Route::get('dashboard', function () {
     Route::post('/update/employees/{id}', [ManegemantController::class, 'update'])->name('marketing.update.employees');
     Route::delete('/employees/{id}', [ManegemantController::class, 'destroy'])->name('marketing.destroy');
     Route::get('marketing/report',[MarketingEmployeeController::class, 'Marketingreport'])->name('marketing.report');
-    // Route::controller(MarketingProjectController::class)->group(function(){
-    //     Route::get('listproject','listproject')->name('mark.listproject');
-    //     Route::get('/projectform','projectform')->name('projectform');
-    //     Route::post('/createProject','createProject')->name('mark.createProject');
-    //     Route::get('/editproduct/{id}','editproduct')->name('mrk.editproduct');
-    //     Route::post('updatdproduct/{id}','updatdproduct')->name('updatdproduct');
-    //     Route::delete('/deleteProject/{id}','deleteProject')->name('deleteProject');
-    //     Route::get('dragTask','dragTask')->name('mrk.dragTask');
-    //     Route::post('assignDragTask','assignDragTask')->name('mrk.assignDragTask');
-    // });
+    Route::get('/task', [EmployeeController::class, 'employeeTask'])->name('marketing.employee.task');
+
 
 
     // Route::get('clientLeads',[AdminController::class, 'clientLeads'])->name('marketing.clientLeads');

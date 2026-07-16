@@ -23,6 +23,10 @@ class EmployeeController extends Controller
          $id = Auth::guard('team_leader')->check() ? Auth::guard('team_leader')->user()->id : '';
          $tasks = AssingTask::with(['addtask', 'user'])->where('employee_id', $id)->get();
          return view('admin.taskList.employee_task', compact('tasks'));
+      }elseif(Auth::guard('marketing_manager')->check()){
+         $id = Auth::guard('marketing_manager')->check() ? Auth::guard('marketing_manager')->user()->id : '';
+         $tasks = AssingTask::with(['addtask', 'user'])->where('employee_id', $id)->get();
+         return view('admin.taskList.employee_task', compact('tasks'));
       }
 
     }
