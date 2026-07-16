@@ -3,6 +3,10 @@
     $dashboard = '';
     if (Auth::guard('super_admin')->check()) {
         $dashboard = route('admin.dashboard');
+    } elseif (Auth::guard('marketing_manager')->check()) {
+        $dashboard = route('marketing.dashboard');
+    } elseif (Auth::guard('hr_manager')->check()) {
+        $dashboard = route('hr.dashboard');
     } elseif (Auth::guard('employee')->check()) {
         $dashboard = route('employee.dashboard');
     } elseif (Auth::guard('project_manager')->check()) {
@@ -11,10 +15,6 @@
         $dashboard = route('teamhead.dashboard');
     } elseif (Auth::guard('account_manager')) {
         $dashboard = route('acmanager.dashboard');
-    } elseif (Auth::guard('marketing_manager')->check()) {
-        $dashboard = route('marketing.dashboard');
-    } elseif (Auth::guard('hr_manager')->check()) {
-        $dashboard = route('hr.dashboard');
     }
 @endphp
 
