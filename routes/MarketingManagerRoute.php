@@ -29,7 +29,8 @@ Route::get('dashboard', function () {
       Route::get('members',[MarketingEmployeeController::class, 'teammember'])->name('marketing.teammember');
       Route::get('/emp/{id}', [ManegemantController::class, 'show'])->name('marketing.show');
     Route::post('/update/employees/{id}', [ManegemantController::class, 'update'])->name('marketing.update.employees');
-
+    Route::delete('/employees/{id}', [ManegemantController::class, 'destroy'])->name('marketing.destroy');
+    Route::get('marketing/report',[MarketingEmployeeController::class, 'Marketingreport'])->name('marketing.report');
     // Route::controller(MarketingProjectController::class)->group(function(){
     //     Route::get('listproject','listproject')->name('mark.listproject');
     //     Route::get('/projectform','projectform')->name('projectform');

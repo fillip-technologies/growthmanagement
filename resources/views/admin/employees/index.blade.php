@@ -13,7 +13,7 @@
             <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Employees</h1>
             <p class="text-sm text-gray-500 mt-1">Manage and monitor your team members</p>
         </div>
-        @if(!Auth::guard('team_leader')->check())
+        @if(!Auth::guard('team_leader')->check() && !Auth::guard('marketing_manager')->check())
         <div>
             <a href="{{ route('create') }}"
                class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-sm transition duration-200 ease-in-out transform hover:scale-[1.02]">
@@ -168,10 +168,13 @@
                             </td>
 @php
     $showRoute = null;
+    $deleteRoute=null;
     if(Auth::guard('super_admin')->check()){
         $showRoute =route('show', $data->id);
+        $deleteRoute = route('destroy', $data->id);
     }elseif (Auth::guard('marketing_manager')->check()) {
         $showRoute =route('marketing.show', $data->id);
+        $deleteRoute =  route('marketing.destroy', $data->id);
     }
 @endphp
                             {{-- ACTIONS --}}
@@ -185,7 +188,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                         </svg>
                                     </a>
-                                    <form action="{{ route('destroy', $data->id) }}" method="POST"
+                                    <form action="{{  $deleteRoute  }}" method="POST"
                                           onsubmit="return confirm('Are you sure you want to delete this employee?')" class="inline">
                                         @csrf
                                         @method('DELETE')

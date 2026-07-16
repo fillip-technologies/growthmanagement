@@ -177,8 +177,7 @@
     @elseif(Auth::guard('account_manager')->check())
 
     @elseif(Auth::guard('marketing_manager')->check())
-
-    <a href="{{ route('marketing.teammember') }}"
+        <a href="{{ route('marketing.teammember') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
     bg-gray-900/60 backdrop-blur-xl border border-gray-800
     hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -187,7 +186,7 @@
             <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
             Team Members
         </a>
-   <a href="{{ route('marketing.clientLeads') }}"
+        <a href="{{ route('marketing.clientLeads') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
     bg-gray-900/60 backdrop-blur-xl border border-gray-800
     hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -197,7 +196,7 @@
             Leads
         </a>
 
-         <a href="{{ route('marketing.project.list') }}"
+        <a href="{{ route('marketing.project.list') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -206,7 +205,7 @@
             Projects
         </a>
 
-         <a href="{{ route('marketing.drag.task') }}"
+        <a href="{{ route('marketing.drag.task') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -214,9 +213,17 @@
             <i class="fa-solid fa-people-arrows mr-4 text-orange-500 group-hover:text-white"></i>
             Drag Tasks
         </a>
-    @elseif(Auth::guard('hr_manager')->check())
 
-    <a href="{{ route('hr.attendanceList') }}"
+         <a href="{{ route('marketing.report') }}"
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+              bg-gray-900/60 backdrop-blur-xl border border-gray-800
+              hover:bg-orange-600 hover:text-white hover:border-orange-400
+              transition-all duration-300 group">
+            <i class="fas fa-folder-open mr-4 text-orange-500 group-hover:text-white"></i>
+            Reports
+        </a>
+    @elseif(Auth::guard('hr_manager')->check())
+        <a href="{{ route('hr.attendanceList') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
