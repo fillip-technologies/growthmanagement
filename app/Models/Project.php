@@ -8,6 +8,7 @@ class Project extends Model
 {
     protected $fillable = [
         'name',
+        'created_by',
         'description',
         'start_date',
         'end_date',
@@ -42,5 +43,9 @@ class Project extends Model
     public function discuss()
     {
         return $this->hasMany(Discuss::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'created_by');
     }
 }

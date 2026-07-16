@@ -476,7 +476,11 @@
     </div>
 
     <form id="assignForm"
-        action="{{ Auth::guard('team_leader')->check() ? route('teamhead.assignDragTask') : route('assignDragTask') }}"
+        action="{{ Auth::guard('team_leader')->check()
+            ? route('teamhead.assignDragTask')
+            : (Auth::guard('marketing_manager')->check()
+                ? route('marketing.assignDragTask')
+                : route('assignDragTask')) }}"
         method="POST" style="display: none;">
         @csrf
         @php
@@ -487,6 +491,8 @@
                 $id = Auth::guard('project_manager')->id();
             } elseif (Auth::guard('super_admin')->check()) {
                 $id = Auth::guard('super_admin')->id();
+            } elseif (Auth::guard('marketing_manager')->check()) {
+                $id = Auth::guard('marketing_manager')->id();
             }
         @endphp
         <input type="hidden" name="task_id" id="task_id">
@@ -622,7 +628,11 @@
                     let deleteUrl = "{{ route('teamhead.assingdeletetask') }}";
                 @elseif (Auth::guard('project_manager')->check() || Auth::guard('super_admin')->check())
                     let deleteUrl = "{{ route('assingdeletetask') }}";
+                    @elseif (Auth::guard('marketing_manager')->check())
+                    let deleteUrl = "{{ route('marketing.assingdeletetask') }}";
                 @endif
+
+
 
                 Swal.fire({
                     title: 'Remove Assignment?',

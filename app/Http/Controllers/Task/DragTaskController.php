@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Task;
- 
+
 use App\Http\Controllers\Controller;
 use App\Mail\AssingtaskMail;
 use App\Models\AddTask;
@@ -37,6 +37,8 @@ class DragTaskController extends Controller
         $id = Auth::guard('project_manager')->id();
         }elseif(Auth::guard('super_admin')->check()){
         $id = Auth::guard('super_admin')->id();
+        }elseif(Auth::guard('marketing_manager')->check()){
+         $id = Auth::guard('marketing_manager')->id();
         }
 
         $data = AssingTask::create([

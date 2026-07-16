@@ -184,18 +184,28 @@
                     });
                 </script>
             @endif
+            @php
+                $projectCreate= route('project.store');
+                $id = null;
+                if(Auth::guard('super_admin')->check()){
+                    $projectCreate=route('project.store');
+                    $id = SuperAdminLogin()->id;
+                }elseif (Auth::guard('marketing_manager')->check()) {
+                    $id = MarketingLogin()->id;
+                    $projectCreate=route('marketing.project.store');
+                }
+            @endphp
 
-
-            <form action="{{ route('project.store') }}" method="POST" class="animate-fade-up"
+            <form action="{{ $projectCreate }}" method="POST" class="animate-fade-up"
                 style="animation-delay: 0.1s">
                 @csrf
-
+              <input type="hidden" name="created_by" value="{{ $id }}">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
 
                     <div class="lg:col-span-2 space-y-6">
 
-                   
+
                         <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 card-hover">
                             <div class="px-6 py-4 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100">
                                 <h3 class="font-bold text-gray-800 flex items-center gap-2">

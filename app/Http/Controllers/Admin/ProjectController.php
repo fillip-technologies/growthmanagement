@@ -38,6 +38,7 @@ class ProjectController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'created_by'=>'nullable',
             'description' => 'required',
             'status' => 'required',
             'priority' => 'required',

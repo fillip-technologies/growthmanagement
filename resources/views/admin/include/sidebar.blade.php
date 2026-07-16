@@ -187,7 +187,7 @@
             Leads
         </a>
 
-         <a href="{{ route('mark.listproject') }}"
+         <a href="{{ route('marketing.project.list') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -196,7 +196,7 @@
             Projects
         </a>
 
-         <a href="{{ route('mrk.dragTask') }}"
+         <a href="{{ route('marketing.drag.task') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400

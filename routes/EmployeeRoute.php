@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\AttendanceInfoController;
 use App\Http\Controllers\ChatApp\ChatManagementController;
+use App\Http\Controllers\Marketing\MarketingEmployeeController;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::prefix('employee')->middleware('employee')->group(function () {
@@ -31,4 +33,8 @@ Route::prefix('employee')->middleware('employee')->group(function () {
 
     Route::post('/send/admin/sms', [ChatManagementController::class, 'employeeSms'])->name('employee.chat.sms');
     Route::get('/get/sms', [ChatManagementController::class, 'getSmsEmp'])->name('get.employee.chat');
+
+    Route::controller(MarketingEmployeeController::class)->group(function(){
+        Route::get('/mrkempget/task','mrkempgetTask')->name('mrkempgetTask');
+    });
 });
