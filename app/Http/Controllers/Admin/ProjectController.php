@@ -104,7 +104,7 @@ class ProjectController extends Controller
         ]);
 
         if ($projectupdate) {
-            return redirect()->route('project.list')
+            return back()
                 ->with('success', 'project update successfully');
         } else {
             return back()->with('error', 'Something went wrong');

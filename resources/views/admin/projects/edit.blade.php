@@ -243,8 +243,15 @@
                 </script>
             @endif
 
-
-            <form action="{{ route('project.update', $project->id) }}" method="POST" class="animate-fade-up"
+@php
+ $updateRoute=null;
+    if(Auth::guard('super_admin')->check()){
+        $updateRoute =  route('project.update', $project->id);
+    }elseif (Auth::guard('marketing_manager')->check()) {
+        $updateRoute =  route('marketing.project.update', $project->id);
+    }
+@endphp
+            <form action="{{ $updateRoute}}" method="POST" class="animate-fade-up"
                 style="animation-delay: 0.1s">
                 @csrf
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -352,11 +359,11 @@
                                     </button>
                                 </div>
                                 @php
-                                    $modules = $project->modules ?? [];
+                                    $modules = json_decode($project->modules,true) ?? [];
                                 @endphp
 
                                 <div id="module-wrapper" class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar pr-2">
-                                    @if (count($modules))
+                                    @if ($modules)
                                         @foreach ($modules as $index => $module)
                                             <div
                                                 class="module-item flex gap-3 items-center bg-gray-50 rounded-xl p-3 border border-gray-200 hover:border-orange-300 transition-all duration-200 group">
