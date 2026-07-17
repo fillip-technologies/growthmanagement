@@ -579,7 +579,7 @@
                                         </label>
                                         <div class="input-group">
                                             <input type="text" name="domain_name" placeholder="e.g., example.com"
-                                                value="{{ old('domain_name', $Infrastructure->domain_name ?? "") }}"
+                                                value="{{ old('domain_name', $Infrastructure->domain_name ?? '') }}"
                                                 class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                             <i class="fas fa-globe input-group-icon"></i>
                                         </div>
@@ -597,7 +597,7 @@
                                         <div class="input-group">
                                             <input type="text" name="domain_registrar"
                                                 placeholder="e.g., GoDaddy, Namecheap"
-                                                value="{{ old('domain_registrar', $Infrastructure->domain_registrar ?? "") }}"
+                                                value="{{ old('domain_registrar', $Infrastructure->domain_registrar ?? '') }}"
                                                 class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                             <i class="fas fa-building input-group-icon"></i>
                                         </div>
@@ -615,7 +615,7 @@
                                         <div class="input-group">
                                             <input type="text" name="hosting_provider"
                                                 placeholder="e.g., AWS, DigitalOcean, Bluehost"
-                                                value="{{ old('hosting_provider', $Infrastructure->hosting_provider ?? "") }}"
+                                                value="{{ old('hosting_provider', $Infrastructure->hosting_provider ?? '') }}"
                                                 class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                             <i class="fas fa-cloud input-group-icon"></i>
                                         </div>
@@ -633,7 +633,7 @@
                                         <div class="input-group">
                                             <input type="text" name="hosting_account_owner"
                                                 placeholder="e.g., John Doe, IT Department"
-                                                value="{{ old('hosting_account_owner', $Infrastructure->hosting_account_owner ?? "") }}"
+                                                value="{{ old('hosting_account_owner', $Infrastructure->hosting_account_owner ?? '') }}"
                                                 class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                             <i class="fas fa-user-circle input-group-icon"></i>
                                         </div>
@@ -653,16 +653,16 @@
                                                 class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 appearance-none bg-white cursor-pointer transition-all duration-200">
                                                 <option value="">Select SSL Status</option>
                                                 <option value="active"
-                                                    {{ old('ssl_certificate', $Infrastructure->ssl_certificate ?? "") == 'active' ? 'selected' : '' }}>
+                                                    {{ old('ssl_certificate', $Infrastructure->ssl_certificate ?? '') == 'active' ? 'selected' : '' }}>
                                                     🔒 Active</option>
                                                 <option value="expiring"
-                                                    {{ old('ssl_certificate', $Infrastructure->ssl_certificate ?? "") == 'expiring' ? 'selected' : '' }}>
+                                                    {{ old('ssl_certificate', $Infrastructure->ssl_certificate ?? '') == 'expiring' ? 'selected' : '' }}>
                                                     ⚠️ Expiring Soon</option>
                                                 <option value="inactive"
-                                                    {{ old('ssl_certificate', $Infrastructure->ssl_certificate ?? "") == 'inactive' ? 'selected' : '' }}>
+                                                    {{ old('ssl_certificate', $Infrastructure->ssl_certificate ?? '') == 'inactive' ? 'selected' : '' }}>
                                                     🔓 Inactive</option>
                                                 <option value="not_installed"
-                                                    {{ old('ssl_certificate', $Infrastructure->ssl_certificate ?? "") == 'not_installed' ? 'selected' : '' }}>
+                                                    {{ old('ssl_certificate', $Infrastructure->ssl_certificate ?? '') == 'not_installed' ? 'selected' : '' }}>
                                                     ❌ Not Installed</option>
                                             </select>
                                             <i
@@ -683,7 +683,7 @@
                                         <div class="input-group">
                                             <input type="text" name="email_service_provider"
                                                 placeholder="e.g., Google Workspace, Zoho, Mailgun"
-                                                value="{{ old('email_service_provider', $Infrastructure->email_service_provider ?? "") }}"
+                                                value="{{ old('email_service_provider', $Infrastructure->email_service_provider ?? '') }}"
                                                 class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                             <i class="fas fa-envelope input-group-icon"></i>
                                         </div>
@@ -701,7 +701,7 @@
                                         <div class="input-group">
                                             <input type="text" name="dns_management"
                                                 placeholder="e.g., Cloudflare, AWS Route 53, GoDaddy"
-                                                value="{{ old('dns_management', $Infrastructure->dns_management ?? "") }}"
+                                                value="{{ old('dns_management', $Infrastructure->dns_management ?? '') }}"
                                                 class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                             <i class="fas fa-sitemap input-group-icon"></i>
                                         </div>
@@ -719,7 +719,7 @@
                                         <div class="input-group">
                                             <input type="text" name="cdn_provider"
                                                 placeholder="e.g., Cloudflare, Akamai, Fastly"
-                                                value="{{ old('cdn_provider', $Infrastructure->cdn_provider ?? "") }}"
+                                                value="{{ old('cdn_provider', $Infrastructure->cdn_provider ?? '') }}"
                                                 class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                             <i class="fas fa-network-wired input-group-icon"></i>
                                         </div>
@@ -737,7 +737,7 @@
                                         <div class="input-group">
                                             <input type="text" name="third_party_apis"
                                                 placeholder="e.g., Stripe, PayPal, Google Maps"
-                                                value="{{ old('third_party_apis', $Infrastructure->third_party_apis ?? "") }}"
+                                                value="{{ old('third_party_apis', $Infrastructure->third_party_apis ?? '') }}"
                                                 class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                             <i class="fas fa-plug input-group-icon"></i>
                                         </div>
@@ -753,7 +753,7 @@
                                             Renewal Date
                                         </label>
                                         @php
-                                              $renewaldate = $Infrastructure->renewal_date ?? "";
+                                            $renewaldate = $Infrastructure->renewal_date ?? '';
                                         @endphp
                                         <div class="input-group">
                                             <input type="date" name="renewal_date"
@@ -775,7 +775,7 @@
                                         <div class="input-group">
                                             <input type="text" name="responsible_team_member"
                                                 placeholder="e.g., Sarah Johnson, DevOps Team"
-                                                value="{{ old('responsible_team_member', $Infrastructure->responsible_team_member ?? "") }}"
+                                                value="{{ old('responsible_team_member', $Infrastructure->responsible_team_member ?? '') }}"
                                                 class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                             <i class="fas fa-users input-group-icon"></i>
                                         </div>
@@ -823,8 +823,13 @@
                                     </button>
                                 </div>
                                 @php
-                                    $modules = $project->modules ?? [];
+                                    $modules = is_array($project->modules)
+                                        ? $project->modules
+                                        : json_decode($project->modules, true);
+
+                                    $modules = $modules ?? [];
                                 @endphp
+
 
                                 <div id="module-wrapper" class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar pr-2">
                                     @if (!empty($modules))
