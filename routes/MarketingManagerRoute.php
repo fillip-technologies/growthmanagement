@@ -34,7 +34,7 @@ Route::get('dashboard', function () {
     Route::delete('/employees/{id}', [ManegemantController::class, 'destroy'])->name('marketing.destroy');
     Route::get('marketing/report',[MarketingEmployeeController::class, 'Marketingreport'])->name('marketing.report');
     Route::get('/task', [EmployeeController::class, 'employeeTask'])->name('marketing.employee.task');
-
+    Route::get('/view/project/{id}',[ProjectController::class, 'projectView'])->name('marketing.view.project');
 
 
     // Route::get('clientLeads',[AdminController::class, 'clientLeads'])->name('marketing.clientLeads');

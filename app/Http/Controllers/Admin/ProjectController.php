@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\AddTask;
 use App\Models\AttendanceInfo;
 use App\Models\Project;
+use App\Models\ProjectHumanResource;
+use App\Models\ProjectInfraResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -27,7 +30,6 @@ class ProjectController extends Controller
     public function create()
     {
         $employees = User::with('role')->where('role', '!=', 'super_admin')->get();
-
         return view('admin.projects.create', compact('employees'));
     }
 
@@ -46,10 +48,30 @@ class ProjectController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
         $data = Project::create($request->all());
+        ProjectInfraResource::create([
+        "project_id"=>$data->id,
+        'domain_name'=>$request->domain_name,
+        'domain_registrar'=>$request->domain_registrar,
+        'hosting_provider'=>$request->hosting_provider,
+        'hosting_account_owner'=>$request->hosting_account_owner,
+        'ssl_certificate'=>$request->ssl_certificate,
+        'email_service_provider'=>$request->email_service_provider,
+        'dns_management'=>$request->dns_management,
+        'cdn_provider'=>$request->cdn_provider,
+        'third_party_apis'=>$request->third_party_apis,
+        'renewal_date'=>$request->renewal_date,
+        'responsible_team_member'=>$request->responsible_team_member
+         ]);
+         ProjectHumanResource::create([
+            "project_id"=>$data->id,
+            'project_manager'=>$request->project_manager,
+            'developer'=>$request->developer,
+            'designer'=>$request->designer,
+            'qa_engineer'=>$request->qa_engineer
+         ]);
         if ($data) {
             AddTask::create(['project_id' => $data->id]);
         }
-
         return redirect()->route('project.list')
             ->with('success', 'Project created successfully.');
     }
@@ -64,53 +86,68 @@ class ProjectController extends Controller
         return view('admin.projects.show', compact('project'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit($id)
     {
-        $project = Project::findorFail($id);
-// dd($project);
+        $project = Project::with(['projectInfraresource','projecthumanresource'])->findOrFail($id);
         return view('admin.projects.edit', compact('project'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
+   public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required',
+        'description' => 'required',
+        'start_date' => 'required',
+        'end_date' => 'required',
+        'status' => 'required',
+        'priority' => 'required',
+        'modules' => 'nullable|array',
+        'modules.*' => 'nullable',
+    ]);
 
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'status' => 'required',
-            'modules' => 'nullable|array',
-            'priority' => 'required',
-            'modules.*' => 'nullable',
-        ]);
-
-        $project = Project::findOrFail($id);
-
-        $projectupdate = $project->update([
+       $project = Project::findOrFail($id);
+        DB::transaction(function () use ($request, $project) {
+        $project->update([
             'name' => $request->name,
             'description' => $request->description,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'status' => $request->status,
             'priority' => $request->priority,
-            'modules' => json_encode($request->modules),
+            'modules' => json_encode($request->modules ?? []),
         ]);
 
-        if ($projectupdate) {
-            return back()
-                ->with('success', 'project update successfully');
-        } else {
-            return back()->with('error', 'Something went wrong');
-        }
+        ProjectHumanResource::updateOrCreate(
+            ['project_id' => $project->id],
+            [
+                'project_manager' => $request->project_manager,
+                'developer' => $request->developer,
+                'designer' => $request->designer,
+                'qa_engineer' => $request->qa_engineer,
+            ]
+        );
 
-    }
+         ProjectInfraResource::updateOrCreate(
+            ['project_id' => $project->id],
+            [
+                'domain_name' => $request->domain_name,
+                'domain_registrar' => $request->domain_registrar,
+                'hosting_provider' => $request->hosting_provider,
+                'hosting_account_owner' => $request->hosting_account_owner,
+                'ssl_certificate' => $request->ssl_certificate,
+                'email_service_provider' => $request->email_service_provider,
+                'dns_management' => $request->dns_management,
+                'cdn_provider' => $request->cdn_provider,
+                'third_party_apis' => $request->third_party_apis,
+                'renewal_date' => $request->renewal_date,
+                'responsible_team_member' => $request->responsible_team_member,
+            ]
+        );
+    });
+
+    return back()->with('success', 'Project updated successfully');
+}
 
     public function destroy($id)
     {
@@ -150,5 +187,9 @@ class ProjectController extends Controller
     public function projectInfo($id){
         $data = AttendanceInfo::with(['employee','project'])->findOrFail($id);
         return view('admin.projects.project_info',compact('data'));
+    }
+
+    public function projectView($id){
+        return view('admin.projects.view_project');
     }
 }

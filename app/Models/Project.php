@@ -48,4 +48,12 @@ class Project extends Model
     public function user(){
         return $this->belongsTo(User::class,'created_by');
     }
+
+    public function projectInfraresource(){
+        return $this->hasMany(projectInfraresource::class);
+    }
+
+    public function projecthumanresource(){
+        return $this->hasMany(ProjectHumanResource::class,'project_id');
+    }
 }

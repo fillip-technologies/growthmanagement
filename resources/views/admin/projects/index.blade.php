@@ -119,6 +119,64 @@
             background: #fb923c;
             border-radius: 10px;
         }
+
+        .team-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .team-avatar.pm {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        .team-avatar.dev {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+        }
+
+        .team-avatar.design {
+            background: linear-gradient(135deg, #ec4899, #db2777);
+        }
+
+        .team-avatar.qa {
+            background: linear-gradient(135deg, #eab308, #ca8a04);
+        }
+
+        .infra-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 500;
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .infra-tag.ssl {
+            background: #eff6ff;
+            color: #1e40af;
+            border-color: #bfdbfe;
+        }
+
+        .infra-tag.hosting {
+            background: #fef3c7;
+            color: #92400e;
+            border-color: #fde68a;
+        }
+
+        .infra-tag.domain {
+            background: #fce7f3;
+            color: #9d174d;
+            border-color: #f9a8d4;
+        }
     </style>
 
     @php
@@ -185,15 +243,17 @@
             });
         </script>
     @endif
+
     @php
         $createProject = null;
         $editRoute = null;
         if (Auth::guard('marketing_manager')->check()) {
             $createProject = route('marketing.project.create');
-        } elseif (Auth::guard('super_admin')) {
+        } elseif (Auth::guard('super_admin')->check()) {
             $createProject = route('project.create');
         }
     @endphp
+
     <div class="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-orange-50/20 py-6 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
 
@@ -323,10 +383,10 @@
                     <div class="flex-1 relative">
                         <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <input type="text" id="searchInput"
-                            placeholder="Search projects by name, description, or modules..."
+                            placeholder="Search projects by name, description, modules, team members, or domain..."
                             class="search-input w-full pl-11 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 transition-all duration-200">
                     </div>
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 flex-wrap">
                         <select id="statusFilter"
                             class="px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 bg-white">
                             <option value="all">📊 All Status</option>
@@ -362,7 +422,10 @@
                                     <i class="fas fa-project-diagram mr-1"></i> Project
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                                    <i class="fas fa-align-left mr-1"></i> Description
+                                    <i class="fas fa-users mr-1"></i> Team
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                                    <i class="fas fa-server mr-1"></i> Infrastructure
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-calendar-alt mr-1"></i> Timeline
@@ -377,7 +440,7 @@
                                     <i class="fas fa-cubes mr-1"></i> Modules
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                                    <i class="fas fa-chart-line mr-1"></i> Created By
+                                    <i class="fas fa-user mr-1"></i> Created By
                                 </th>
                                 <th class="px-6 py-4 text-center text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-bolt mr-1"></i> Actions
@@ -396,11 +459,65 @@
                                         \Carbon\Carbon::parse($p->end_date)->isPast() &&
                                         $p->status != 'completed';
                                     $progress = $p->status == 'completed' ? 100 : ($p->status == 'ongoing' ? 60 : 20);
+
+                                    // Human Resources
+                                    $teamMembers = [
+                                        [
+                                            'role' => 'PM',
+                                            'name' => $p->project_manager,
+                                            'class' => 'pm',
+                                            'icon' => 'fa-user-tie',
+                                        ],
+                                        [
+                                            'role' => 'DEV',
+                                            'name' => $p->developer,
+                                            'class' => 'dev',
+                                            'icon' => 'fa-code',
+                                        ],
+                                        [
+                                            'role' => 'DESIGN',
+                                            'name' => $p->designer,
+                                            'class' => 'design',
+                                            'icon' => 'fa-paint-brush',
+                                        ],
+                                        [
+                                            'role' => 'QA',
+                                            'name' => $p->qa_engineer,
+                                            'class' => 'qa',
+                                            'icon' => 'fa-bug',
+                                        ],
+                                    ];
+                                    $hasTeam = false;
+                                    foreach ($teamMembers as $member) {
+                                        if ($member['name']) {
+                                            $hasTeam = true;
+                                            break;
+                                        }
+                                    }
+
+                                    // Infrastructure
+                                    $infraFields = [
+                                        ['label' => 'Domain', 'value' => $p->domain_name, 'class' => 'domain'],
+                                        ['label' => 'Hosting', 'value' => $p->hosting_provider, 'class' => 'hosting'],
+                                        ['label' => 'SSL', 'value' => $p->ssl_certificate, 'class' => 'ssl'],
+                                    ];
+                                    $hasInfra = false;
+                                    foreach ($infraFields as $infra) {
+                                        if ($infra['value']) {
+                                            $hasInfra = true;
+                                            break;
+                                        }
+                                    }
                                 @endphp
                                 <tr class="table-row hover:bg-orange-50/50 transition-all duration-200"
                                     data-status="{{ $p->status }}" data-priority="{{ $p->priority }}"
                                     data-name="{{ strtolower($p->name) }}"
-                                    data-description="{{ strtolower($p->description) }}">
+                                    data-description="{{ strtolower($p->description) }}"
+                                    data-project-manager="{{ strtolower($p->project_manager ?? '') }}"
+                                    data-developer="{{ strtolower($p->developer ?? '') }}"
+                                    data-designer="{{ strtolower($p->designer ?? '') }}"
+                                    data-qa-engineer="{{ strtolower($p->qa_engineer ?? '') }}"
+                                    data-domain="{{ strtolower($p->domain_name ?? '') }}">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span
                                             class="text-sm font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded-lg">{{ $key + 1 }}</span>
@@ -426,17 +543,42 @@
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        <div class="group relative">
-                                            <p class="text-sm text-gray-600 max-w-xs truncate cursor-help">
-                                                {{ Str::limit($p->description, 50) }}
-                                            </p>
-                                            @if (strlen($p->description) > 50)
-                                                <div
-                                                    class="absolute left-0 bottom-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg p-2 z-10 whitespace-normal max-w-sm shadow-lg">
-                                                    {{ $p->description }}
-                                                </div>
-                                            @endif
-                                        </div>
+                                        @if ($hasTeam)
+                                            <div class="flex flex-wrap items-center gap-1">
+                                                @foreach ($teamMembers as $member)
+                                                    @if ($member['name'])
+                                                        <div class="group relative">
+                                                            <div class="team-avatar {{ $member['class'] }}">
+                                                                <i
+                                                                    class="fas {{ $member['icon'] }} text-white text-[10px]"></i>
+                                                            </div>
+                                                            <div
+                                                                class="absolute left-0 bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg px-2 py-1 whitespace-nowrap z-10">
+                                                                {{ $member['role'] }}: {{ $member['name'] }}
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            <span class="text-gray-400 text-xs">—</span>
+                                        @endif
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        @if ($hasInfra)
+                                            <div class="flex flex-wrap gap-1">
+                                                @foreach ($infraFields as $infra)
+                                                    @if ($infra['value'])
+                                                        <span class="infra-tag {{ $infra['class'] }}">
+                                                            {{ $infra['label'] }}: {{ Str::limit($infra['value'], 15) }}
+                                                        </span>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            <span class="text-gray-400 text-xs">—</span>
+                                        @endif
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap">
@@ -504,33 +646,44 @@
                                             <span class="text-gray-400 text-sm">—</span>
                                         @endif
                                     </td>
-                                    @php
 
-                                        $editRoute = null;
-                                        $deleteRoute = null;
-                                        if (Auth::guard('marketing_manager')->check()) {
-                                            $editRoute = route('marketing.project.edit', $p->id);
-                                            $deleteRoute = route('marketing.project.delete', $p->id);
-                                        } elseif (Auth::guard('super_admin')) {
-                                            $editRoute = route('project.edit', $p->id);
-                                            $deleteRoute = route('project.delete', $p->id);
-                                        }
-                                    @endphp
-                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="space-y-1">
-                                            <div class=" items-center gap-1.5 text-xs text-gray-500">
-                                                <p>{{ $p->user->name ?? 'N/A' }}</p>
-                                                <p>{{ $p->user->email ?? "N/A" }}</p>
-                                            </div>
-                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-1.5 text-xs text-gray-500">
+                                                <p class="font-medium">{{ $p->user->name ?? 'N/A' }}</p>
+                                            </div>
+                                            <div class="flex items-center gap-1.5 text-xs text-gray-400">
+                                                <i class="fas fa-envelope"></i>
+                                                <p>{{ $p->user->email ?? 'N/A' }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @php
+                                            $editRoute = null;
+                                            $deleteRoute = null;
+                                            $viewRoute = null;
+                                            if (Auth::guard('marketing_manager')->check()) {
+                                                $editRoute = route('marketing.project.edit', $p->id);
+                                                $deleteRoute = route('marketing.project.delete', $p->id);
+                                                $viewRoute = route('marketing.view.project', $p->id);
+                                            } elseif (Auth::guard('super_admin')->check()) {
+                                                $editRoute = route('project.edit', $p->id);
+                                                $deleteRoute = route('project.delete', $p->id);
+                                                $viewRoute = route('admin.view.project', $p->id);
+                                            }
+                                        @endphp
                                         <div class="flex items-center justify-center gap-1.5">
                                             <a href="{{ $editRoute }}"
                                                 class="action-btn group p-2 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white transition-all duration-200"
                                                 title="Edit Project">
                                                 <i class="fas fa-edit text-sm"></i>
                                             </a>
-
+                                            <a href="{{ $viewRoute }}"
+                                                class="action-btn group p-2 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white transition-all duration-200"
+                                                title="Edit Project">
+                                                <i class="fas fa-eye text-sm"></i> </a>
                                             <form action="{{ $deleteRoute }}" method="POST" class="delete-form inline"
                                                 data-name="{{ $p->name }}">
                                                 @csrf
@@ -556,7 +709,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="px-6 py-16 text-center">
+                                    <td colspan="10" class="px-6 py-16 text-center">
                                         <div class="flex flex-col items-center gap-4">
                                             <div
                                                 class="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
@@ -567,7 +720,7 @@
                                                 <p class="text-gray-400 text-sm mt-1">Get started by creating your first
                                                     project</p>
                                             </div>
-                                            <a href="{{ $createRoute }}"
+                                            <a href="{{ $createProject }}"
                                                 class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
                                                 <i class="fas fa-plus"></i>
                                                 Create Project
@@ -613,12 +766,22 @@
                 const rowPriority = row.getAttribute('data-priority');
                 const rowName = row.getAttribute('data-name') || '';
                 const rowDesc = row.getAttribute('data-description') || '';
+                const rowPM = row.getAttribute('data-project-manager') || '';
+                const rowDev = row.getAttribute('data-developer') || '';
+                const rowDesigner = row.getAttribute('data-designer') || '';
+                const rowQA = row.getAttribute('data-qa-engineer') || '';
+                const rowDomain = row.getAttribute('data-domain') || '';
 
                 let show = true;
 
                 if (status !== 'all' && rowStatus !== status) show = false;
                 if (priority !== 'all' && rowPriority !== priority) show = false;
-                if (search && !rowName.includes(search) && !rowDesc.includes(search)) show = false;
+                if (search && !rowName.includes(search) && !rowDesc.includes(search) &&
+                    !rowPM.includes(search) && !rowDev.includes(search) &&
+                    !rowDesigner.includes(search) && !rowQA.includes(search) &&
+                    !rowDomain.includes(search)) {
+                    show = false;
+                }
 
                 row.style.display = show ? '' : 'none';
             });
