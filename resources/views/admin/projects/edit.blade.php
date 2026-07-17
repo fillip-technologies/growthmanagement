@@ -823,12 +823,12 @@
                                     </button>
                                 </div>
                                 @php
-                                    $modules = json_decode($project->modules, true) ?? [];
+                                    $modules = $project->modules ?? [];
                                 @endphp
 
                                 <div id="module-wrapper" class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar pr-2">
                                     @if (!empty($modules))
-                                        @foreach ($modules as $index => $module)
+                                        @foreach ($modules ?? [] as $index => $module)
                                             <div
                                                 class="module-item flex gap-3 items-center bg-gray-50 rounded-xl p-3 border border-gray-200 hover:border-orange-300 transition-all duration-200 group">
                                                 <div class="flex-shrink-0">

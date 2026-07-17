@@ -50,7 +50,7 @@ class Project extends Model
     }
 
     public function projectInfraresource(){
-        return $this->hasMany(projectInfraresource::class);
+        return $this->hasMany(ProjectInfraResource::class);
     }
 
     public function projecthumanresource(){
