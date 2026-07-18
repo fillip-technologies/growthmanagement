@@ -39,5 +39,6 @@ class MarketingEmployeeController extends Controller
         $query->where('department','Marketing Department');
         })->paginate(10);
         return view('admin.reports.report', compact('reports'));
+        
     }
 }

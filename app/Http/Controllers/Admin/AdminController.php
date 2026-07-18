@@ -113,7 +113,6 @@ public function clientLeads(Request $request)
         }
 
         $leads = collect($response->json('data.leads', []));
-
         // Search
         if ($request->filled('search')) {
             $search = strtolower($request->search);
@@ -140,7 +139,7 @@ public function clientLeads(Request $request)
                 'query' => request()->query(),
             ]
         );
-        
+
 
         return view('admin.leads.ClientLeads', compact('paginatedLeads'));
 

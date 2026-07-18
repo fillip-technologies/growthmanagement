@@ -124,6 +124,12 @@
                     $logout = route('acmanagerLogout') ?? '';
                     $profile = route('autherprofile');
 
+                }elseif (Auth::guard('sales_manager')->check()) {
+                    $rolename = Auth::guard('sales_manager')->user()->role ?? '';
+                    $name = Auth::guard('sales_manager')->user()->name ?? '';
+                    $logout = route('sales.logout') ?? '';
+                    $profile = route('autherprofile');
+
                 }
             @endphp
 

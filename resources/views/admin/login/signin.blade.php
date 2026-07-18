@@ -432,6 +432,7 @@
                                         <option value="team_leader">📈 Development Head</option>
                                         <option value="marketing_manager">📊 Marketing Manager</option>
                                         <option value="hr_manager">📊 HR Manager</option>
+                                         <option value="sales_manager">📊 Sales Manager</option>
                                         <option value="account_manager">📊 Account Manager</option>
                                         <option value="employee">🧑‍💻 Employee</option>
                                     </select>

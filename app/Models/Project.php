@@ -56,4 +56,5 @@ class Project extends Model
     public function projecthumanresource(){
         return $this->hasMany(ProjectHumanResource::class,'project_id');
     }
+    
 }

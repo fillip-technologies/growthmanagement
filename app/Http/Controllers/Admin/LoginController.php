@@ -45,7 +45,7 @@ class LoginController extends Controller
             }else {
                 return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
             }
-    }elseif ($request->role == 'team_leader') {
+        }elseif ($request->role == 'team_leader') {
             if(Auth::guard('team_leader')->attempt(['email'=>$request->email,'password'=>$request->password])){
                 $request->session()->regenerate();
                 $authUser= Auth::guard('team_leader')->user();
@@ -110,6 +110,19 @@ class LoginController extends Controller
                 }else {
                     return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
                 }
+              }elseif ($request->role == 'sales_manager') {
+                if(Auth::guard('sales_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
+                    $request->session()->regenerate();
+                    $authUser= Auth::guard('sales_manager')->user();
+                    if($authUser->role == 'sales_manager'){
+                        return redirect()->route('sales_manager.dashboard');
+                    }else{
+                    return redirect()->route('admin')->with('error', 'Invalid Credentials');
+                    }
+
+                }else {
+                    return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
+                }
             }else{
             return redirect('/')->with('error','Username And Password Invalide');
         }
@@ -149,6 +162,18 @@ public function acmanagerLogout(Request $request)
 
     return redirect('/');
 }
+
+public function salesmanagerLogout(Request $request)
+{
+    Auth::guard('sales_manager')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/');
+}
+
+
+
 
 
  public function marketingmanagerLogout(Request $request)

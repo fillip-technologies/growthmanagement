@@ -2,6 +2,8 @@
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
+
 
 if (! function_exists('role')) {
     function role()
@@ -14,6 +16,7 @@ if (! function_exists('role')) {
             "marketing_manager"=>"Marketing Manager",
             "account_manager"=> "Account Manager",
             "hr_manager"=> "Hr Manager",
+            'sales_manager'=>"Sales Manager"
        ];
     }
 }
@@ -44,5 +47,28 @@ if (! function_exists('department')) {
             'IT Department',
             'Sales Department',
         ];
+    }
+}
+
+if (!function_exists('fillipLeads')) {
+
+    function fillipLeads()
+    {
+        try {
+            $response = Http::get('https://lead.filliptechnologies.com/api/leadlist');
+            if (!$response->successful()) {
+                return collect();
+            }
+            return collect($response->json('data.leads'))
+                ->map(function ($lead) {
+                    return [
+                        'id'   => $lead['id'] ?? null,
+                        'name' => $lead['name'] ?? null,
+                    ];
+                });
+
+        } catch (\Exception $e) {
+            return collect();
+        }
     }
 }

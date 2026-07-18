@@ -128,6 +128,10 @@ class User extends Authenticatable
         return $this->hasMany(Project::class,'created_by');
     }
 
+    public function leadcreate(){
+        return $this->hasMany(LeadCreate::class,'created_by');
+    }
+
 
 
 

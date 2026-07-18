@@ -5,6 +5,8 @@
         $dashboard = route('admin.dashboard');
     } elseif (Auth::guard('marketing_manager')->check()) {
         $dashboard = route('marketing.dashboard');
+    } elseif (Auth::guard('sales_manager')) {
+        $dashboard = route('sales_manager.dashboard');
     } elseif (Auth::guard('hr_manager')->check()) {
         $dashboard = route('hr.dashboard');
     } elseif (Auth::guard('employee')->check()) {
@@ -175,7 +177,54 @@
             Attendance
         </a>
     @elseif(Auth::guard('account_manager')->check())
+        <a href="{{ route('leadedata') }}"
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+    bg-gray-900/60 backdrop-blur-xl border border-gray-800
+    hover:bg-orange-600 hover:text-white hover:border-orange-400
+    transition-all duration-300 group">
 
+           <i class="fa-solid fa-user-plus mr-4 text-orange-500 group-hover:text-white"></i>
+
+            All Leads
+        </a>
+
+        <a href="{{ route('index') }}"
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+    bg-gray-900/60 backdrop-blur-xl border border-gray-800
+    hover:bg-orange-600 hover:text-white hover:border-orange-400
+    transition-all duration-300 group">
+
+           <i class="fa-solid fa-file-lines mr-4 text-orange-500 group-hover:text-white"></i>
+            Lead Datas
+        </a>
+
+         <a href="{{ route('sales.employee') }}"
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+              bg-gray-900/60 backdrop-blur-xl border border-gray-800
+              hover:bg-orange-600 hover:text-white hover:border-orange-400
+              transition-all duration-300 group">
+            <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
+            Team Members
+        </a>
+
+        <a href=""
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+    bg-gray-900/60 backdrop-blur-xl border border-gray-800
+    hover:bg-orange-600 hover:text-white hover:border-orange-400
+    transition-all duration-300 group">
+
+           <i class="fas fa-folder-open mr-4 text-orange-500 group-hover:text-white"></i>
+            Assing Tasks
+        </a>
+        <a href=""
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+    bg-gray-900/60 backdrop-blur-xl border border-gray-800
+    hover:bg-orange-600 hover:text-white hover:border-orange-400
+    transition-all duration-300 group">
+
+             <i class="fa-solid fa-chart-pie mr-4 text-orange-500 group-hover:text-white"></i>
+            Reports
+        </a>
     @elseif(Auth::guard('marketing_manager')->check())
         <a href="{{ route('marketing.teammember') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
@@ -186,7 +235,7 @@
             <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
             Team Members
         </a>
-          <a href="{{ route('marketing.employee.task') }}"
+        <a href="{{ route('marketing.employee.task') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -223,7 +272,7 @@
             Drag Tasks
         </a>
 
-         <a href="{{ route('marketing.report') }}"
+        <a href="{{ route('marketing.report') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -248,6 +297,25 @@
               transition-all duration-300 group">
             <i class="fa-solid fa-plane-departure mr-4 text-orange-500 group-hover:text-white"></i>
             Leave Managements
+        </a>
+    @elseif(Auth::guard('sales_manager')->check())
+        <a href=""
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+    bg-gray-900/60 backdrop-blur-xl border border-gray-800
+    hover:bg-orange-600 hover:text-white hover:border-orange-400
+    transition-all duration-300 group">
+
+            <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
+            Leads
+        </a>
+
+         <a href=""
+            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
+              bg-gray-900/60 backdrop-blur-xl border border-gray-800
+              hover:bg-orange-600 hover:text-white hover:border-orange-400
+              transition-all duration-300 group">
+            <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
+            Team Members
         </a>
     @endif
 
