@@ -15,6 +15,10 @@ Route::prefix('account_manager')->middleware(['account_manager'])->group(functio
         Route::get('/leadedata','leadedata')->name('leadedata');
         Route::get('createleadform','createleadform')->name('createleadform');
         Route::post('/createLeadsdata','createLeadsdata')->name('createLeadsdata');
+        Route::get('/projectuser','projectuser')->name('projectuser');
+        Route::post('/assingtaskforsales','assingtaskforsales')->name('assingtaskforsales');
+        Route::get('/reportforsales','reportforsales')->name('reportforsales');
+        Route::get('/viewtaskdetails/{id}','viewtaskdetails')->name('viewtaskdetails');
     });
     Route::get('logout',[LoginController::class, 'acmanagerLogout'])->name('acmanagerLogout');
 });

@@ -132,6 +132,10 @@ class User extends Authenticatable
         return $this->hasMany(LeadCreate::class,'created_by');
     }
 
+    public function taskforsale(){
+        return  $this->hasMany(TaskforSales::class);
+    }
+
 
 
 

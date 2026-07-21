@@ -5,7 +5,7 @@
         $dashboard = route('admin.dashboard');
     } elseif (Auth::guard('marketing_manager')->check()) {
         $dashboard = route('marketing.dashboard');
-    } elseif (Auth::guard('sales_manager')) {
+    } elseif (Auth::guard('sales_manager')->check()) {
         $dashboard = route('sales_manager.dashboard');
     } elseif (Auth::guard('hr_manager')->check()) {
         $dashboard = route('hr.dashboard');
@@ -15,7 +15,7 @@
         $dashboard = route('employee.dashboard');
     } elseif (Auth::guard('team_leader')->check()) {
         $dashboard = route('teamhead.dashboard');
-    } elseif (Auth::guard('account_manager')) {
+    } elseif (Auth::guard('account_manager')->check()) {
         $dashboard = route('acmanager.dashboard');
     }
 @endphp
@@ -207,7 +207,7 @@
             Team Members
         </a>
 
-        <a href=""
+        <a href="{{ route('projectuser') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
     bg-gray-900/60 backdrop-blur-xl border border-gray-800
     hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -216,7 +216,7 @@
            <i class="fas fa-folder-open mr-4 text-orange-500 group-hover:text-white"></i>
             Assing Tasks
         </a>
-        <a href=""
+        <a href="{{ route('reportforsales') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
     bg-gray-900/60 backdrop-blur-xl border border-gray-800
     hover:bg-orange-600 hover:text-white hover:border-orange-400

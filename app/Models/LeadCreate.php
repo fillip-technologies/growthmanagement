@@ -13,4 +13,8 @@ class LeadCreate extends Model
     public function user(){
         return $this->belongsTo(User::class,'created_by');
     }
+
+    public function taskforsales(){
+        return $this->hasMany(TaskforSales::class);
+    }
 }

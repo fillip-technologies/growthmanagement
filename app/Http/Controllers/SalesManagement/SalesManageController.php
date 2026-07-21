@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SalesManagement;
 
 use App\Http\Controllers\Controller;
 use App\Models\LeadCreate;
+use App\Models\TaskforSales;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ class SalesManageController extends Controller
 
        $employees = [];
         if(Auth::guard('marketing_manager')){
-        $employees = User::where('role','employee')->where('department','Sales Department')->paginate(10);
+        $employees = User::where('department','Sales Department')->paginate(10);
         return view('admin.employees.index',compact('employees'));
         }
 
@@ -32,8 +33,6 @@ class SalesManageController extends Controller
         }
 
         $fillipLeads = collect($response->json('leads'));
-
-
         if ($request->filled('search')) {
             $search = strtolower($request->search);
 
@@ -43,7 +42,6 @@ class SalesManageController extends Controller
                     || str_contains(strtolower($item['phone'] ?? ''), $search);
             })->values();
         }
-
 
         $perPage = 8;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
@@ -126,5 +124,51 @@ public function createLeadsdata(Request $request)
      return back()->with('error','Something wend wrong');
     }
 }
+
+    public function projectuser(){
+
+        $leads = LeadCreate::all();
+        $employees = User::where('role','sales_manager')->get();
+        return view('admin.leads.dragtaskac', compact('employees', 'leads'));
+
+    }
+public function assingtaskforsales(Request $request)
+{
+    $request->validate([
+        'leaddata_id'   => 'required|array|min:1',
+        'leaddata_id.*' => 'required|exists:lead_creates,id',
+        'due_date'      => 'required|date',
+        'task_des'      => 'required|string',
+        'priority'      => 'required|in:low,medium,high,urgent',
+        'assing_by'     => 'required|exists:users,id',
+    ]);
+
+    $assignedBy = Auth::guard('account_manager')->id();
+
+    foreach ($request->leaddata_id as $leadId) {
+
+        TaskforSales::create([
+            'leaddata_id' => $leadId,
+            'due_date'    => $request->due_date,
+            'task_des'    => $request->task_des,
+            'priority'    => $request->priority,
+            'assing_by'   => $assignedBy,
+            'user_id'     => $request->assing_by,
+        ]);
+
+    }
+
+    return back()->with('success', 'Tasks assigned successfully.');
+}
+
+    public function reportforsales(){
+        $reports = TaskforSales::with(['user','leaddata'])->paginate(10);
+    return view('admin.leads.salestaskreport',compact('reports'));
+    }
+
+    public function viewtaskdetails($id){
+        $viewDetails = TaskforSales::with(['user','leaddata'])->where('leaddata_id',$id)->first();
+        dd($viewDetails);
+    }
 
 }

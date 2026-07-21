@@ -168,17 +168,17 @@
                              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $data->department }}
                             </td>
-@php
-    $showRoute = null;
-    $deleteRoute=null;
-    if(Auth::guard('super_admin')->check()){
-        $showRoute =route('show', $data->id);
-        $deleteRoute = route('destroy', $data->id);
-    }elseif (Auth::guard('marketing_manager')->check()) {
-        $showRoute =route('marketing.show', $data->id);
-        $deleteRoute =  route('marketing.destroy', $data->id);
-    }
-@endphp
+                            @php
+                                $showRoute = null;
+                                $deleteRoute=null;
+                                if(Auth::guard('super_admin')->check()){
+                                    $showRoute =route('show', $data->id);
+                                    $deleteRoute = route('destroy', $data->id);
+                                }elseif (Auth::guard('marketing_manager')->check()) {
+                                    $showRoute =route('marketing.show', $data->id);
+                                    $deleteRoute =  route('marketing.destroy', $data->id);
+                                }
+                            @endphp
                             {{-- ACTIONS --}}
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 <div class="flex items-center justify-center gap-2">
