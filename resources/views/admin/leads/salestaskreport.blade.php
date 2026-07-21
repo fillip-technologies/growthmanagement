@@ -110,7 +110,7 @@
                                     <div class="flex items-center">
                                         <div
                                             class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-sm font-semibold text-blue-600">
-                                            {{ substr($item->user->name, 0, 2 ?? "-") }}</div>
+                                           {{ strtoupper(substr($item->user?->name ?? '-', 0, 2)) }}</div>
                                         <div class="ml-3">
                                             <p class="text-sm font-medium text-gray-900">{{ $item->user->name ?? '-' }}</p>
                                             <p class="text-xs text-gray-500">{{ $item->user->email ?? "-" }}</p>
