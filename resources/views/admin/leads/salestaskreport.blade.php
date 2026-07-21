@@ -136,7 +136,7 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <p class="text-sm font-medium text-gray-900">
-                                        {{ ucfirst($item->leaddata->budget_type) ?? '-' }}</p>
+                                        {{ ucfirst($item->leaddata->budget_type ?? "-")  }}</p>
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-right">
