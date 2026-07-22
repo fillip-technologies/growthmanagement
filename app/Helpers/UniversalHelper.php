@@ -79,7 +79,7 @@ if (!function_exists('fillipLeads')) {
 
 if(!function_exists('saleEmployee')){
     function saleEmployee(){
-      $data = User::where('role','employee')->where('department','Sales Department')->select('id','name')->get();
+      $data = User::where('role','employee')->where('department','Sales Department')->select('id','name','email')->get();
       return $data;
     }
 }

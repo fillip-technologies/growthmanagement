@@ -240,7 +240,7 @@
                                 @foreach(saleEmployee() as $items)
                                     <option value="{{ $items->id }}"
                                         {{ old('user_id') == $items->id ? 'selected' : '' }}>
-                                        {{ $items->name }}
+                                        {{ $items->name }} - {{ $items->email ?? "=" }}
                                     </option>
                                 @endforeach
                             </select>
