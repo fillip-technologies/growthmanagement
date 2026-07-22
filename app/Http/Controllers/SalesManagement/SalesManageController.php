@@ -167,8 +167,8 @@ public function assingtaskforsales(Request $request)
     }
 
     public function viewtaskdetails($id){
-        $viewDetails = TaskforSales::with(['user','leaddata'])->where('leaddata_id',$id)->first();
-        return view('admin.leads.viewtaskdetails',compact('viewDetails'));
+        $data = TaskforSales::with(['user','leaddata'])->where('leaddata_id',$id)->first();
+        return view('admin.leads.viewtaskdetails',compact('data'));
     }
 
 }
