@@ -1,8 +1,12 @@
 <?php
 
+use App\Models\LeadCreate;
 use App\Models\Role;
+use App\Models\TaskforSales;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+
 
 
 if (! function_exists('role')) {
@@ -70,5 +74,23 @@ if (!function_exists('fillipLeads')) {
         } catch (\Exception $e) {
             return collect();
         }
+    }
+}
+
+if(!function_exists('saleEmployee')){
+    function saleEmployee(){
+      $data = User::where('role','employee')->where('department','Sales Department')->select('id','name')->get();
+      return $data;
+    }
+}
+
+if(!function_exists('mytasks')){
+    function mytasks(){
+        if(Auth::guard('sales_manager')->check()){
+        $id = Auth::guard('sales_manager')->id();
+        $task = TaskforSales::with(['user','leaddata'])->where('user_id',$id)->get();
+        return $task;
+        }
+
     }
 }

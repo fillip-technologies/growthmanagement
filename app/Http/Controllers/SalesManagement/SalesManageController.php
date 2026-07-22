@@ -171,4 +171,7 @@ public function assingtaskforsales(Request $request)
         return view('admin.leads.viewtaskdetails',compact('data'));
     }
 
+    
+
+
 }

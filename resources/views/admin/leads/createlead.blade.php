@@ -338,7 +338,6 @@
                         </h3>
 
                         <div class="space-y-4">
-                            <!-- Source -->
                             <div>
                                 <label for="source" class="block text-sm font-medium text-gray-700 mb-1">
                                     Lead Source <span class="text-red-500">*</span>
