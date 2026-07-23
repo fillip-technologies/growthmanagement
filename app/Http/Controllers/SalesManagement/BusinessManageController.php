@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SalesManagement;
 
 use App\Http\Controllers\Controller;
+use App\Models\LeadCreate;
 use App\Models\TaskforSales;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -76,6 +77,11 @@ class BusinessManageController extends Controller
                return view('admin.salesemp.salesemployeetask',compact('tasks'));
             }
         }
+    }
+
+    public function SalesTaskDetails($id,$user_id){
+        $data = TaskforSales::with(['user','leaddata'])->where('leaddata_id',$id)->where('user_id',$user_id)->first();
+        return view('admin.leads.viewtaskdetails',compact('data'));
     }
 
 }

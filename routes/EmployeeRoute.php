@@ -39,22 +39,8 @@ Route::prefix('employee')->middleware('employee')->group(function () {
 
 //sales Employee
 
-Route::get('sales/employee/task',[BusinessManageController::class, 'salesEmpTask'])->name('salesEmpTask');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ Route::get('sales/employee/task',[BusinessManageController::class, 'salesEmpTask'])->name('salesEmpTask');
+ Route::get('/task/details/{id}/{user_id}',[BusinessManageController::class, 'SalesTaskDetails'])->name('view.sale.task');
 
 
 

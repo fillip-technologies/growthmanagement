@@ -39,7 +39,7 @@
                                  x-transition:enter="transition ease-out duration-100"
                                  x-transition:enter-start="transform opacity-0 scale-95"
                                  x-transition:enter-end="transform opacity-100 scale-100">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{{ route('view.sale.task',['id'=>$task->leaddata_id,'user_id'=>$task->user_id]) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                     <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -186,17 +186,8 @@
                         </div>
                     </div>
 
-                    <!-- Card Footer -->
-                    <div class="px-4 py-2 bg-gray-50 border-t border-gray-200">
-                        <button onclick="viewTask({{ $task->id }})"
-                                class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-md transition-colors duration-200">
-                            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                            </svg>
-                            View Full Details
-                        </button>
-                    </div>
+
+
                 </div>
             @endforeach
         @else
@@ -224,15 +215,9 @@
 @push('scripts')
 <script>
     function viewTask(taskId) {
-        // Implement view task details functionality
-        // You can open a modal or redirect to details page
         alert('View task #' + taskId);
     }
-
-    // Include Alpine.js for dropdown functionality (if not already included)
-    // If you're using Livewire, you can use wire:click instead
     document.addEventListener('alpine:init', () => {
-        // Alpine.js is already initialized
     });
 </script>
 @endpush

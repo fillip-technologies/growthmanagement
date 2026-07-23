@@ -9,14 +9,7 @@
                 <h2 class="text-2xl font-bold text-gray-800">Sales Report Details</h2>
                 <p class="text-gray-500 text-sm mt-1">View complete information about the sales report</p>
             </div>
-            <a href=""
-                class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition duration-150 shadow-sm hover:shadow-md">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
-                    </path>
-                </svg>
-                Back to List
-            </a>
+            
         </div>
     </div>
 
