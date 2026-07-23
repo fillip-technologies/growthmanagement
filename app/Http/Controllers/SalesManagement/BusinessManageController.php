@@ -8,6 +8,7 @@ use App\Models\TaskforSales;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BusinessManageController extends Controller
 {
@@ -83,5 +84,36 @@ class BusinessManageController extends Controller
         $data = TaskforSales::with(['user','leaddata'])->where('leaddata_id',$id)->where('user_id',$user_id)->first();
         return view('admin.leads.viewtaskdetails',compact('data'));
     }
+
+
+    public function updateWorks(Request $request)
+{
+    $request->validate([
+        'leaddata_id' => 'required|exists:lead_creates,id',
+        'lead_status' => 'required|string',
+        'task_des'    => 'required|string',
+        'user_id'=>'required'
+    ]);
+
+    DB::transaction(function () use ($request) {
+        TaskforSales::updateOrCreate(
+            [
+                'leaddata_id' => $request->leaddata_id,
+                'user_id'=>$request->user_id
+            ],
+            [
+                'task_des' => $request->task_des,
+            ]
+        );
+
+        LeadCreate::where('id', $request->leaddata_id)
+            ->update([
+                'lead_status' => $request->lead_status,
+            ]);
+
+    });
+
+    return back()->with('success', 'Task status updated successfully.');
+}
 
 }
