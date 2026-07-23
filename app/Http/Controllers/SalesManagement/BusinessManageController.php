@@ -21,7 +21,9 @@ class BusinessManageController extends Controller
     }
 
     public function mytask(){
-        return view('admin.leads.mytask');
+        $id = Auth::guard('sales_manager')->check() ? Auth::guard('sales_manager')->id() : "";
+        $leads = TaskforSales::with(['user','leaddata'])->where('user_id',$id)->get();
+        return view('admin.leads.mytask',compact('leads'));
     }
 
     public function assingtaskforsales(Request $request)
