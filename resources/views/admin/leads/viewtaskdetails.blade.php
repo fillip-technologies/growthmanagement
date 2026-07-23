@@ -65,7 +65,7 @@
                                 </path>
                             </svg>
                             <span class="text-sm text-gray-600">Joined:
-                                {{ $data->user->created_at ? $data->user->created_at->format('d F Y') : 'N/A' }}</span>
+                                {{ $data->user->joinig_date ? $data->user->joinig_date->format('d F Y') : 'N/A' }}</span>
                         </div>
                     </div>
                 </div>

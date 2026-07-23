@@ -140,7 +140,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-right">
-                                    <a href="{{ route('viewtaskdetails',$item->id) }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium mr-3">View</button>
+                                    <a href="{{ route('sales.viewtaskdetails',$item->id) }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium mr-3">View</button>
 
                                 </td>
                             </tr>

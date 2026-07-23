@@ -102,7 +102,6 @@
                     </div>
                 @endif
 
-                <!-- Lead Information -->
                 @if($task->leaddata)
                     <div class="border-t border-gray-100 pt-3">
                         <p class="text-xs font-semibold text-gray-500 mb-2">LEAD INFORMATION</p>

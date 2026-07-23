@@ -14,7 +14,9 @@ Route::get('dashboard', function () {
     Route::get('/bda/employees','BDAEmployee')->name('bda.employees');
     Route::get('/mytask','mytask')->name('mytask');
     Route::get('/assingform','assingform')->name('assingform');
+    Route::get('/reportforsales','reportforsales')->name('sales.reportforsales');
     Route::post('/assingtaskforsales','assingtaskforsales')->name('sales.assingtaskforsales');
+    Route::get('/viewtaskdetails/{id}','viewtaskdetails')->name('sales.viewtaskdetails');
    });
     Route::get('/salesmanagerLogout',[LoginController::class, 'salesmanagerLogout'])->name('sales.logout');
 });

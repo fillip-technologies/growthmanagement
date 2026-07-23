@@ -37,25 +37,33 @@ class BusinessManageController extends Controller
         'due_date'      => 'required|date',
         'task_des'      => 'required|string',
         'priority'      => 'required|in:low,medium,high,urgent',
-        'assing_by'     => 'required|exists:users,id',
+        'assing_by'     => 'nullable|exists:users,id',
         'user_id'=>'required'
     ]);
 
-    $assignedBy = Auth::guard('sales_manager')->id();
-
-    foreach ($request->leaddata_id as $leadId) {
+    $assignedBy = Auth::guard('sales_manager')->check() ? Auth::guard('sales_manager')->id() : "";
 
         TaskforSales::create([
-            'leaddata_id' => $leadId,
+            'leaddata_id' => $request->leaddata_id,
             'due_date'    => $request->due_date,
             'task_des'    => $request->task_des,
             'priority'    => $request->priority,
             'assing_by'   => $assignedBy,
-            'user_id'     => $request->assing_by,
+            'user_id'     => $request->user_id,
         ]);
-
-    }
 
     return back()->with('success', 'Tasks assigned successfully.');
 }
+
+    public function reportforsales(){
+    $id = Auth::guard('sales_manager')->check() ? Auth::guard('sales_manager')->id() : "";
+    $reports = TaskforSales::with(['user','leaddata'])->where('assing_by',$id)->paginate(10);
+    return view('admin.leads.salestaskreport',compact('reports'));
+    }
+
+    public function viewtaskdetails($id){
+        $data = TaskforSales::with(['user','leaddata'])->where('leaddata_id',$id)->first();
+        return view('admin.leads.viewtaskdetails',compact('data'));
+    }
+
 }
