@@ -119,9 +119,9 @@ public function createLeadsdata(Request $request)
     ]);
 
     if($data){
-    return back()->with('success','Create Leads SuccessFully');
+    return redirect('/account_manager/index')->with('success','Create Leads SuccessFully');
     }else{
-     return back()->with('error','Something wend wrong');
+     return redirect('/account_manager/index')->with('error','Something wend wrong');
     }
 }
 
@@ -229,6 +229,16 @@ public function assingtaskforsales(Request $request)
     public function editlead($id){
         $data = LeadCreate::find($id);
         return view('admin.leads.editlead',compact('data'));
+    }
+
+    public function leaddelete($id){
+        $data = LeadCreate::find($id);
+        if($data){
+            $data->delete();
+            return back()->with('success','Lead deleted successfully');
+        }else{
+            return back()->with('error','Deletion Failed');
+        }
     }
 
 

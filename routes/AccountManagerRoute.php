@@ -14,6 +14,7 @@ Route::prefix('account_manager')->middleware(['account_manager'])->group(functio
         Route::get('/index','index')->name('index');
         Route::post('/leadUpdate/{id}','leadUpdate')->name('leadUpdate');
         Route::get('/leadedata','leadedata')->name('leadedata');
+        Route::delete('/leaddelete/{id}','leaddelete')->name('leaddelete');
         Route::get('createleadform','createleadform')->name('createleadform');
         Route::post('/createLeadsdata','createLeadsdata')->name('createLeadsdata');
         Route::get('/projectuser','projectuser')->name('projectuser');
