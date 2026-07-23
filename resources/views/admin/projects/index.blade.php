@@ -251,6 +251,8 @@
             $createProject = route('marketing.project.create');
         } elseif (Auth::guard('super_admin')->check()) {
             $createProject = route('project.create');
+        }elseif (Auth::guard('project_manager')->check()) {
+            $createProject = route('project.create');
         }
     @endphp
 

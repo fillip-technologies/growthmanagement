@@ -6,9 +6,8 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\AttendanceInfoController;
 use App\Http\Controllers\ChatApp\ChatManagementController;
 use App\Http\Controllers\Marketing\MarketingEmployeeController;
+use App\Http\Controllers\SalesManagement\BusinessManageController;
 use Illuminate\Support\Facades\Route;
-
-
 
 Route::prefix('employee')->middleware('employee')->group(function () {
     Route::get('/dashboard', function () {
@@ -37,4 +36,26 @@ Route::prefix('employee')->middleware('employee')->group(function () {
     Route::controller(MarketingEmployeeController::class)->group(function(){
         Route::get('/mrkempget/task','mrkempgetTask')->name('mrkempgetTask');
     });
+
+//sales Employee
+
+Route::get('sales/employee/task',[BusinessManageController::class, 'salesEmpTask'])->name('salesEmpTask');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
