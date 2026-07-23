@@ -26,6 +26,10 @@ class BusinessManageController extends Controller
         return view('admin.leads.mytask',compact('leads'));
     }
 
+    public function assingform(){
+        return view('admin.sales.assingtask');
+    }
+
     public function assingtaskforsales(Request $request)
 {
     $request->validate([

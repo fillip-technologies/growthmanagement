@@ -13,6 +13,7 @@ Route::get('dashboard', function () {
     Route::controller(BusinessManageController::class)->group(function(){
     Route::get('/bda/employees','BDAEmployee')->name('bda.employees');
     Route::get('/mytask','mytask')->name('mytask');
+    Route::get('/assingform','assingform')->name('assingform');
     Route::post('/assingtaskforsales','assingtaskforsales')->name('sales.assingtaskforsales');
    });
     Route::get('/salesmanagerLogout',[LoginController::class, 'salesmanagerLogout'])->name('sales.logout');
