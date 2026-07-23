@@ -497,14 +497,14 @@
                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
                         <span class="text-sm text-gray-600">Work Status</span>
                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
-                            {{ $data->status == 'completed' ? 'bg-green-100 text-green-800' :
-                               ($data->status == 'in_progress' ? 'bg-yellow-100 text-yellow-800' :
-                               ($data->status == 'pending' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800')) }}">
+                            {{ $data->leaddata->lead_status == 'completed' ? 'bg-green-100 text-green-800' :
+                               ($data->leaddata->lead_status == 'in_progress' ? 'bg-yellow-100 text-yellow-800' :
+                               ($data->leaddata->lead_status == 'pending' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800')) }}">
                             <span class="w-1.5 h-1.5 rounded-full mr-1.5
-                                {{ $data->status == 'completed' ? 'bg-green-500' :
-                                   ($data->status == 'in_progress' ? 'bg-yellow-500 animate-pulse' :
-                                   ($data->status == 'pending' ? 'bg-red-500' : 'bg-gray-500')) }}"></span>
-                            {{ ucfirst(str_replace('_', ' ', $data->status ?? 'N/A')) }}
+                                {{ $data->leaddata->lead_status == 'completed' ? 'bg-green-500' :
+                                   ($data->leaddata->lead_status == 'in_progress' ? 'bg-yellow-500 animate-pulse' :
+                                   ($data->leaddata->lead_status == 'pending' ? 'bg-red-500' : 'bg-gray-500')) }}"></span>
+                            {{ ucfirst(str_replace('_', ' ', $data->leaddata->lead_status ?? 'N/A')) }}
                         </span>
                     </div>
 

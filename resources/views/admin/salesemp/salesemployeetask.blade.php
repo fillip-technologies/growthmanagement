@@ -180,7 +180,7 @@
                                 <span
                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusColor }}">
                                     <span class="w-1.5 h-1.5 rounded-full bg-current mr-1.5"></span>
-                                    {{ ucwords(str_replace('_', ' ', $task->status ?? 'Pending')) }}
+                                    {{ ucwords(str_replace('_', ' ', $task->leaddata->lead_status ?? 'Pending')) }}
                                 </span>
 
                                 @if ($task->priority)
