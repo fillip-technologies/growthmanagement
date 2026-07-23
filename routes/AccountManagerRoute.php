@@ -12,10 +12,12 @@ Route::prefix('account_manager')->middleware(['account_manager'])->group(functio
       Route::controller(SalesManageController::class)->group(function(){
         Route::get('/employees','salesEmployee')->name('sales.employee');
         Route::get('/index','index')->name('index');
+        Route::post('/leadUpdate/{id}','leadUpdate')->name('leadUpdate');
         Route::get('/leadedata','leadedata')->name('leadedata');
         Route::get('createleadform','createleadform')->name('createleadform');
         Route::post('/createLeadsdata','createLeadsdata')->name('createLeadsdata');
         Route::get('/projectuser','projectuser')->name('projectuser');
+        Route::get('/editlead/{id}','editlead')->name('editlead');
         Route::post('/assingtaskforsales','assingtaskforsales')->name('assingtaskforsales');
         Route::get('/reportforsales','reportforsales')->name('reportforsales');
         Route::get('/viewtaskdetails/{id}/{user_id}','viewtaskdetails')->name('viewtaskdetails');

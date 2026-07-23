@@ -18,5 +18,6 @@ Route::get('dashboard', function () {
     Route::post('/assingtaskforsales','assingtaskforsales')->name('sales.assingtaskforsales');
     Route::get('/viewtaskdetails/{id}/{user_id}','viewtaskdetails')->name('sales.viewtaskdetails');
    });
+
     Route::get('/salesmanagerLogout',[LoginController::class, 'salesmanagerLogout'])->name('sales.logout');
 });
