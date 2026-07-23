@@ -394,38 +394,39 @@
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
- <div class="space-y-6">
-                        <label for="budget" class="block text-sm font-medium text-gray-700 mb-1">
-                            Budget <span class="text-red-500">*</span>
-                        </label>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <input type="number" name="budget" id="budget_amount"
-                                    value="{{ old('budget_amount') }}"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('budget_amount') border-red-500 @enderror"
-                                    placeholder="Amount" >
+                            <div class="space-y-6">
+                                <label for="budget" class="block text-sm font-medium text-gray-700 mb-1">
+                                    Budget <span class="text-red-500">*</span>
+                                </label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <input type="number" name="budget" id="budget_amount"
+                                            value="{{ old('budget_amount') }}"
+                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('budget_amount') border-red-500 @enderror"
+                                            placeholder="Amount">
+                                    </div>
+                                    <div>
+                                        <select name="budget_type" id="budget_type"
+                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('budget_type') border-red-500 @enderror">
+                                            <option value="one_time"
+                                                {{ old('budget_type') == 'one_time' ? 'selected' : '' }}>
+                                                One-time</option>
+                                            <option value="monthly"
+                                                {{ old('budget_type') == 'monthly' ? 'selected' : '' }}>
+                                                Monthly</option>
+                                            <option value="project_based"
+                                                {{ old('budget_type') == 'project_based' ? 'selected' : '' }}>Project Based
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                @error('budget_amount')
+                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                @enderror
+                                @error('budget_type')
+                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                @enderror
                             </div>
-                            <div>
-                                <select name="budget_type" id="budget_type"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('budget_type') border-red-500 @enderror"
-                                    >
-                                    <option value="one_time" {{ old('budget_type') == 'one_time' ? 'selected' : '' }}>
-                                        One-time</option>
-                                    <option value="monthly" {{ old('budget_type') == 'monthly' ? 'selected' : '' }}>
-                                        Monthly</option>
-                                    <option value="project_based"
-                                        {{ old('budget_type') == 'project_based' ? 'selected' : '' }}>Project Based
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        @error('budget_amount')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
-                        @error('budget_type')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
                             <!-- Message/Notes -->
                             <div>
                                 <label for="message" class="block text-sm font-medium text-gray-700 mb-1">
@@ -443,7 +444,6 @@
                 </div>
             </div>
 
-            <!-- Form Actions -->
             <div class="mt-8 pt-6 border-t border-gray-200 flex items-center justify-end gap-4">
                 <a href=""
                     class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
@@ -461,7 +461,6 @@
     </div>
 
     <style>
-        /* Custom styles for multi-select */
         select[multiple] {
             background-image: none;
         }

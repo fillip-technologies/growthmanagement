@@ -1,6 +1,7 @@
 @php
 
     $dashboard = '';
+    $myTaskRoute = '';
     if (Auth::guard('super_admin')->check()) {
         $dashboard = route('admin.dashboard');
     } elseif (Auth::guard('marketing_manager')->check()) {
@@ -11,6 +12,12 @@
         $dashboard = route('hr.dashboard');
     } elseif (Auth::guard('employee')->check()) {
         $dashboard = route('employee.dashboard');
+        $data = Auth::guard('employee')->user();
+        if ($data->department == 'Sales Department') {
+            $myTaskRoute = route('salesEmpTask');
+        }else {
+           $myTaskRoute = route('employee.task');
+        }
     } elseif (Auth::guard('project_manager')->check()) {
         $dashboard = route('employee.dashboard');
     } elseif (Auth::guard('team_leader')->check()) {
@@ -123,7 +130,7 @@
             <i class="fa-solid fa-clock mr-4 text-orange-500 group-hover:text-white"></i>
             Attendance
         </a>
-        <a href="{{ route('employee.task') }}"
+        <a href="{{ $myTaskRoute}}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -183,7 +190,7 @@
     hover:bg-orange-600 hover:text-white hover:border-orange-400
     transition-all duration-300 group">
 
-           <i class="fa-solid fa-user-plus mr-4 text-orange-500 group-hover:text-white"></i>
+            <i class="fa-solid fa-user-plus mr-4 text-orange-500 group-hover:text-white"></i>
 
             All Leads
         </a>
@@ -194,11 +201,11 @@
     hover:bg-orange-600 hover:text-white hover:border-orange-400
     transition-all duration-300 group">
 
-           <i class="fa-solid fa-file-lines mr-4 text-orange-500 group-hover:text-white"></i>
+            <i class="fa-solid fa-file-lines mr-4 text-orange-500 group-hover:text-white"></i>
             Lead Datas
         </a>
 
-         <a href="{{ route('sales.employee') }}"
+        <a href="{{ route('sales.employee') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -213,7 +220,7 @@
     hover:bg-orange-600 hover:text-white hover:border-orange-400
     transition-all duration-300 group">
 
-           <i class="fas fa-folder-open mr-4 text-orange-500 group-hover:text-white"></i>
+            <i class="fas fa-folder-open mr-4 text-orange-500 group-hover:text-white"></i>
             Assing Tasks
         </a>
         <a href="{{ route('reportforsales') }}"
@@ -222,7 +229,7 @@
     hover:bg-orange-600 hover:text-white hover:border-orange-400
     transition-all duration-300 group">
 
-             <i class="fa-solid fa-chart-pie mr-4 text-orange-500 group-hover:text-white"></i>
+            <i class="fa-solid fa-chart-pie mr-4 text-orange-500 group-hover:text-white"></i>
             Reports
         </a>
     @elseif(Auth::guard('marketing_manager')->check())
@@ -309,7 +316,7 @@
             Leads
         </a>
 
-         <a href="{{ route('bda.employees') }}"
+        <a href="{{ route('bda.employees') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -318,7 +325,7 @@
             Team Members
         </a>
 
-         <a href="{{ route('mytask') }}"
+        <a href="{{ route('mytask') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400

@@ -59,7 +59,7 @@
                         <div>
                             <p class="text-xs font-medium text-indigo-700">Task Description</p>
                             <p class="text-sm text-gray-700 line-clamp-3">
-                                {{ $task->task_description ?? 'No description provided' }}
+                                {{ $task->task_des ?? 'No description provided' }}
                             </p>
                         </div>
                     </div>

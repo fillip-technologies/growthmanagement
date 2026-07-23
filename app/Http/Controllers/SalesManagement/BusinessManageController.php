@@ -73,6 +73,7 @@ class BusinessManageController extends Controller
             $data = Auth::guard('employee')->user();
             if($data->department == "Sales Department"){
                 $tasks = TaskforSales::with(['user','leaddata'])->where('user_id',$data->id)->get();
+               return view('admin.salesemp.salesemployeetask',compact('tasks'));
             }
         }
     }
