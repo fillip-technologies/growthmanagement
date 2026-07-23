@@ -166,12 +166,12 @@ public function assingtaskforsales(Request $request)
     return view('admin.leads.salestaskreport',compact('reports'));
     }
 
-    public function viewtaskdetails($id){
-        $data = TaskforSales::with(['user','leaddata'])->where('leaddata_id',$id)->first();
+    public function viewtaskdetails($id,$user_id){
+        $data = TaskforSales::with(['user','leaddata'])->where('leaddata_id',$id)->where('user_id',$user_id)->first();
         return view('admin.leads.viewtaskdetails',compact('data'));
     }
 
-    
+
 
 
 }

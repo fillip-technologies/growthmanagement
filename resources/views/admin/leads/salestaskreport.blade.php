@@ -110,10 +110,10 @@
                                     <div class="flex items-center">
                                         <div
                                             class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-sm font-semibold text-blue-600">
-                                           {{ strtoupper(substr($item->user?->name ?? '-', 0, 2)) }}</div>
+                                            {{ strtoupper(substr($item->user?->name ?? '-', 0, 2)) }}</div>
                                         <div class="ml-3">
                                             <p class="text-sm font-medium text-gray-900">{{ $item->user->name ?? '-' }}</p>
-                                            <p class="text-xs text-gray-500">{{ $item->user->email ?? "-" }}</p>
+                                            <p class="text-xs text-gray-500">{{ $item->user->email ?? '-' }}</p>
                                         </div>
                                     </div>
                                 </td>
@@ -127,7 +127,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
                                         class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                       {{ ucfirst($item->leaddata?->lead_status ?? '-') }}
+                                        {{ ucfirst($item->leaddata?->lead_status ?? '-') }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -136,11 +136,19 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <p class="text-sm font-medium text-gray-900">
-                                        {{ ucfirst($item->leaddata->budget_type ?? "-")  }}</p>
+                                        {{ ucfirst($item->leaddata->budget_type ?? '-') }}</p>
                                 </td>
-
+                                @php
+                                    $viewRoute = null;
+                                    if (Auth::guard('account_manager')->check()) {
+                                        $viewRoute = route('viewtaskdetails',['id'=>$item->leaddata_id ,'user_id'=> $item->user_id]);
+                                    } elseif (Auth::guard('sales_manager')->check()) {
+                                        $viewRoute = route('sales.viewtaskdetails',['id'=>$item->leaddata_id ,'user_id'=> $item->user_id]);
+                                    }
+                                @endphp
                                 <td class="px-6 py-4 whitespace-nowrap text-right">
-                                    <a href="{{ route('sales.viewtaskdetails',$item->id) }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium mr-3">View</button>
+                                    <a href="{{ $viewRoute }}"
+                                        class="text-blue-600 hover:text-blue-800 text-sm font-medium mr-3">View</button>
 
                                 </td>
                             </tr>

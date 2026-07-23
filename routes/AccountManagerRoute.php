@@ -18,7 +18,7 @@ Route::prefix('account_manager')->middleware(['account_manager'])->group(functio
         Route::get('/projectuser','projectuser')->name('projectuser');
         Route::post('/assingtaskforsales','assingtaskforsales')->name('assingtaskforsales');
         Route::get('/reportforsales','reportforsales')->name('reportforsales');
-        Route::get('/viewtaskdetails/{id}','viewtaskdetails')->name('viewtaskdetails');
+        Route::get('/viewtaskdetails/{id}/{user_id}','viewtaskdetails')->name('viewtaskdetails');
     });
     Route::get('logout',[LoginController::class, 'acmanagerLogout'])->name('acmanagerLogout');
 });
