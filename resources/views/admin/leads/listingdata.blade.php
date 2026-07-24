@@ -92,7 +92,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $lead->email }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $lead->phone }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $lead->client ? $lead->client->name : 'N/A' }}
+                                    {{ $lead->client_name ? $lead->client_name : 'N/A' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
