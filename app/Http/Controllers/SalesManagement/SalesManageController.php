@@ -81,24 +81,24 @@ public function createLeadsdata(Request $request)
 {
 
     $request->validate([
-        'created_by'   => 'required|exists:users,id',
+        'created_by'   => 'nullable|exists:users,id',
         'name'         => 'required|string',
         'email'        => 'required|email',
         'phone'        => 'required|min:10|max:15',
-        'company_name' => 'required|string',
-        'industry'     => 'required|string',
+        'company_name' => 'nullable|string',
+        'industry'     => 'nullable|string',
         'services'     => 'required|string',
-        'budget'       => 'required',
-        'lead_source'  => 'required',
+        'budget'       => 'nullable',
+        'lead_source'  => 'nullable',
         'lead_status'  => 'required|in:contacted,in_progress,converted,lost,pending,new',
         'message'      => 'nullable|string',
-        'country'      => 'required',
-        'city'         => 'required',
-        'budget_type'=>   'required',
-        'pin_code'     => 'required',
-        'state'        => 'required',
-        'start_date'=>'required|date',
-        'end_date'=>'required|date',
+        'country'      => 'nullable',
+        'city'         => 'nullable',
+        'budget_type'=>   'nullable',
+        'pin_code'     => 'nullable',
+        'state'        => 'nullable',
+        'start_date'=>'nullable|date',
+        'end_date'=>'nullable|date',
         'client_name'=>'required'
     ]);
 
