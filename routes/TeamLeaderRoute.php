@@ -20,4 +20,6 @@ Route::get('/delete/assing/task', [DragTaskController::class, 'assingdeletetask'
 Route::post('/assing/drag/task', [DragTaskController::class, 'assignDragTask'])->name('teamhead.assignDragTask');
 Route::get('/teamhead/logout',[TeamHaedController::class, 'teamheadlogout'])->name('teamhead.logout');
 Route::get('project/information/{id}',[TeamHaedController::class, 'projectInfo'])->name('project.info');
+
+
 });

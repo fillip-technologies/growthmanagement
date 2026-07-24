@@ -19,6 +19,6 @@ class LeadCreate extends Model
     }
 
     public function headTask(){
-        return $this->hasMany(TeamHeadTask::class);
+        return $this->hasMany(TeamHeadTask::class,'lead_id');
     }
 }

@@ -15,6 +15,6 @@ class TeamHeadTask extends Model
     }
 
     public function leaddata(){
-        return $this->belongsTo(LeadCreate::class);
+        return $this->belongsTo(LeadCreate::class,'lead_id');
     }
 }
