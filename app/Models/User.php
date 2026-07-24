@@ -136,6 +136,10 @@ class User extends Authenticatable
         return  $this->hasMany(TaskforSales::class);
     }
 
+    public function headtask(){
+        return $this->hasMany(TeamHeadTask::class);
+    }
+
 
 
 

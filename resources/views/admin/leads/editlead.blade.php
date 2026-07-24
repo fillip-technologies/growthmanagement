@@ -57,7 +57,7 @@
         <form action="{{ route('leadUpdate', $data->id) }}" method="POST"
             class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             @csrf
-           
+
             <input type="hidden" name="created_by"
                 value="{{ Auth::guard('account_manager')->check() ? Auth::guard('account_manager')->id() : '' }}">
             <input type="hidden" name="lead_id" value="{{ $data->id }}">
@@ -95,17 +95,17 @@
                                     <label for="client_id" class="block text-sm font-medium text-gray-700 mb-1">
                                         Select Clients <span class="text-red-500">*</span>
                                     </label>
-                                    <select name="client_id" id="client_id"
+                                    <select name="client_name" id="client_id"
                                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('client_id') border-red-500 @enderror">
                                         <option value="">Select Clients</option>
                                         @foreach (fillipLeads() as $items)
-                                            <option value="{{ $items['id'] }}"
-                                                {{ old('client_id', $data->client_id ?? '') == $items['id'] ? 'selected' : '' }}>
+                                            <option value="{{ $items['name'] }}"
+                                                {{ old('client_name', $data->client_name ?? '') == $items['name'] ? 'selected' : '' }}>
                                                 {{ $items['name'] }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('client_id')
+                                    @error('client_name')
                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -230,16 +230,36 @@
                                 <select name="industry" id="industry"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('industry') border-red-500 @enderror">
                                     <option value="">Select Industry</option>
-                                    <option value="Technology" {{ old('industry', $data->industry ?? '') == 'Technology' ? 'selected' : '' }}>Technology</option>
-                                    <option value="Healthcare" {{ old('industry', $data->industry ?? '') == 'Healthcare' ? 'selected' : '' }}>Healthcare</option>
-                                    <option value="Finance" {{ old('industry', $data->industry ?? '') == 'Finance' ? 'selected' : '' }}>Finance</option>
-                                    <option value="Education" {{ old('industry', $data->industry ?? '') == 'Education' ? 'selected' : '' }}>Education</option>
-                                    <option value="Retail" {{ old('industry', $data->industry ?? '') == 'Retail' ? 'selected' : '' }}>Retail</option>
-                                    <option value="Manufacturing" {{ old('industry', $data->industry ?? '') == 'Manufacturing' ? 'selected' : '' }}>Manufacturing</option>
-                                    <option value="Real Estate" {{ old('industry', $data->industry ?? '') == 'Real Estate' ? 'selected' : '' }}>Real Estate</option>
-                                    <option value="Hospitality" {{ old('industry', $data->industry ?? '') == 'Hospitality' ? 'selected' : '' }}>Hospitality</option>
-                                    <option value="Consulting" {{ old('industry', $data->industry ?? '') == 'Consulting' ? 'selected' : '' }}>Consulting</option>
-                                    <option value="Other" {{ old('industry', $data->industry ?? '') == 'Other' ? 'selected' : '' }}>Other</option>
+                                    <option value="Technology"
+                                        {{ old('industry', $data->industry ?? '') == 'Technology' ? 'selected' : '' }}>
+                                        Technology</option>
+                                    <option value="Healthcare"
+                                        {{ old('industry', $data->industry ?? '') == 'Healthcare' ? 'selected' : '' }}>
+                                        Healthcare</option>
+                                    <option value="Finance"
+                                        {{ old('industry', $data->industry ?? '') == 'Finance' ? 'selected' : '' }}>Finance
+                                    </option>
+                                    <option value="Education"
+                                        {{ old('industry', $data->industry ?? '') == 'Education' ? 'selected' : '' }}>
+                                        Education</option>
+                                    <option value="Retail"
+                                        {{ old('industry', $data->industry ?? '') == 'Retail' ? 'selected' : '' }}>Retail
+                                    </option>
+                                    <option value="Manufacturing"
+                                        {{ old('industry', $data->industry ?? '') == 'Manufacturing' ? 'selected' : '' }}>
+                                        Manufacturing</option>
+                                    <option value="Real Estate"
+                                        {{ old('industry', $data->industry ?? '') == 'Real Estate' ? 'selected' : '' }}>
+                                        Real Estate</option>
+                                    <option value="Hospitality"
+                                        {{ old('industry', $data->industry ?? '') == 'Hospitality' ? 'selected' : '' }}>
+                                        Hospitality</option>
+                                    <option value="Consulting"
+                                        {{ old('industry', $data->industry ?? '') == 'Consulting' ? 'selected' : '' }}>
+                                        Consulting</option>
+                                    <option value="Other"
+                                        {{ old('industry', $data->industry ?? '') == 'Other' ? 'selected' : '' }}>Other
+                                    </option>
                                 </select>
                                 @error('industry')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -247,7 +267,10 @@
                             </div>
                         </div>
                     </div>
+
+
                 </div>
+
 
                 <!-- Right Column -->
                 <div class="space-y-6">
@@ -269,45 +292,44 @@
                             <select name="services" id="services"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('services') border-red-500 @enderror">
                                 <option value="">-- Select Service --</option>
-                                <option value="Website Development — Basic Package"
-                                    {{ old('services', $data->services ?? '') == 'Website Development — Basic Package' ? 'selected' : '' }}>
-                                    Website Development — Basic Package
+                                <option value="Website Development"
+                                   @selected($data->services == 'Website Development')>
+                                    Website Development
                                 </option>
-                                <option value="Website Development — Standard Package"
-                                    {{ old('services', $data->services ?? '') == 'Website Development — Standard Package' ? 'selected' : '' }}>
-                                    Website Development — Standard Package
+
+                                <option value="Software Development"
+                                    @selected($data->services == "Software Development")>
+                                    Software Development
                                 </option>
-                                <option value="Website Development — Premium Package"
-                                    {{ old('services', $data->services ?? '') == 'Website Development — Premium Package' ? 'selected' : '' }}>
-                                    Website Development — Premium Package
+
+                                <option value="Mobile App Development"
+                                  @selected($data->services == "Mobile App Development")>
+                                    Mobile App Development
                                 </option>
-                                <option value="Website Development — Multilingual Support"
-                                    {{ old('services', $data->services ?? '') == 'Website Development — Multilingual Support' ? 'selected' : '' }}>
-                                    Website Development — Multilingual Support
+
+                                <option value="Digital Marketingt"
+                                     @selected($data->services == "Digital Marketingt")>
+                                    Digital Marketing
                                 </option>
-                                <option value="Website Development — E-commerce Integration"
-                                    {{ old('services', $data->services ?? '') == 'Website Development — E-commerce Integration' ? 'selected' : '' }}>
-                                    Website Development — E-commerce Integration
+
+                                <option value="Paid Advertising"
+                                      @selected($data->services == "Paid Advertising")>
+                                    Paid Advertising
                                 </option>
-                                <option value="Website Development — Custom CMS"
-                                    {{ old('services', $data->services ?? '') == 'Website Development — Custom CMS' ? 'selected' : '' }}>
-                                    Website Development — Custom CMS
+
+                                <option value="Social Media Marketing (SMM)"
+                                    @selected($data->services == "Social Media Marketing (SMM)")>
+                                    Social Media Marketing (SMM)
                                 </option>
-                                <option value="Website Development — SEO Optimization"
-                                    {{ old('services', $data->services ?? '') == 'Website Development — SEO Optimization' ? 'selected' : '' }}>
-                                    Website Development — SEO Optimization
+
+                                <option value="Graphic & UI Design"
+                                     @selected($data->services == "Graphic & UI Design")>
+                                    Graphic & UI Design
                                 </option>
-                                <option value="Website Development — Responsive Design"
-                                    {{ old('services', $data->services ?? '') == 'Website Development — Responsive Design' ? 'selected' : '' }}>
-                                    Website Development — Responsive Design
-                                </option>
-                                <option value="Website Development — API Integration"
-                                    {{ old('services', $data->services ?? '') == 'Website Development — API Integration' ? 'selected' : '' }}>
-                                    Website Development — API Integration
-                                </option>
-                                <option value="Website Development — Payment Gateway"
-                                    {{ old('services', $data->services ?? '') == 'Website Development — Payment Gateway' ? 'selected' : '' }}>
-                                    Website Development — Payment Gateway
+
+                                <option value="Google Business Profile"
+                                     @selected($data->services == "Google Business Profile")>
+                                    Google Business Profile
                                 </option>
                             </select>
                             @error('services')
@@ -330,9 +352,15 @@
                                 <div>
                                     <select name="budget_type" id="budget_type"
                                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('budget_type') border-red-500 @enderror">
-                                        <option value="one_time" {{ old('budget_type', $data->budget_type ?? '') == 'one_time' ? 'selected' : '' }}>One-time</option>
-                                        <option value="monthly" {{ old('budget_type', $data->budget_type ?? '') == 'monthly' ? 'selected' : '' }}>Monthly</option>
-                                        <option value="project_based" {{ old('budget_type', $data->budget_type ?? '') == 'project_based' ? 'selected' : '' }}>Project Based</option>
+                                        <option value="one_time"
+                                            {{ old('budget_type', $data->budget_type ?? '') == 'one_time' ? 'selected' : '' }}>
+                                            One-time</option>
+                                        <option value="monthly"
+                                            {{ old('budget_type', $data->budget_type ?? '') == 'monthly' ? 'selected' : '' }}>
+                                            Monthly</option>
+                                        <option value="project_based"
+                                            {{ old('budget_type', $data->budget_type ?? '') == 'project_based' ? 'selected' : '' }}>
+                                            Project Based</option>
                                     </select>
                                 </div>
                             </div>
@@ -367,14 +395,30 @@
                                         {{ old('lead_source', $data->lead_source ?? '') == 'get-a-quote-calculator' ? 'selected' : '' }}>
                                         Get-a-Quote Calculator
                                     </option>
-                                    <option value="website" {{ old('lead_source', $data->lead_source ?? '') == 'website' ? 'selected' : '' }}>Website</option>
-                                    <option value="referral" {{ old('lead_source', $data->lead_source ?? '') == 'referral' ? 'selected' : '' }}>Referral</option>
-                                    <option value="social_media" {{ old('lead_source', $data->lead_source ?? '') == 'social_media' ? 'selected' : '' }}>Social Media</option>
-                                    <option value="email" {{ old('lead_source', $data->lead_source ?? '') == 'email' ? 'selected' : '' }}>Email Campaign</option>
-                                    <option value="phone" {{ old('lead_source', $data->lead_source ?? '') == 'phone' ? 'selected' : '' }}>Phone Call</option>
-                                    <option value="event" {{ old('lead_source', $data->lead_source ?? '') == 'event' ? 'selected' : '' }}>Event/Conference</option>
-                                    <option value="partner" {{ old('lead_source', $data->lead_source ?? '') == 'partner' ? 'selected' : '' }}>Partner Channel</option>
-                                    <option value="other" {{ old('lead_source', $data->lead_source ?? '') == 'other' ? 'selected' : '' }}>Other</option>
+                                    <option value="website"
+                                        {{ old('lead_source', $data->lead_source ?? '') == 'website' ? 'selected' : '' }}>
+                                        Website</option>
+                                    <option value="referral"
+                                        {{ old('lead_source', $data->lead_source ?? '') == 'referral' ? 'selected' : '' }}>
+                                        Referral</option>
+                                    <option value="social_media"
+                                        {{ old('lead_source', $data->lead_source ?? '') == 'social_media' ? 'selected' : '' }}>
+                                        Social Media</option>
+                                    <option value="email"
+                                        {{ old('lead_source', $data->lead_source ?? '') == 'email' ? 'selected' : '' }}>
+                                        Email Campaign</option>
+                                    <option value="phone"
+                                        {{ old('lead_source', $data->lead_source ?? '') == 'phone' ? 'selected' : '' }}>
+                                        Phone Call</option>
+                                    <option value="event"
+                                        {{ old('lead_source', $data->lead_source ?? '') == 'event' ? 'selected' : '' }}>
+                                        Event/Conference</option>
+                                    <option value="partner"
+                                        {{ old('lead_source', $data->lead_source ?? '') == 'partner' ? 'selected' : '' }}>
+                                        Partner Channel</option>
+                                    <option value="other"
+                                        {{ old('lead_source', $data->lead_source ?? '') == 'other' ? 'selected' : '' }}>
+                                        Other</option>
                                 </select>
                                 @error('lead_source')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -388,12 +432,24 @@
                                 </label>
                                 <select name="lead_status" id="lead_status"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('lead_status') border-red-500 @enderror">
-                                    <option value="new" {{ old('lead_status', $data->lead_status ?? '') == 'new' ? 'selected' : '' }}>New</option>
-                                    <option value="contacted" {{ old('lead_status', $data->lead_status ?? '') == 'contacted' ? 'selected' : '' }}>Contacted</option>
-                                    <option value="in_progress" {{ old('lead_status', $data->lead_status ?? '') == 'in_progress' ? 'selected' : '' }}>In Progress</option>
-                                    <option value="converted" {{ old('lead_status', $data->lead_status ?? '') == 'converted' ? 'selected' : '' }}>Converted</option>
-                                    <option value="lost" {{ old('lead_status', $data->lead_status ?? '') == 'lost' ? 'selected' : '' }}>Lost</option>
-                                    <option value="pending" {{ old('lead_status', $data->lead_status ?? '') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="new"
+                                        {{ old('lead_status', $data->lead_status ?? '') == 'new' ? 'selected' : '' }}>New
+                                    </option>
+                                    <option value="contacted"
+                                        {{ old('lead_status', $data->lead_status ?? '') == 'contacted' ? 'selected' : '' }}>
+                                        Contacted</option>
+                                    <option value="in_progress"
+                                        {{ old('lead_status', $data->lead_status ?? '') == 'in_progress' ? 'selected' : '' }}>
+                                        In Progress</option>
+                                    <option value="converted"
+                                        {{ old('lead_status', $data->lead_status ?? '') == 'converted' ? 'selected' : '' }}>
+                                        Converted</option>
+                                    <option value="lost"
+                                        {{ old('lead_status', $data->lead_status ?? '') == 'lost' ? 'selected' : '' }}>Lost
+                                    </option>
+                                    <option value="pending"
+                                        {{ old('lead_status', $data->lead_status ?? '') == 'pending' ? 'selected' : '' }}>
+                                        Pending</option>
                                 </select>
                                 @error('lead_status')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -412,28 +468,59 @@
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 p-3">
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
+                                        Start Date<span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="date" name="start_date" id="phone"
+                                        value="{{ old('start_date', $data->start_date ?? '') }}"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('start_date') border-red-500 @enderror"
+                                        placeholder="Enter your city">
+                                    @error('start_date')
+                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
+                                        End Date <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="date" name="end_date" id="phone"
+                                        value="{{ old('end_date', $data->end_date ?? '') }}"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('end_date') border-red-500 @enderror"
+                                        placeholder="Enter your state">
+                                    @error('end_date')
+                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+    </div>
 
-            <!-- Form Actions -->
-            <div class="mt-8 pt-6 border-t border-gray-200 flex items-center justify-end gap-4">
-                <a href="{{ route('admin.clientLeads') }}"
-                    class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                    Cancel
-                </a>
-                <button type="submit"
-                    class="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v16h16" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4l4 4-4 4" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 8H9" />
-                    </svg>
-                    Update Lead
-                </button>
-            </div>
-        </form>
+    <!-- Form Actions -->
+    <div class="mt-8 pt-6 border-t border-gray-200 flex items-center justify-end gap-4">
+        <a href="{{ route('admin.clientLeads') }}"
+            class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            Cancel
+        </a>
+        <button type="submit"
+            class="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v16h16" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4l4 4-4 4" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 8H9" />
+            </svg>
+            Update Lead
+        </button>
+    </div>
+    </form>
     </div>
 
     <style>

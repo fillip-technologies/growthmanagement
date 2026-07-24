@@ -19,6 +19,7 @@ Route::prefix('account_manager')->middleware(['account_manager'])->group(functio
         Route::post('/createLeadsdata','createLeadsdata')->name('createLeadsdata');
         Route::get('/projectuser','projectuser')->name('projectuser');
         Route::get('/editlead/{id}','editlead')->name('editlead');
+        Route::get('/headTaskassing','headTaskassing')->name('headTaskassing');
         Route::post('/assingtaskforsales','assingtaskforsales')->name('assingtaskforsales');
         Route::get('/reportforsales','reportforsales')->name('reportforsales');
         Route::get('/viewtaskdetails/{id}/{user_id}','viewtaskdetails')->name('viewtaskdetails');

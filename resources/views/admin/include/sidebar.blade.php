@@ -15,8 +15,8 @@
         $data = Auth::guard('employee')->user();
         if ($data->department == 'Sales Department') {
             $myTaskRoute = route('salesEmpTask');
-        }else {
-           $myTaskRoute = route('employee.task');
+        } else {
+            $myTaskRoute = route('employee.task');
         }
     } elseif (Auth::guard('project_manager')->check()) {
         $dashboard = route('employee.dashboard');
@@ -130,7 +130,7 @@
             <i class="fa-solid fa-clock mr-4 text-orange-500 group-hover:text-white"></i>
             Attendance
         </a>
-        <a href="{{ $myTaskRoute}}"
+        <a href="{{ $myTaskRoute }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
               bg-gray-900/60 backdrop-blur-xl border border-gray-800
               hover:bg-orange-600 hover:text-white hover:border-orange-400
@@ -214,15 +214,49 @@
             Team Members
         </a>
 
-        <a href="{{ route('projectuser') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-    bg-gray-900/60 backdrop-blur-xl border border-gray-800
-    hover:bg-orange-600 hover:text-white hover:border-orange-400
-    transition-all duration-300 group">
+        <div x-data="{ open: false }" class="relative">
 
-            <i class="fas fa-folder-open mr-4 text-orange-500 group-hover:text-white"></i>
-            Assing Tasks
-        </a>
+            <!-- Dropdown Button -->
+            <button @click="open = !open"
+                class="w-full flex items-center justify-between px-6 py-3 mb-3 rounded-xl shadow-md
+        bg-gray-900/60 backdrop-blur-xl border border-gray-800
+        hover:bg-orange-600 hover:text-white hover:border-orange-400
+        transition-all duration-300 group">
+
+                <span class="flex items-center">
+                    <i class="fas fa-folder-open mr-4 text-orange-500 group-hover:text-white"></i>
+                    Assign Tasks
+                </span>
+
+                <i class="fas fa-chevron-down text-sm transition-transform duration-300"
+                    :class="{ 'rotate-180': open }"></i>
+            </button>
+
+            <!-- Dropdown -->
+            <div x-show="open" @click.away="open = false" x-transition
+                class="w-full bg-gray-900 rounded-xl shadow-lg border border-gray-700 overflow-hidden">
+
+                <a href="{{ route('projectuser') }}"
+                    class="flex items-center px-6 py-3 hover:bg-orange-600 hover:text-white transition">
+                    <i class="fas fa-users mr-3 text-orange-400"></i>
+                    Sales Team
+                </a>
+
+                <a href="{{ route('headTaskassing') }}"
+                    class="flex items-center px-6 py-3 hover:bg-orange-600 hover:text-white transition">
+                    <i class="fas fa-laptop-code mr-3 text-blue-400"></i>
+                    IT Team
+                </a>
+
+                <a href=""
+                    class="flex items-center px-6 py-3 hover:bg-orange-600 hover:text-white transition">
+                    <i class="fas fa-bullhorn mr-3 text-green-400"></i>
+                    Marketing Team
+                </a>
+
+            </div>
+
+        </div>
         <a href="{{ route('reportforsales') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
     bg-gray-900/60 backdrop-blur-xl border border-gray-800

@@ -43,13 +43,7 @@
                 <h2 class="text-2xl font-bold text-gray-800">Create New Lead</h2>
                 <p class="text-gray-500 mt-1">Add a new lead to the system</p>
             </div>
-            <a href="{{ route('admin.clientLeads') }}"
-                class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Leads
-            </a>
+
         </div>
 
         <!-- Form -->
@@ -90,14 +84,14 @@
                                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
                                         Select Clients <span class="text-red-500">*</span>
                                     </label>
-                                    <select name="client_id" id=""
+                                    <select name="client_name" id=""
                                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('client_id') border-red-500 @enderror">
                                         <option value="">Select Clients</option>
                                         @foreach (fillipLeads() as $items)
-                                            <option value="{{ $items['id'] }}">{{ $items['name'] }}</option>
+                                            <option value="{{ $items['name'] }}">{{ $items['name'] }}</option>
                                         @endforeach
                                     </select>
-                                    @error('client_id')
+                                    @error('client_name')
                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -244,6 +238,34 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 p-3">
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
+                                        Start Date<span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="date" name="start_date" id="phone" value="{{ old('start_date') }}"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('start_date') border-red-500 @enderror"
+                                        placeholder="Enter your city">
+                                    @error('start_date')
+                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
+                                        End Date <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="date" name="end_date" id="phone" value="{{ old('end_date') }}"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('end_date') border-red-500 @enderror"
+                                        placeholder="Enter your state">
+                                    @error('end_date')
+                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+
+                        </div>
                 </div>
 
                 <!-- Right Column -->
@@ -268,54 +290,49 @@
 
                                 <option value="">-- Select Service --</option>
 
-                                <option value="Website Development — Basic Package"
-                                    {{ old('services') == 'Website Development — Basic Package' ? 'selected' : '' }}>
-                                    Website Development — Basic Package
+                                <option value="Website Development"
+                                    {{ old('services') == 'Website Development' ? 'selected' : '' }}>
+                                    Website Development
                                 </option>
 
-                                <option value="Website Development — Standard Package"
-                                    {{ old('services') == 'Website Development — Standard Package' ? 'selected' : '' }}>
-                                    Website Development — Standard Package
+                                <option value="Digital Marketing"
+                                    {{ old('services') == 'Degital Marketing' ? 'selected' : '' }}>
+                                    Degital Marketing
                                 </option>
 
-                                <option value="Website Development — Premium Package"
-                                    {{ old('services') == 'Website Development — Premium Package' ? 'selected' : '' }}>
-                                    Website Development — Premium Package
+                                <option value="Software Development"
+                                    {{ old('services') == 'Software Development' ? 'selected' : '' }}>
+                                    Software Development
                                 </option>
 
-                                <option value="Website Development — Multilingual Support"
-                                    {{ old('services') == 'Website Development — Multilingual Support' ? 'selected' : '' }}>
-                                    Website Development — Multilingual Support
+                                <option value="Mobile App Development"
+                                    {{ old('services') == 'Mobile App Development' ? 'selected' : '' }}>
+                                    Mobile App Development
                                 </option>
 
-                                <option value="Website Development — E-commerce Integration"
-                                    {{ old('services') == 'Website Development — E-commerce Integration' ? 'selected' : '' }}>
-                                    Website Development — E-commerce Integration
+                                <option value="Digital Marketingt"
+                                    {{ old('services') == 'Digital Marketing' ? 'selected' : '' }}>
+                                    Digital Marketing
                                 </option>
 
-                                <option value="Website Development — Custom CMS"
-                                    {{ old('services') == 'Website Development — Custom CMS' ? 'selected' : '' }}>
-                                    Website Development — Custom CMS
+                                <option value="Paid Advertising"
+                                    {{ old('services') == 'Paid Advertising' ? 'selected' : '' }}>
+                                    Paid Advertising
                                 </option>
 
-                                <option value="Website Development — SEO Optimization"
-                                    {{ old('services') == 'Website Development — SEO Optimization' ? 'selected' : '' }}>
-                                    Website Development — SEO Optimization
+                                <option value="Social Media Marketing (SMM)"
+                                    {{ old('services') == 'Social Media Marketing (SMM)' ? 'selected' : '' }}>
+                                    Social Media Marketing (SMM)
                                 </option>
 
-                                <option value="Website Development — Responsive Design"
-                                    {{ old('services') == 'Website Development — Responsive Design' ? 'selected' : '' }}>
-                                    Website Development — Responsive Design
+                                <option value="Graphic & UI Design"
+                                    {{ old('services') == 'Graphic & UI Design' ? 'selected' : '' }}>
+                                    Graphic & UI Design
                                 </option>
 
-                                <option value="Website Development — API Integration"
-                                    {{ old('services') == 'Website Development — API Integration' ? 'selected' : '' }}>
-                                    Website Development — API Integration
-                                </option>
-
-                                <option value="Website Development — Payment Gateway"
-                                    {{ old('services') == 'Website Development — Payment Gateway' ? 'selected' : '' }}>
-                                    Website Development — Payment Gateway
+                                <option value="Google Business Profile"
+                                    {{ old('services') == 'Google Business Profile' ? 'selected' : '' }}>
+                                    Google Business Profile
                                 </option>
                             </select>
 

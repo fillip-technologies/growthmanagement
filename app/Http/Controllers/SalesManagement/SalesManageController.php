@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SalesManagement;
 use App\Http\Controllers\Controller;
 use App\Models\LeadCreate;
 use App\Models\TaskforSales;
+use App\Models\TeamHeadTask;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -95,11 +96,13 @@ public function createLeadsdata(Request $request)
         'budget_type'=>   'required',
         'pin_code'     => 'required',
         'state'        => 'required',
-        'client_id'=>'required'
+        'start_date'=>'required|date',
+        'end_date'=>'required|date',
+        'client_name'=>'required'
     ]);
 
     $data = LeadCreate::create([
-        'client_id'=>  $request->client_id,
+        'client_name'=>  $request->client_name,
         'created_by'   => $request->created_by,
         'name'         => $request->name,
         'email'        => $request->email,
@@ -114,6 +117,8 @@ public function createLeadsdata(Request $request)
         'message'      => $request->message,
         'country'      => $request->country,
         'city'         => $request->city,
+          'start_date'=>$request->start_date,
+            'end_date'=>$request->end_date,
         'pin_code'     => $request->pin_code,
         'state'        => $request->state,
     ]);
@@ -178,7 +183,7 @@ public function assingtaskforsales(Request $request)
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255',
         'phone' => 'required|string|max:20',
-        'client_id' => 'required|exists:lead_creates,id',
+        'client_name' => 'required',
         'city' => 'required|string|max:100',
         'state' => 'required|string|max:100',
         'country' => 'required|string|max:100',
@@ -191,6 +196,8 @@ public function assingtaskforsales(Request $request)
         'lead_source' => 'required|string|max:100',
         'lead_status' => 'required|string|max:50',
         'message' => 'nullable|string',
+        'start_date'=>'required|date',
+        'end_date'=>'required|date',
         'created_by' => 'nullable',
     ]);
 
@@ -201,7 +208,7 @@ public function assingtaskforsales(Request $request)
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'client_id' => $request->client_id,
+            'client_name' => $request->client_name,
             'city' => $request->city,
             'state' => $request->state,
             'country' => $request->country,
@@ -214,6 +221,8 @@ public function assingtaskforsales(Request $request)
             'lead_source' => $request->lead_source,
             'lead_status' => $request->lead_status,
             'message' => $request->message,
+            'start_date'=>$request->start_date,
+            'end_date'=>$request->end_date,
             'created_by' => $request->created_by,
             'updated_at' => now(),
         ]);
@@ -240,6 +249,24 @@ public function assingtaskforsales(Request $request)
             return back()->with('error','Deletion Failed');
         }
     }
+
+        public function headTaskassing(){
+            $leads = LeadCreate::where('lead_status','converted')->get();
+            $employees = User::whereIn('role',['team_leader','marketing_manager'])->get();
+            return view('admin.leads.completedtask',compact('leads','employees'));
+        }
+
+        public function asingtaskdepart(Request $request){
+            $request->validate([
+                'leaddata_id'=>'required',
+                'user_id'=>'required|exists:users,id',
+                'due_date'=>'required|date',
+                'status'=>'required|in:pending,completed,ongoing,testing,live',
+                'description'=>'required|string',
+                'created_by'=>'required|exists:users,id',
+                'priority'=>"required|in:low,high,medium,urgent"
+            ]);
+        }
 
 
 
