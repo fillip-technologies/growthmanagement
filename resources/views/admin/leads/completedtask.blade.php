@@ -81,7 +81,7 @@
                         <div>
                             <h3 class="text-xl font-bold text-white flex items-center gap-3">
                                 <i class="fas fa-user-plus text-blue-200"></i>
-                                Assign Tasks to Sales Team
+                                Assign Tasks to IT Team and Digital Marketing Team
                             </h3>
                             <p class="text-blue-100 text-sm mt-1">Select projects and assign them to your sales representatives</p>
                         </div>
@@ -93,9 +93,9 @@
 
                 {{-- Form Body --}}
                 <div class="p-8">
-                    <form action="{{ route('assingtaskforsales') }}" method="POST" id="taskForm">
+                    <form action="{{ route('asingtaskdepart') }}" method="POST" id="taskForm">
                         @csrf
-<input type="hidden" name="created_by" value="{{ Auth::guard('account_manager')->check() ? Auth::guard('account_manager')->id() : ""  }}">
+                       <input type="hidden" name="created_by" value="{{ Auth::guard('account_manager')->check() ? Auth::guard('account_manager')->id() : ""  }}">
                         {{-- Select Projects Section --}}
                         <div class="mb-8">
                             <div class="flex items-center gap-3 mb-4">
@@ -141,7 +141,7 @@
                                                 @error('leaddata_id') border-red-400 ring-2 ring-red-200 @enderror">
 
                                             <input type="checkbox"
-                                                   name="leaddata_id[]"
+                                                   name="lead_id[]"
                                                    value="{{ $item->id }}"
                                                    class="project-checkbox absolute top-4 right-4 w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all">
 
@@ -293,7 +293,7 @@
                             </div>
                         </div>
 
-                        {{-- Action Buttons --}}
+
                         <div class="flex flex-wrap items-center gap-4 pt-6 border-t-2 border-gray-100">
                             <button type="submit"
                                 class="group px-8 py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl shadow-lg shadow-blue-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-3">
@@ -314,7 +314,6 @@
                 </div>
             </div>
 
-            {{-- Footer Info --}}
             <div class="mt-6 text-center text-sm text-gray-400 flex items-center justify-center gap-6">
                 <span><i class="fas fa-check-circle text-green-400 mr-1.5"></i> Converted leads are auto-assigned</span>
                 <span><i class="fas fa-info-circle text-blue-400 mr-1.5"></i> Select multiple projects</span>
@@ -323,7 +322,7 @@
         </div>
     </div>
 
-    {{-- JavaScript for Selection Count --}}
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const checkboxes = document.querySelectorAll('.project-checkbox');

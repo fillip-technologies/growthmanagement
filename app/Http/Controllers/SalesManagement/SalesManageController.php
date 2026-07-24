@@ -8,9 +8,10 @@ use App\Models\TaskforSales;
 use App\Models\TeamHeadTask;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class SalesManageController extends Controller
 {
@@ -257,16 +258,36 @@ public function assingtaskforsales(Request $request)
         }
 
         public function asingtaskdepart(Request $request){
-            $request->validate([
-                'leaddata_id'=>'required',
-                'user_id'=>'required|exists:users,id',
-                'due_date'=>'required|date',
-                'status'=>'required|in:pending,completed,ongoing,testing,live',
-                'description'=>'required|string',
-                'created_by'=>'required|exists:users,id',
-                'priority'=>"required|in:low,high,medium,urgent"
-            ]);
+        $request->validate([
+        'lead_id'   => 'required|array|min:1',
+        'lead_id.*' => 'required|exists:lead_creates,id',
+        'user_id'       => 'required|exists:users,id',
+        'due_date'      => 'required|date',
+        'description'   => 'required|string',
+        'created_by'    => 'required|exists:users,id',
+        'priority'      => 'required|in:low,medium,high,urgent',
+    ]);
+
+    DB::transaction(function () use ($request) {
+
+        foreach ($request->lead_id as $leadId) {
+            TeamHeadTask::updateOrCreate(
+                [
+                    'lead_id' => $leadId,
+                    'user_id' => $request->user_id,
+                ],
+                [
+                    'due_date'    => $request->due_date,
+                    'description' => $request->description,
+                    'created_by'  => $request->created_by,
+                    'priority'    => $request->priority,
+                ]
+            );
         }
+    });
+
+    return redirect()->back()->with('success', 'Task assigned successfully.');
+}
 
 
 

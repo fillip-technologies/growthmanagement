@@ -245,13 +245,7 @@
                 <a href="{{ route('headTaskassing') }}"
                     class="flex items-center px-6 py-3 hover:bg-orange-600 hover:text-white transition">
                     <i class="fas fa-laptop-code mr-3 text-blue-400"></i>
-                    IT Team
-                </a>
-
-                <a href=""
-                    class="flex items-center px-6 py-3 hover:bg-orange-600 hover:text-white transition">
-                    <i class="fas fa-bullhorn mr-3 text-green-400"></i>
-                    Marketing Team
+                    IT/Marketing Team
                 </a>
 
             </div>
