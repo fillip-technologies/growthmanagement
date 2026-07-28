@@ -305,7 +305,7 @@
 
             @php
                 $updateRoute = null;
-                if (Auth::guard('super_admin')->check()) {
+                if (Auth::guard('super_admin')->check() || Auth::guard("project_manager")->check()) {
                     $updateRoute = route('project.update', $project->id);
                 } elseif (Auth::guard('marketing_manager')->check()) {
                     $updateRoute = route('marketing.project.update', $project->id);
