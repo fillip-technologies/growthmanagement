@@ -674,6 +674,10 @@
                                                 $editRoute = route('project.edit', $p->id);
                                                 $deleteRoute = route('project.delete', $p->id);
                                                 $viewRoute = route('admin.view.project', $p->id);
+                                            }elseif (Auth::guard('project_manager')->check()) {
+                                                $editRoute = route('project.edit', $p->id);
+                                                $deleteRoute = route('project.delete', $p->id);
+                                                $viewRoute = route('admin.view.project', $p->id);
                                             }
                                         @endphp
                                         <div class="flex items-center justify-center gap-1.5">
