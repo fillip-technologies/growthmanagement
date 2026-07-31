@@ -735,6 +735,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{ $projects->link() }}
             </div>
         </div>
     </div>
