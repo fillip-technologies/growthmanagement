@@ -737,7 +737,10 @@
                 </div>
 
             </div>
-            {{ $projects->links() }}
+            <div class="mt-2 p-3">
+{{ $projects->links() }}
+            </div>
+
         </div>
     </div>
 
