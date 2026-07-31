@@ -349,6 +349,24 @@
                                         @enderror
                                     </div>
 
+                                     <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        <i class="fas fa-tag text-orange-500 mr-2"></i>
+                                        Client Name <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="text" name="client_name"
+                                            placeholder="Enter Client Name"
+                                            value="{{ old('client_name',$project->client_name ?? "") }}"
+                                            class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 transition-all duration-200">
+                                        <i class="fas fa-user input-group-icon"></i>
+                                    </div>
+                                    @error('client_name')
+                                        <p class="text-red-500 text-xs mt-1 flex items-center gap-1"><i
+                                                class="fas fa-exclamation-circle"></i>{{ $message }}</p>
+                                    @enderror
+                                </div>
+
                                     {{-- Status --}}
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">

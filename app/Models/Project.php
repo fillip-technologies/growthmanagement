@@ -8,6 +8,7 @@ class Project extends Model
 {
     protected $fillable = [
         'name',
+        'client_name',
         'created_by',
         'description',
         'start_date',

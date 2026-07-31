@@ -41,6 +41,7 @@ class ProjectController extends Controller
         $request->validate([
             'name' => 'required',
             'created_by'=>'nullable',
+            'client_name'=>'required|string',
             'description' => 'required',
             'status' => 'required',
             'priority' => 'required',
@@ -97,6 +98,7 @@ class ProjectController extends Controller
 {
     $request->validate([
         'name' => 'required',
+        'client_name'=> 'required|string',
         'description' => 'required',
         'start_date' => 'required',
         'end_date' => 'required',
@@ -111,6 +113,7 @@ class ProjectController extends Controller
         $project->update([
             'name' => $request->name,
             'description' => $request->description,
+            'client_name'=>$request->client_name,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'status' => $request->status,
