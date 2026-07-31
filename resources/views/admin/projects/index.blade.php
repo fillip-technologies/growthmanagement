@@ -735,8 +735,9 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $projects->links() }}
+
             </div>
+            {{ $projects->links() }}
         </div>
     </div>
 
