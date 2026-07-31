@@ -737,9 +737,8 @@
                 </div>
 
             </div>
-
+            {{ $projects->links() }}
         </div>
-        {{ $projects->links() }}
     </div>
 
     <script>
