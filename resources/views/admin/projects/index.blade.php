@@ -251,7 +251,7 @@
             $createProject = route('marketing.project.create');
         } elseif (Auth::guard('super_admin')->check()) {
             $createProject = route('project.create');
-        }elseif (Auth::guard('project_manager')->check()) {
+        } elseif (Auth::guard('project_manager')->check()) {
             $createProject = route('project.create');
         }
     @endphp
@@ -424,7 +424,7 @@
                                     <i class="fas fa-project-diagram mr-1"></i> Project
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                                    <i class="fas fa-users mr-1"></i> Team
+                                    <i class="fas fa-users mr-1"></i> Handel Project
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-server mr-1"></i> Infrastructure
@@ -545,26 +545,23 @@
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        @if ($hasTeam)
-                                            <div class="flex flex-wrap items-center gap-1">
-                                                @foreach ($teamMembers as $member)
-                                                    @if ($member['name'])
-                                                        <div class="group relative">
-                                                            <div class="team-avatar {{ $member['class'] }}">
-                                                                <i
-                                                                    class="fas {{ $member['icon'] }} text-white text-[10px]"></i>
-                                                            </div>
-                                                            <div
-                                                                class="absolute left-0 bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded-lg px-2 py-1 whitespace-nowrap z-10">
-                                                                {{ $member['role'] }}: {{ $member['name'] }}
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <span class="text-gray-400 text-xs">—</span>
-                                        @endif
+                                        <div class="space-y-2">
+
+                                                <div class="flex items-center gap-3">
+                                                    <div class="team-avatar {{ $member['class'] ?? 'bg-gray-500' }}">
+                                                        <i
+                                                            class="fas {{ $member['icon'] ?? 'fa-user' }} text-white text-[10px]"></i>
+                                                    </div>
+
+                                                    <div>
+                                                        <p class="text-sm font-semibold text-gray-900">
+                                                            {{ $p->projecthumanresource->first()->project_manager ?? ""}}
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+
+                                        </div>
                                     </td>
 
                                     <td class="px-6 py-4">
@@ -674,7 +671,7 @@
                                                 $editRoute = route('project.edit', $p->id);
                                                 $deleteRoute = route('project.delete', $p->id);
                                                 $viewRoute = route('admin.view.project', $p->id);
-                                            }elseif (Auth::guard('project_manager')->check()) {
+                                            } elseif (Auth::guard('project_manager')->check()) {
                                                 $editRoute = route('project.edit', $p->id);
                                                 $deleteRoute = route('project.delete', $p->id);
                                                 $viewRoute = route('admin.view.project', $p->id);
