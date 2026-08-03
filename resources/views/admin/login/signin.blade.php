@@ -415,7 +415,7 @@
 
                             <!-- User Type Tabs -->
                             <!-- Role Selection -->
-                            <div class="mb-5">
+                            {{-- <div class="mb-5">
                                 <label for="roleSelect"
                                     class="mb-2 flex items-center text-sm font-semibold text-white">
                                     <i class="fas fa-user-tag text-white mr-2"></i>
@@ -450,7 +450,7 @@
                                 <p class="mt-2 text-xs text-gray-300">
                                     Select your login role to continue.
                                 </p>
-                            </div>
+                            </div> --}}
 
                             <!-- Email Field -->
                             <div class="relative mb-5 group">

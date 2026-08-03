@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,11 +15,12 @@ class LoginController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'role' => 'required',
             'password' => 'required',
         ]);
 
-        if ($request->role == 'super_admin') {
+        $checkdata = User::where('email',$request->email)->first();
+
+        if ($checkdata->role == 'super_admin') {
 
             if (Auth::guard('super_admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
                  $authUser = Auth::guard('super_admin')->user();
@@ -32,7 +34,7 @@ class LoginController extends Controller
                 return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
             }
 
-        }elseif ($request->role == 'employee') {
+        }elseif ($checkdata->role == 'employee') {
             if(Auth::guard('employee')->attempt(['email'=>$request->email,'password'=>$request->password])){
                 $request->session()->regenerate();
                 $authUser= Auth::guard('employee')->user();
@@ -45,7 +47,7 @@ class LoginController extends Controller
             }else {
                 return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
             }
-        }elseif ($request->role == 'team_leader') {
+        }elseif ($checkdata->role == 'team_leader') {
             if(Auth::guard('team_leader')->attempt(['email'=>$request->email,'password'=>$request->password])){
                 $request->session()->regenerate();
                 $authUser= Auth::guard('team_leader')->user();
@@ -58,7 +60,7 @@ class LoginController extends Controller
             }else {
                 return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
             }
-       }elseif ($request->role == 'project_manager') {
+       }elseif ($checkdata->role == 'project_manager') {
                 if(Auth::guard('project_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
                     $request->session()->regenerate();
                     $authUser= Auth::guard('project_manager')->user();
@@ -71,7 +73,7 @@ class LoginController extends Controller
                 }else {
                     return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
                 }
-              }elseif ($request->role == 'hr_manager') {
+              }elseif ($checkdata->role == 'hr_manager') {
                 if(Auth::guard('hr_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
                     $request->session()->regenerate();
                     $authUser= Auth::guard('hr_manager')->user();
@@ -84,7 +86,7 @@ class LoginController extends Controller
                 }else {
                     return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
                 }
-             }elseif ($request->role == 'marketing_manager') {
+             }elseif ($checkdata->role == 'marketing_manager') {
                 if(Auth::guard('marketing_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
                     $request->session()->regenerate();
                     $authUser= Auth::guard('marketing_manager')->user();
@@ -97,7 +99,7 @@ class LoginController extends Controller
                 }else {
                     return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
                 }
-            }elseif ($request->role == 'account_manager') {
+            }elseif ($checkdata->role == 'account_manager') {
                 if(Auth::guard('account_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
                     $request->session()->regenerate();
                     $authUser= Auth::guard('account_manager')->user();
@@ -110,7 +112,7 @@ class LoginController extends Controller
                 }else {
                     return back()->with('error', 'Hello '.ucfirst($request->role).', your invalid credentials.');
                 }
-              }elseif ($request->role == 'sales_manager') {
+              }elseif ($checkdata->role == 'sales_manager') {
                 if(Auth::guard('sales_manager')->attempt(['email'=>$request->email,'password'=>$request->password])){
                     $request->session()->regenerate();
                     $authUser= Auth::guard('sales_manager')->user();
