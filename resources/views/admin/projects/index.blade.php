@@ -547,19 +547,19 @@
                                     <td class="px-6 py-4">
                                         <div class="space-y-2">
 
-                                                <div class="flex items-center gap-3">
-                                                    <div class="team-avatar {{ $member['class'] ?? 'bg-gray-500' }}">
-                                                        <i
-                                                            class="fas {{ $member['icon'] ?? 'fa-user' }} text-white text-[10px]"></i>
-                                                    </div>
-
-                                                    <div>
-                                                        <p class="text-sm font-semibold text-gray-900">
-                                                            {{ $p->projecthumanresource->first()->project_manager ?? ""}}
-                                                        </p>
-
-                                                    </div>
+                                            <div class="flex items-center gap-3">
+                                                <div class="team-avatar {{ $member['class'] ?? 'bg-gray-500' }}">
+                                                    <i
+                                                        class="fas {{ $member['icon'] ?? 'fa-user' }} text-white text-[10px]"></i>
                                                 </div>
+
+                                                <div>
+                                                    <p class="text-sm font-semibold text-gray-900">
+                                                        {{ $p->projecthumanresource->first()->project_manager ?? '' }}
+                                                    </p>
+
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </td>
@@ -738,7 +738,7 @@
 
             </div>
             <div class="mt-2 p-3">
-{{ $projects->links() }}
+                {{ $projects->links() }}
             </div>
 
         </div>

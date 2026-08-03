@@ -41,86 +41,217 @@
         <i class="fas fa-tachometer-alt mr-4 text-orange-500 group-hover:text-white"></i>
         Dashboard
     </a>
+
+
     @if (Auth::guard('super_admin')->check() || Auth::guard('project_manager')->check())
-        <a href="{{ route('attendanceList') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-              bg-gray-900/60 backdrop-blur-xl border border-gray-800
-              hover:bg-orange-600 hover:text-white hover:border-orange-400
-              transition-all duration-300 group">
-            <i class="fa-solid fa-clock mr-4 text-orange-500 group-hover:text-white"></i>
-            Attendance
-        </a>
+        <div x-data="{ open: false }" class="mb-3">
+            <button @click="open = !open"
+                class="w-full flex items-center justify-between px-6 py-3 rounded-xl shadow-md
+        bg-gray-900/60 backdrop-blur-xl border border-gray-800
+        hover:bg-orange-600 hover:text-white hover:border-orange-400
+        transition-all duration-300 group">
 
-        <a href="{{ route('admin.clientLeads') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-    bg-gray-900/60 backdrop-blur-xl border border-gray-800
-    hover:bg-orange-600 hover:text-white hover:border-orange-400
-    transition-all duration-300 group">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-users-gear mr-4 text-orange-500 group-hover:text-white"></i>
+                    <span>Management</span>
+                </div>
 
-            <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
-            Leads
-        </a>
-        <a href="{{ route('leaveList') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-              bg-gray-900/60 backdrop-blur-xl border border-gray-800
-              hover:bg-orange-600 hover:text-white hover:border-orange-400
-              transition-all duration-300 group">
-            <i class="fa-solid fa-plane-departure mr-4 text-orange-500 group-hover:text-white"></i>
-            Leave Managements
-        </a>
-        <a href="{{ route('employees') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-              bg-gray-900/60 backdrop-blur-xl border border-gray-800
-              hover:bg-orange-600 hover:text-white hover:border-orange-400
-              transition-all duration-300 group">
-            <i class="fa fa-users mr-4 text-orange-500 group-hover:text-white"></i>
-            Employees
-        </a>
-        <a href="{{ route('drag.task') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-              bg-gray-900/60 backdrop-blur-xl border border-gray-800
-              hover:bg-orange-600 hover:text-white hover:border-orange-400
-              transition-all duration-300 group">
-            <i class="fa-solid fa-people-arrows mr-4 text-orange-500 group-hover:text-white"></i>
-            Drag Tasks
-        </a>
+                <i class="fa-solid fa-chevron-down transition-transform duration-300"
+                    :class="{ 'rotate-180': open }"></i>
+            </button>
 
-        <a href="{{ route('task') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-              bg-gray-900/60 backdrop-blur-xl border border-gray-800
-              hover:bg-orange-600 hover:text-white hover:border-orange-400
-              transition-all duration-300 group">
-            <i class="fa-solid fa-square-check mr-4 text-orange-500 group-hover:text-white"></i>
-            Tasks
-        </a>
+            <div x-show="open" x-transition class="mt-2 ml-5 space-y-2">
 
-        <a href="{{ route('project.list') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-              bg-gray-900/60 backdrop-blur-xl border border-gray-800
-              hover:bg-orange-600 hover:text-white hover:border-orange-400
-              transition-all duration-300 group">
-            <i class="fas fa-folder-open mr-4 text-orange-500 group-hover:text-white"></i>
-            Projects
-        </a>
+                <a href="{{ route('attendanceList') }}"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-calendar-check mr-3 text-emerald-400"></i>
+                    Attendance
+                </a>
 
-        <a href="{{ route('week.report') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-              bg-gray-900/60 backdrop-blur-xl border border-gray-800
-              hover:bg-orange-600 hover:text-white hover:border-orange-400
-              transition-all duration-300 group">
-            <i class="fa-solid fa-file-alt mr-4 text-orange-500 group-hover:text-white"></i>
-            Weekly Reports
-        </a>
+                <a href="{{ route('drag.task') }}"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-list-check mr-3 text-blue-400"></i>
+                    Drag Task
+                </a>
+
+                <a href="{{ route('leaveList') }}"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-calendar-xmark mr-3 text-yellow-400"></i>
+                    Leaves
+                </a>
+
+                <a href="{{ route('admin.clientLeads') }}"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-user-plus mr-3 text-pink-400"></i>
+                    Leads
+                </a>
+                <a href="{{ route('employees') }}"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa fa-users mr-4 text-orange-500 group-hover:text-white"></i>
+                    Employees
+                </a>
+
+                <a href="{{ route('project.list') }}"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fas fa-folder-open mr-4 text-orange-500 group-hover:text-white"></i>
+                    Projects
+                </a>
 
 
-        <a href="{{ route('report') }}"
-            class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
-              bg-gray-900/60 backdrop-blur-xl border border-gray-800
-              hover:bg-orange-600 hover:text-white hover:border-orange-400
-              transition-all duration-300 group">
-            <i class="fa-solid fa-chart-pie mr-4 text-orange-500 group-hover:text-white"></i>
-            Reports
-        </a>
+            </div>
+        </div>
+
+
+        {{-- <div x-data="{ open: false }" class="mb-3">
+            <button @click="open = !open"
+                class="w-full flex items-center justify-between px-6 py-3 rounded-xl shadow-md
+        bg-gray-900/60 backdrop-blur-xl border border-gray-800
+        hover:bg-orange-600 hover:text-white hover:border-orange-400
+        transition-all duration-300 group">
+
+                <div class="flex items-center">
+                    <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
+                    <span>IT Teams</span>
+                </div>
+
+                <i class="fa-solid fa-chevron-down transition-transform duration-300"
+                    :class="{ 'rotate-180': open }"></i>
+            </button>
+            <div x-show="open" x-transition class="mt-2 ml-5 space-y-2">
+
+                <a href=""
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-laptop-code mr-3 text-blue-400"></i>
+                    Employees
+                </a>
+
+                <a href=""
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-chart-line mr-3 text-green-400"></i>
+                    Projects
+                </a>
+
+                <a href="{"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-bullhorn mr-3 text-pink-400"></i>
+                    Report
+                </a>
+
+            </div>
+        </div> --}}
+
+        {{-- <div x-data="{ open: false }" class="mb-3">
+            <button @click="open = !open"
+                class="w-full flex items-center justify-between px-6 py-3 rounded-xl shadow-md
+        bg-gray-900/60 backdrop-blur-xl border border-gray-800
+        hover:bg-orange-600 hover:text-white hover:border-orange-400
+        transition-all duration-300 group">
+
+                <div class="flex items-center">
+                    <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
+                    <span>Sales Teams</span>
+                </div>
+
+                <i class="fa-solid fa-chevron-down transition-transform duration-300"
+                    :class="{ 'rotate-180': open }"></i>
+            </button>
+            <div x-show="open" x-transition class="mt-2 ml-5 space-y-2">
+
+                <a href=""
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-laptop-code mr-3 text-blue-400"></i>
+                    Employees
+                </a>
+
+                <a href=""
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-chart-line mr-3 text-green-400"></i>
+                    Projects
+                </a>
+
+                <a href="{"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-bullhorn mr-3 text-pink-400"></i>
+                    Report
+                </a>
+
+
+            </div>
+        </div> --}}
+{{--
+        <div x-data="{ open: false }" class="mb-3">
+            <button @click="open = !open"
+                class="w-full flex items-center justify-between px-6 py-3 rounded-xl shadow-md
+        bg-gray-900/60 backdrop-blur-xl border border-gray-800
+        hover:bg-orange-600 hover:text-white hover:border-orange-400
+        transition-all duration-300 group">
+
+                <div class="flex items-center">
+                    <i class="fa-solid fa-users mr-4 text-orange-500 group-hover:text-white"></i>
+                    <span>DMRK Teams</span>
+                </div>
+
+                <i class="fa-solid fa-chevron-down transition-transform duration-300"
+                    :class="{ 'rotate-180': open }"></i>
+            </button>
+            <div x-show="open" x-transition class="mt-2 ml-5 space-y-2">
+
+                <a href=""
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-laptop-code mr-3 text-blue-400"></i>
+                    Employees
+                </a>
+
+                <a href=""
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-chart-line mr-3 text-green-400"></i>
+                    Projects
+                </a>
+
+                <a href="{"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-bullhorn mr-3 text-pink-400"></i>
+                    Report
+                </a>
+
+            </div>
+        </div> --}}
+
+        <div x-data="{ open: false }" class="mb-3">
+            <button @click="open = !open"
+                class="w-full flex items-center justify-between px-6 py-3 rounded-xl shadow-md
+        bg-gray-900/60 backdrop-blur-xl border border-gray-800
+        hover:bg-orange-600 hover:text-white hover:border-orange-400
+        transition-all duration-300 group">
+
+                <div class="flex items-center">
+                    <i class="fa-solid fa-chart-column mr-4 text-orange-500 group-hover:text-white"></i>
+                    <span>Work Reports</span>
+                </div>
+
+                <i class="fa-solid fa-chevron-down transition-transform duration-300"
+                    :class="{ 'rotate-180': open }"></i>
+            </button>
+
+            <div x-show="open" x-transition class="mt-2 ml-5 space-y-2">
+
+                <a href="{{ route('report') }}"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-chart-line mr-3 text-green-400"></i>
+                    Reports
+                </a>
+
+                <a href="{{ route('week.report') }}"
+                    class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
+                    <i class="fa-solid fa-calendar-week mr-3 text-blue-400"></i>
+                    Weekly Reports
+                </a>
+
+            </div>
+        </div>
+
+
+
     @elseif(Auth::guard('employee')->check())
         <a href="{{ route('emp.attendance') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
