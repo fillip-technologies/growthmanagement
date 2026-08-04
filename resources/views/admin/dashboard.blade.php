@@ -279,7 +279,6 @@
 
             @if(Auth::guard('super_admin')->check())
 
-
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <!-- Total Users Card -->
                 <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500 animate-slide-left"
@@ -300,7 +299,7 @@
                             <i class="fas fa-users text-white text-xl"></i>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-emerald-500 animate-slide-left"
@@ -367,6 +366,205 @@
                     </div>
 
                 </div>
+            </div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                 <div class="bg-white rounded-2xl shadow-lg p-6 animate-fade-up" style="animation-delay: 0.4s">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fas fa-history text-blue-500"></i>
+                            Recent Activity
+                        </h3>
+                    </div>
+                    <div class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar">
+                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-check-circle text-green-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-800">Task completed</p>
+                                <p class="text-xs text-gray-400">2 minutes ago</p>
+                            </div>
+                        </div>
+
+                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-user-plus text-blue-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-800">New employee added</p>
+                                <p class="text-xs text-gray-400">1 hour ago</p>
+                            </div>
+                        </div>
+
+                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
+                            <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-folder-open text-orange-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-800">New project created: "E-Commerce Platform"</p>
+                                <p class="text-xs text-gray-400">3 hours ago</p>
+                            </div>
+                        </div>
+
+                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-tasks text-purple-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-800">Task assigned to John Doe</p>
+                                <p class="text-xs text-gray-400">Yesterday</p>
+                            </div>
+                        </div>
+
+                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
+                            <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-clock text-yellow-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-800">Pending deadline: "Mobile App Development"</p>
+                                <p class="text-xs text-gray-400">2 days ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                {{-- Quick Actions Card --}}
+                <div class="bg-white rounded-2xl shadow-lg p-6 animate-fade-up" style="animation-delay: 0.3s">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-bolt text-orange-500"></i>
+                        Quick Actions
+                    </h3>
+                    <div class="space-y-3">
+                        <a href="{{ route('project.create') }}"
+                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl hover:from-blue-100 hover:to-blue-200 transition group">
+                            <div class="w-10 h-10 rounded-xl bg-blue-500 flex items-center justify-center shadow-sm">
+                                <i class="fas fa-folder-open text-white text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">Create New Project</p>
+                                <p class="text-xs text-gray-500">Start a new project today</p>
+                            </div>
+                            <i
+                                class="fas fa-arrow-right text-gray-400 group-hover:text-blue-500 group-hover:translate-x-1 transition"></i>
+                        </a>
+
+
+
+                        <a href="{{ route('create') }}"
+                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl hover:from-purple-100 hover:to-purple-200 transition group">
+                            <div class="w-10 h-10 rounded-xl bg-purple-500 flex items-center justify-center shadow-sm">
+                                <i class="fas fa-user-plus text-white text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">Add Employee</p>
+                                <p class="text-xs text-gray-500">Onboard new team members</p>
+                            </div>
+                            <i
+                                class="fas fa-arrow-right text-gray-400 group-hover:text-purple-500 group-hover:translate-x-1 transition"></i>
+                        </a>
+
+                        <a href="{{ route('drag.task') }}"
+                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl hover:from-orange-100 hover:to-orange-200 transition group">
+                            <div class="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center shadow-sm">
+                                <i class="fas fa-arrows-alt text-white text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">Drag & Drop Assignment</p>
+                                <p class="text-xs text-gray-500">Quick task assignment</p>
+                            </div>
+                            <i
+                                class="fas fa-arrow-right text-gray-400 group-hover:text-orange-500 group-hover:translate-x-1 transition"></i>
+                        </a>
+
+                        <a href="{{ route('attendanceList') }}"
+                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl hover:from-orange-100 hover:to-orange-200 transition group">
+                            <div class="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center shadow-sm">
+                               <i class="fa-solid fa-calendar-check text-white text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semiboldtext-white text-sm">Attendance</p>
+                                <p class="text-xs text-gray-500">Employee Attendance</p>
+                            </div>
+                            <i
+                                class="fas fa-arrow-right text-gray-400 group-hover:text-orange-500 group-hover:translate-x-1 transition"></i>
+                        </a>
+                    </div>
+                </div>
+
+                 <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-lg p-6 animate-fade-up"
+                    style="animation-delay: 0.5s">
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-chart-pie text-orange-400"></i>
+                        Project Status Overview
+                    </h3>
+                    <div class="space-y-4">
+                        @php
+                            $totalProjects = $totalProducts;
+                            $ongoing = \App\Models\Project::where('status', 'ongoing')->count();
+                            $completed = \App\Models\Project::where('status', 'completed')->count();
+                            $pending = \App\Models\Project::where('status', 'pending')->count();
+                            $ongoingPercent = $totalProjects > 0 ? round(($ongoing / $totalProjects) * 100) : 0;
+                            $completedPercent = $totalProjects > 0 ? round(($completed / $totalProjects) * 100) : 0;
+                            $pendingPercent = $totalProjects > 0 ? round(($pending / $totalProjects) * 100) : 0;
+                        @endphp
+
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-300">Ongoing Projects</span>
+                                <span class="text-blue-400 font-semibold">{{ $ongoingPercent }}%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full transition-all duration-500"
+                                    style="width: {{ $ongoingPercent }}%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-300">Completed Projects</span>
+                                <span class="text-emerald-400 font-semibold">{{ $completedPercent }}%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-emerald-500 h-2 rounded-full transition-all duration-500"
+                                    style="width: {{ $completedPercent }}%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-300">Pending Projects</span>
+                                <span class="text-orange-400 font-semibold">{{ $pendingPercent }}%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-orange-500 h-2 rounded-full transition-all duration-500"
+                                    style="width: {{ $pendingPercent }}%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-gray-700">
+                        <div class="flex justify-between text-sm">
+                            <div class="text-center flex-1">
+                                <p class="text-2xl font-bold text-white">{{ $ongoing }}</p>
+                                <p class="text-xs text-gray-400">Ongoing</p>
+                            </div>
+                            <div class="text-center flex-1">
+                                <p class="text-2xl font-bold text-white">{{ $completed }}</p>
+                                <p class="text-xs text-gray-400">Completed</p>
+                            </div>
+                            <div class="text-center flex-1">
+                                <p class="text-2xl font-bold text-white">{{ $pending }}</p>
+                                <p class="text-xs text-gray-400">Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="mt-8 text-center text-gray-400 text-sm">
+                <i class="fas fa-chart-line mr-1"></i>
+                Dashboard updated in real-time • Last sync: {{ now()->format('h:i A') }}
             </div>
             @else
                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -479,234 +677,6 @@
                 </div>
             </div>
             @endif
-
-
-
-            {{-- Charts and Activity Section --}}
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-
-                {{-- Chart Card --}}
-                <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6 animate-fade-up" style="animation-delay: 0.2s">
-                    <div class="flex justify-between items-center mb-6">
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-800">Analytics Overview</h3>
-                            <p class="text-sm text-gray-500">Task completion trends over time</p>
-                        </div>
-                        <div class="flex gap-2">
-                            <button
-                                class="px-3 py-1 text-xs bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition">Weekly</button>
-                            <button
-                                class="px-3 py-1 text-xs bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition">Monthly</button>
-                            <button
-                                class="px-3 py-1 text-xs bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition">Yearly</button>
-                        </div>
-                    </div>
-                    <canvas id="analyticsChart" height="250"></canvas>
-                </div>
-
-                {{-- Quick Actions Card --}}
-                <div class="bg-white rounded-2xl shadow-lg p-6 animate-fade-up" style="animation-delay: 0.3s">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fas fa-bolt text-orange-500"></i>
-                        Quick Actions
-                    </h3>
-                    <div class="space-y-3">
-                        <a href="{{ route('project.create') }}"
-                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl hover:from-blue-100 hover:to-blue-200 transition group">
-                            <div class="w-10 h-10 rounded-xl bg-blue-500 flex items-center justify-center shadow-sm">
-                                <i class="fas fa-folder-open text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-gray-800">Create New Project</p>
-                                <p class="text-xs text-gray-500">Start a new project today</p>
-                            </div>
-                            <i
-                                class="fas fa-arrow-right text-gray-400 group-hover:text-blue-500 group-hover:translate-x-1 transition"></i>
-                        </a>
-
-                        <a href=""
-                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-xl hover:from-emerald-100 hover:to-emerald-200 transition group">
-                            <div class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center shadow-sm">
-                                <i class="fas fa-plus-circle text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-gray-800">Add New Task</p>
-                                <p class="text-xs text-gray-500">Assign tasks to team members</p>
-                            </div>
-                            <i
-                                class="fas fa-arrow-right text-gray-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition"></i>
-                        </a>
-
-                        <a href=""
-                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl hover:from-purple-100 hover:to-purple-200 transition group">
-                            <div class="w-10 h-10 rounded-xl bg-purple-500 flex items-center justify-center shadow-sm">
-                                <i class="fas fa-user-plus text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-gray-800">Add Employee</p>
-                                <p class="text-xs text-gray-500">Onboard new team members</p>
-                            </div>
-                            <i
-                                class="fas fa-arrow-right text-gray-400 group-hover:text-purple-500 group-hover:translate-x-1 transition"></i>
-                        </a>
-
-                        <a href=""
-                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl hover:from-orange-100 hover:to-orange-200 transition group">
-                            <div class="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center shadow-sm">
-                                <i class="fas fa-arrows-alt text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-gray-800">Drag & Drop Assignment</p>
-                                <p class="text-xs text-gray-500">Quick task assignment</p>
-                            </div>
-                            <i
-                                class="fas fa-arrow-right text-gray-400 group-hover:text-orange-500 group-hover:translate-x-1 transition"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Recent Activity & Notifications --}}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-                {{-- Recent Activity Feed --}}
-                <div class="bg-white rounded-2xl shadow-lg p-6 animate-fade-up" style="animation-delay: 0.4s">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
-                            <i class="fas fa-history text-blue-500"></i>
-                            Recent Activity
-                        </h3>
-                        <a href="#" class="text-xs text-blue-600 hover:text-blue-700">View all</a>
-                    </div>
-                    <div class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar">
-                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
-                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-check-circle text-green-600 text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">Task completed</p>
-                                <p class="text-xs text-gray-400">2 minutes ago</p>
-                            </div>
-                        </div>
-
-                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
-                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-user-plus text-blue-600 text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">New employee added</p>
-                                <p class="text-xs text-gray-400">1 hour ago</p>
-                            </div>
-                        </div>
-
-                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
-                            <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-folder-open text-orange-600 text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">New project created: "E-Commerce Platform"</p>
-                                <p class="text-xs text-gray-400">3 hours ago</p>
-                            </div>
-                        </div>
-
-                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
-                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-tasks text-purple-600 text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">Task assigned to John Doe</p>
-                                <p class="text-xs text-gray-400">Yesterday</p>
-                            </div>
-                        </div>
-
-                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
-                            <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-clock text-yellow-600 text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">Pending deadline: "Mobile App Development"</p>
-                                <p class="text-xs text-gray-400">2 days ago</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Quick Stats / Progress Card --}}
-                <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-lg p-6 animate-fade-up"
-                    style="animation-delay: 0.5s">
-                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="fas fa-chart-pie text-orange-400"></i>
-                        Project Status Overview
-                    </h3>
-                    <div class="space-y-4">
-                        @php
-                            $totalProjects = $totalProducts;
-                            $ongoing = \App\Models\Project::where('status', 'ongoing')->count();
-                            $completed = \App\Models\Project::where('status', 'completed')->count();
-                            $pending = \App\Models\Project::where('status', 'pending')->count();
-                            $ongoingPercent = $totalProjects > 0 ? round(($ongoing / $totalProjects) * 100) : 0;
-                            $completedPercent = $totalProjects > 0 ? round(($completed / $totalProjects) * 100) : 0;
-                            $pendingPercent = $totalProjects > 0 ? round(($pending / $totalProjects) * 100) : 0;
-                        @endphp
-
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-300">Ongoing Projects</span>
-                                <span class="text-blue-400 font-semibold">{{ $ongoingPercent }}%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2">
-                                <div class="bg-blue-500 h-2 rounded-full transition-all duration-500"
-                                    style="width: {{ $ongoingPercent }}%"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-300">Completed Projects</span>
-                                <span class="text-emerald-400 font-semibold">{{ $completedPercent }}%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2">
-                                <div class="bg-emerald-500 h-2 rounded-full transition-all duration-500"
-                                    style="width: {{ $completedPercent }}%"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-300">Pending Projects</span>
-                                <span class="text-orange-400 font-semibold">{{ $pendingPercent }}%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2">
-                                <div class="bg-orange-500 h-2 rounded-full transition-all duration-500"
-                                    style="width: {{ $pendingPercent }}%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 pt-4 border-t border-gray-700">
-                        <div class="flex justify-between text-sm">
-                            <div class="text-center flex-1">
-                                <p class="text-2xl font-bold text-white">{{ $ongoing }}</p>
-                                <p class="text-xs text-gray-400">Ongoing</p>
-                            </div>
-                            <div class="text-center flex-1">
-                                <p class="text-2xl font-bold text-white">{{ $completed }}</p>
-                                <p class="text-xs text-gray-400">Completed</p>
-                            </div>
-                            <div class="text-center flex-1">
-                                <p class="text-2xl font-bold text-white">{{ $pending }}</p>
-                                <p class="text-xs text-gray-400">Pending</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Footer Note --}}
-            <div class="mt-8 text-center text-gray-400 text-sm">
-                <i class="fas fa-chart-line mr-1"></i>
-                Dashboard updated in real-time • Last sync: {{ now()->format('h:i A') }}
-            </div>
 
         </div>
     </div>
