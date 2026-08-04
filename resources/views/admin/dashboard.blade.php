@@ -300,12 +300,7 @@
                             <i class="fas fa-users text-white text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <a href="#"
-                            class="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
-                            View all users <i class="fas fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
+                    
                 </div>
 
                 <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-emerald-500 animate-slide-left"
@@ -326,12 +321,7 @@
                             <i class="fas fa-calendar-check text-white text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <a href="#"
-                            class="text-xs text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1">
-                            Manage Projects <i class="fas fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
+
                 </div>
 
                 <!-- Total Projects Card -->
@@ -353,12 +343,7 @@
                             <i class="fas fa-project-diagram text-white text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <a href="{{ route('project.list') }}"
-                            class="text-xs text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1">
-                            View projects <i class="fas fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
+
                 </div>
 
                 <!-- Total Tasks Card -->
@@ -380,12 +365,7 @@
                             <i class="fas fa-tasks text-white text-xl"></i>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <a href="#"
-                            class="text-xs text-orange-600 hover:text-orange-700 font-medium flex items-center gap-1">
-                            View tasks <i class="fas fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
+
                 </div>
             </div>
             @else
