@@ -1,4 +1,3 @@
-
 @extends('admin.include.layout')
 @section('title', 'Dashboard')
 @section('content')
@@ -217,24 +216,23 @@
         }
 
         $currentDate = date('l, F j, Y');
-        $adminName = "";
-        if(Auth::guard('super_admin')->check()){
-        $adminName= SuperAdminLogin()->name;
-        }elseif (Auth::guard('team_leader')->check()) {
-            $adminName= TeamLeaderLogin()->name;
-        }elseif (Auth::guard('project_manager')->check()) {
-            $adminName= ProjectManagerLogin()->name;
-        }elseif (Auth::guard('employee')->check()) {
-            $adminName= EmpLogin()->name;
+        $adminName = '';
+        if (Auth::guard('super_admin')->check()) {
+            $adminName = SuperAdminLogin()->name;
+        } elseif (Auth::guard('team_leader')->check()) {
+            $adminName = TeamLeaderLogin()->name;
+        } elseif (Auth::guard('project_manager')->check()) {
+            $adminName = ProjectManagerLogin()->name;
+        } elseif (Auth::guard('employee')->check()) {
+            $adminName = EmpLogin()->name;
         }
-
 
         // Stats with realistic data (you can replace with actual DB counts)
         $totalUsers = \App\Models\User::count() ?? 0;
         $totalTask = \App\Models\AddTask::count() ?? 0;
         $totalProducts = \App\Models\Project::count() ?? 0;
         $totalOrders = \App\Models\AssingTask::count() ?? 0;
-        $totalReveneu = \App\Models\LeadCreate::where('lead_status','converted')->sum('budget');
+        $totalReveneu = \App\Models\LeadCreate::where('lead_status', 'converted')->sum('budget');
 
         // Calculate percentage changes (mock data - replace with actual logic)
         $userGrowth = $totalUsers > 0 ? rand(5, 20) : 0;
@@ -253,8 +251,7 @@
                 <div class="px-6 py-6 md:px-8 md:py-8">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div class="flex items-center gap-4">
-                            <div
-                                class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
                                 <i class="{{ $greetingIcon }} text-3xl {{ $greetingColor }}"></i>
                             </div>
                             <div>
@@ -277,405 +274,411 @@
                 </div>
             </div>
 
-            @if(Auth::guard('super_admin')->check())
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <!-- Total Users Card -->
-                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500 animate-slide-left"
-                    style="animation-delay: 0.1s">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Users</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ $totalUsers ?? 0 }}</h3>
-                            <div class="mt-3 flex items-center gap-1">
-                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
-                                    <i class="fas fa-arrow-up text-xs"></i> {{ $userGrowth }}%
-                                </span>
-                                <span class="text-xs text-gray-400">vs last month</span>
+            @if (Auth::guard('super_admin')->check())
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Total Users Card -->
+                    <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500 animate-slide-left"
+                        style="animation-delay: 0.1s">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Users</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ $totalUsers ?? 0 }}</h3>
+                                <div class="mt-3 flex items-center gap-1">
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                        <i class="fas fa-arrow-up text-xs"></i> {{ $userGrowth }}%
+                                    </span>
+                                    <span class="text-xs text-gray-400">vs last month</span>
+                                </div>
+                            </div>
+                            <div
+                                class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-users text-white text-xl"></i>
                             </div>
                         </div>
-                        <div
-                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
-                            <i class="fas fa-users text-white text-xl"></i>
+
+                    </div>
+
+                    <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-emerald-500 animate-slide-left"
+                        style="animation-delay: 0.2s">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Projects</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ $totalProducts ?? 0 }}</h3>
+                                <div class="mt-3 flex items-center gap-1">
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                        <i class="fas fa-arrow-up text-xs"></i> {{ $bookingGrowth }}%
+                                    </span>
+                                    <span class="text-xs text-gray-400">vs last month</span>
+                                </div>
+                            </div>
+                            <div
+                                class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-calendar-check text-white text-xl"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Total Projects Card -->
+                    <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-500 animate-slide-left"
+                        style="animation-delay: 0.3s">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Revenue</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ number_format($totalReveneu) }}</h3>
+                                <div class="mt-3 flex items-center gap-1">
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                        <i class="fas fa-arrow-up text-xs"></i> {{ $productGrowth }}%
+                                    </span>
+                                    <span class="text-xs text-gray-400">vs last month</span>
+                                </div>
+                            </div>
+                            <div
+                                class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-project-diagram text-white text-xl"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Total Tasks Card -->
+                    <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500 animate-slide-left"
+                        style="animation-delay: 0.4s">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Tasks</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ $totalTask ?? 0 }}</h3>
+                                <div class="mt-3 flex items-center gap-1">
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                        <i class="fas fa-arrow-up text-xs"></i> {{ $orderGrowth }}%
+                                    </span>
+                                    <span class="text-xs text-gray-400">vs last month</span>
+                                </div>
+                            </div>
+                            <div
+                                class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-tasks text-white text-xl"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 animate-fade-up" style="animation-delay: 0.4s">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                                <i class="fas fa-history text-blue-500"></i>
+                                Recent Activity
+                            </h3>
+                        </div>
+                        <div class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar">
+                            <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-check-circle text-green-600 text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-800">Task completed</p>
+                                    <p class="text-xs text-gray-400">2 minutes ago</p>
+                                </div>
+                            </div>
+
+                            <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-user-plus text-blue-600 text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-800">New employee added</p>
+                                    <p class="text-xs text-gray-400">1 hour ago</p>
+                                </div>
+                            </div>
+
+                            <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-folder-open text-orange-600 text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-800">New project created: "E-Commerce Platform"
+                                    </p>
+                                    <p class="text-xs text-gray-400">3 hours ago</p>
+                                </div>
+                            </div>
+
+                            <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-tasks text-purple-600 text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-800">Task assigned to John Doe</p>
+                                    <p class="text-xs text-gray-400">Yesterday</p>
+                                </div>
+                            </div>
+
+                            <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-clock text-yellow-600 text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-800">Pending deadline: "Mobile App Development"
+                                    </p>
+                                    <p class="text-xs text-gray-400">2 days ago</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                </div>
 
-                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-emerald-500 animate-slide-left"
-                    style="animation-delay: 0.2s">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Projects</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ $totalProducts ?? 0 }}</h3>
-                            <div class="mt-3 flex items-center gap-1">
-                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
-                                    <i class="fas fa-arrow-up text-xs"></i> {{ $bookingGrowth }}%
-                                </span>
-                                <span class="text-xs text-gray-400">vs last month</span>
-                            </div>
-                        </div>
-                        <div
-                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg">
-                            <i class="fas fa-calendar-check text-white text-xl"></i>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Total Projects Card -->
-                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-500 animate-slide-left"
-                    style="animation-delay: 0.3s">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Revenue</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ $totalReveneu}}</h3>
-                            <div class="mt-3 flex items-center gap-1">
-                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
-                                    <i class="fas fa-arrow-up text-xs"></i> {{ $productGrowth }}%
-                                </span>
-                                <span class="text-xs text-gray-400">vs last month</span>
-                            </div>
-                        </div>
-                        <div
-                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg">
-                            <i class="fas fa-project-diagram text-white text-xl"></i>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Total Tasks Card -->
-                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500 animate-slide-left"
-                    style="animation-delay: 0.4s">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Tasks</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{    $totalTask  ?? 0  }}</h3>
-                            <div class="mt-3 flex items-center gap-1">
-                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
-                                    <i class="fas fa-arrow-up text-xs"></i> {{ $orderGrowth }}%
-                                </span>
-                                <span class="text-xs text-gray-400">vs last month</span>
-                            </div>
-                        </div>
-                        <div
-                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
-                            <i class="fas fa-tasks text-white text-xl"></i>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                 <div class="bg-white rounded-2xl shadow-lg p-6 animate-fade-up" style="animation-delay: 0.4s">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
-                            <i class="fas fa-history text-blue-500"></i>
-                            Recent Activity
+                    {{-- Quick Actions Card --}}
+                    <div class="bg-white rounded-2xl shadow-lg p-6 animate-fade-up" style="animation-delay: 0.3s">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-bolt text-orange-500"></i>
+                            Quick Actions
                         </h3>
-                    </div>
-                    <div class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar">
-                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
-                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-check-circle text-green-600 text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">Task completed</p>
-                                <p class="text-xs text-gray-400">2 minutes ago</p>
-                            </div>
-                        </div>
-
-                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
-                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-user-plus text-blue-600 text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">New employee added</p>
-                                <p class="text-xs text-gray-400">1 hour ago</p>
-                            </div>
-                        </div>
-
-                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
-                            <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-folder-open text-orange-600 text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">New project created: "E-Commerce Platform"</p>
-                                <p class="text-xs text-gray-400">3 hours ago</p>
-                            </div>
-                        </div>
-
-                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
-                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-tasks text-purple-600 text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">Task assigned to John Doe</p>
-                                <p class="text-xs text-gray-400">Yesterday</p>
-                            </div>
-                        </div>
-
-                        <div class="activity-item flex items-start gap-3 p-3 rounded-xl transition">
-                            <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-clock text-yellow-600 text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">Pending deadline: "Mobile App Development"</p>
-                                <p class="text-xs text-gray-400">2 days ago</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                {{-- Quick Actions Card --}}
-                <div class="bg-white rounded-2xl shadow-lg p-6 animate-fade-up" style="animation-delay: 0.3s">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fas fa-bolt text-orange-500"></i>
-                        Quick Actions
-                    </h3>
-                    <div class="space-y-3">
-                        <a href="{{ route('project.create') }}"
-                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl hover:from-blue-100 hover:to-blue-200 transition group">
-                            <div class="w-10 h-10 rounded-xl bg-blue-500 flex items-center justify-center shadow-sm">
-                                <i class="fas fa-folder-open text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-gray-800">Create New Project</p>
-                                <p class="text-xs text-gray-500">Start a new project today</p>
-                            </div>
-                            <i
-                                class="fas fa-arrow-right text-gray-400 group-hover:text-blue-500 group-hover:translate-x-1 transition"></i>
-                        </a>
+                        <div class="space-y-3">
+                            <a href="{{ route('project.create') }}"
+                                class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl hover:from-blue-100 hover:to-blue-200 transition group">
+                                <div class="w-10 h-10 rounded-xl bg-blue-500 flex items-center justify-center shadow-sm">
+                                    <i class="fas fa-folder-open text-white text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-gray-800">Create New Project</p>
+                                    <p class="text-xs text-gray-500">Start a new project today</p>
+                                </div>
+                                <i
+                                    class="fas fa-arrow-right text-gray-400 group-hover:text-blue-500 group-hover:translate-x-1 transition"></i>
+                            </a>
 
 
 
-                        <a href="{{ route('create') }}"
-                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl hover:from-purple-100 hover:to-purple-200 transition group">
-                            <div class="w-10 h-10 rounded-xl bg-purple-500 flex items-center justify-center shadow-sm">
-                                <i class="fas fa-user-plus text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-gray-800">Add Employee</p>
-                                <p class="text-xs text-gray-500">Onboard new team members</p>
-                            </div>
-                            <i
-                                class="fas fa-arrow-right text-gray-400 group-hover:text-purple-500 group-hover:translate-x-1 transition"></i>
-                        </a>
+                            <a href="{{ route('create') }}"
+                                class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl hover:from-purple-100 hover:to-purple-200 transition group">
+                                <div class="w-10 h-10 rounded-xl bg-purple-500 flex items-center justify-center shadow-sm">
+                                    <i class="fas fa-user-plus text-white text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-gray-800">Add Employee</p>
+                                    <p class="text-xs text-gray-500">Onboard new team members</p>
+                                </div>
+                                <i
+                                    class="fas fa-arrow-right text-gray-400 group-hover:text-purple-500 group-hover:translate-x-1 transition"></i>
+                            </a>
 
-                        <a href="{{ route('drag.task') }}"
-                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl hover:from-orange-100 hover:to-orange-200 transition group">
-                            <div class="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center shadow-sm">
-                                <i class="fas fa-arrows-alt text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-gray-800">Drag & Drop Assignment</p>
-                                <p class="text-xs text-gray-500">Quick task assignment</p>
-                            </div>
-                            <i
-                                class="fas fa-arrow-right text-gray-400 group-hover:text-orange-500 group-hover:translate-x-1 transition"></i>
-                        </a>
+                            <a href="{{ route('drag.task') }}"
+                                class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl hover:from-orange-100 hover:to-orange-200 transition group">
+                                <div class="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center shadow-sm">
+                                    <i class="fas fa-arrows-alt text-white text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-gray-800">Drag & Drop Assignment</p>
+                                    <p class="text-xs text-gray-500">Quick task assignment</p>
+                                </div>
+                                <i
+                                    class="fas fa-arrow-right text-gray-400 group-hover:text-orange-500 group-hover:translate-x-1 transition"></i>
+                            </a>
 
-                        <a href="{{ route('attendanceList') }}"
-                            class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl hover:from-orange-100 hover:to-orange-200 transition group">
-                            <div class="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center shadow-sm">
-                               <i class="fa-solid fa-calendar-check text-white text-sm"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semiboldtext-white text-sm">Attendance</p>
-                                <p class="text-xs text-gray-500">Employee Attendance</p>
-                            </div>
-                            <i
-                                class="fas fa-arrow-right text-gray-400 group-hover:text-orange-500 group-hover:translate-x-1 transition"></i>
-                        </a>
-                    </div>
-                </div>
-
-                 <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-lg p-6 animate-fade-up"
-                    style="animation-delay: 0.5s">
-                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="fas fa-chart-pie text-orange-400"></i>
-                        Project Status Overview
-                    </h3>
-                    <div class="space-y-4">
-                        @php
-                            $totalProjects = $totalProducts;
-                            $ongoing = \App\Models\Project::where('status', 'ongoing')->count();
-                            $completed = \App\Models\Project::where('status', 'completed')->count();
-                            $pending = \App\Models\Project::where('status', 'pending')->count();
-                            $ongoingPercent = $totalProjects > 0 ? round(($ongoing / $totalProjects) * 100) : 0;
-                            $completedPercent = $totalProjects > 0 ? round(($completed / $totalProjects) * 100) : 0;
-                            $pendingPercent = $totalProjects > 0 ? round(($pending / $totalProjects) * 100) : 0;
-                        @endphp
-
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-300">Ongoing Projects</span>
-                                <span class="text-blue-400 font-semibold">{{ $ongoingPercent }}%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2">
-                                <div class="bg-blue-500 h-2 rounded-full transition-all duration-500"
-                                    style="width: {{ $ongoingPercent }}%"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-300">Completed Projects</span>
-                                <span class="text-emerald-400 font-semibold">{{ $completedPercent }}%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2">
-                                <div class="bg-emerald-500 h-2 rounded-full transition-all duration-500"
-                                    style="width: {{ $completedPercent }}%"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-300">Pending Projects</span>
-                                <span class="text-orange-400 font-semibold">{{ $pendingPercent }}%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2">
-                                <div class="bg-orange-500 h-2 rounded-full transition-all duration-500"
-                                    style="width: {{ $pendingPercent }}%"></div>
-                            </div>
+                            <a href="{{ route('attendanceList') }}"
+                                class="quick-action-btn flex items-center gap-3 p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl hover:from-orange-100 hover:to-orange-200 transition group">
+                                <div class="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center shadow-sm">
+                                    <i class="fa-solid fa-calendar-check text-white text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semiboldtext-white text-sm">Attendance</p>
+                                    <p class="text-xs text-gray-500">Employee Attendance</p>
+                                </div>
+                                <i
+                                    class="fas fa-arrow-right text-gray-400 group-hover:text-orange-500 group-hover:translate-x-1 transition"></i>
+                            </a>
                         </div>
                     </div>
 
-                    <div class="mt-6 pt-4 border-t border-gray-700">
-                        <div class="flex justify-between text-sm">
-                            <div class="text-center flex-1">
-                                <p class="text-2xl font-bold text-white">{{ $ongoing }}</p>
-                                <p class="text-xs text-gray-400">Ongoing</p>
+                    <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-lg p-6 animate-fade-up"
+                        style="animation-delay: 0.5s">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fas fa-chart-pie text-orange-400"></i>
+                            Project Status Overview
+                        </h3>
+                        <div class="space-y-4">
+                            @php
+                                $totalProjects = $totalProducts;
+                                $ongoing = \App\Models\Project::where('status', 'ongoing')->count();
+                                $completed = \App\Models\Project::where('status', 'completed')->count();
+                                $pending = \App\Models\Project::where('status', 'pending')->count();
+                                $ongoingPercent = $totalProjects > 0 ? round(($ongoing / $totalProjects) * 100) : 0;
+                                $completedPercent = $totalProjects > 0 ? round(($completed / $totalProjects) * 100) : 0;
+                                $pendingPercent = $totalProjects > 0 ? round(($pending / $totalProjects) * 100) : 0;
+                            @endphp
+
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-300">Ongoing Projects</span>
+                                    <span class="text-blue-400 font-semibold">{{ $ongoingPercent }}%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full transition-all duration-500"
+                                        style="width: {{ $ongoingPercent }}%"></div>
+                                </div>
                             </div>
-                            <div class="text-center flex-1">
-                                <p class="text-2xl font-bold text-white">{{ $completed }}</p>
-                                <p class="text-xs text-gray-400">Completed</p>
+
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-300">Completed Projects</span>
+                                    <span class="text-emerald-400 font-semibold">{{ $completedPercent }}%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-emerald-500 h-2 rounded-full transition-all duration-500"
+                                        style="width: {{ $completedPercent }}%"></div>
+                                </div>
                             </div>
-                            <div class="text-center flex-1">
-                                <p class="text-2xl font-bold text-white">{{ $pending }}</p>
-                                <p class="text-xs text-gray-400">Pending</p>
+
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-300">Pending Projects</span>
+                                    <span class="text-orange-400 font-semibold">{{ $pendingPercent }}%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-orange-500 h-2 rounded-full transition-all duration-500"
+                                        style="width: {{ $pendingPercent }}%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-gray-700">
+                            <div class="flex justify-between text-sm">
+                                <div class="text-center flex-1">
+                                    <p class="text-2xl font-bold text-white">{{ $ongoing }}</p>
+                                    <p class="text-xs text-gray-400">Ongoing</p>
+                                </div>
+                                <div class="text-center flex-1">
+                                    <p class="text-2xl font-bold text-white">{{ $completed }}</p>
+                                    <p class="text-xs text-gray-400">Completed</p>
+                                </div>
+                                <div class="text-center flex-1">
+                                    <p class="text-2xl font-bold text-white">{{ $pending }}</p>
+                                    <p class="text-xs text-gray-400">Pending</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-             <div class="mt-8 text-center text-gray-400 text-sm">
-                <i class="fas fa-chart-line mr-1"></i>
-                Dashboard updated in real-time • Last sync: {{ now()->format('h:i A') }}
-            </div>
+                <div class="mt-8 text-center text-gray-400 text-sm">
+                    <i class="fas fa-chart-line mr-1"></i>
+                    Dashboard updated in real-time • Last sync: {{ now()->format('h:i A') }}
+                </div>
             @else
-               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <!-- Total Users Card -->
-                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500 animate-slide-left"
-                    style="animation-delay: 0.1s">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Users</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
-                            <div class="mt-3 flex items-center gap-1">
-                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
-                                    <i class="fas fa-arrow-up text-xs"></i> {{ $userGrowth }}%
-                                </span>
-                                <span class="text-xs text-gray-400">vs last month</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Total Users Card -->
+                    <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500 animate-slide-left"
+                        style="animation-delay: 0.1s">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Users</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                                <div class="mt-3 flex items-center gap-1">
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                        <i class="fas fa-arrow-up text-xs"></i> {{ $userGrowth }}%
+                                    </span>
+                                    <span class="text-xs text-gray-400">vs last month</span>
+                                </div>
+                            </div>
+                            <div
+                                class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-users text-white text-xl"></i>
                             </div>
                         </div>
-                        <div
-                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
-                            <i class="fas fa-users text-white text-xl"></i>
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <a href="#"
+                                class="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+                                View all users <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <a href="#"
-                            class="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
-                            View all users <i class="fas fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Active Bookings Card -->
-                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-emerald-500 animate-slide-left"
-                    style="animation-delay: 0.2s">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Active Bookings</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
-                            <div class="mt-3 flex items-center gap-1">
-                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
-                                    <i class="fas fa-arrow-up text-xs"></i> {{ $bookingGrowth }}%
-                                </span>
-                                <span class="text-xs text-gray-400">vs last month</span>
+                    <!-- Active Bookings Card -->
+                    <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-emerald-500 animate-slide-left"
+                        style="animation-delay: 0.2s">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Active Bookings</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                                <div class="mt-3 flex items-center gap-1">
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                        <i class="fas fa-arrow-up text-xs"></i> {{ $bookingGrowth }}%
+                                    </span>
+                                    <span class="text-xs text-gray-400">vs last month</span>
+                                </div>
+                            </div>
+                            <div
+                                class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-calendar-check text-white text-xl"></i>
                             </div>
                         </div>
-                        <div
-                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg">
-                            <i class="fas fa-calendar-check text-white text-xl"></i>
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <a href="#"
+                                class="text-xs text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1">
+                                Manage bookings <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <a href="#"
-                            class="text-xs text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1">
-                            Manage bookings <i class="fas fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Total Projects Card -->
-                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-500 animate-slide-left"
-                    style="animation-delay: 0.3s">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Projects</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
-                            <div class="mt-3 flex items-center gap-1">
-                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
-                                    <i class="fas fa-arrow-up text-xs"></i> {{ $productGrowth }}%
-                                </span>
-                                <span class="text-xs text-gray-400">vs last month</span>
+                    <!-- Total Projects Card -->
+                    <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-500 animate-slide-left"
+                        style="animation-delay: 0.3s">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Projects</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                                <div class="mt-3 flex items-center gap-1">
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                        <i class="fas fa-arrow-up text-xs"></i> {{ $productGrowth }}%
+                                    </span>
+                                    <span class="text-xs text-gray-400">vs last month</span>
+                                </div>
+                            </div>
+                            <div
+                                class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-project-diagram text-white text-xl"></i>
                             </div>
                         </div>
-                        <div
-                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg">
-                            <i class="fas fa-project-diagram text-white text-xl"></i>
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <a href="{{ route('project.list') }}"
+                                class="text-xs text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1">
+                                View projects <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <a href="{{ route('project.list') }}"
-                            class="text-xs text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1">
-                            View projects <i class="fas fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Total Tasks Card -->
-                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500 animate-slide-left"
-                    style="animation-delay: 0.4s">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Tasks</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
-                            <div class="mt-3 flex items-center gap-1">
-                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
-                                    <i class="fas fa-arrow-up text-xs"></i> {{ $orderGrowth }}%
-                                </span>
-                                <span class="text-xs text-gray-400">vs last month</span>
+                    <!-- Total Tasks Card -->
+                    <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500 animate-slide-left"
+                        style="animation-delay: 0.4s">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Tasks</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                                <div class="mt-3 flex items-center gap-1">
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                        <i class="fas fa-arrow-up text-xs"></i> {{ $orderGrowth }}%
+                                    </span>
+                                    <span class="text-xs text-gray-400">vs last month</span>
+                                </div>
+                            </div>
+                            <div
+                                class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-tasks text-white text-xl"></i>
                             </div>
                         </div>
-                        <div
-                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
-                            <i class="fas fa-tasks text-white text-xl"></i>
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <a href="#"
+                                class="text-xs text-orange-600 hover:text-orange-700 font-medium flex items-center gap-1">
+                                View tasks <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100">
-                        <a href="#"
-                            class="text-xs text-orange-600 hover:text-orange-700 font-medium flex items-center gap-1">
-                            View tasks <i class="fas fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
                 </div>
-            </div>
             @endif
 
         </div>
