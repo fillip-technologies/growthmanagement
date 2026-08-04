@@ -1,12 +1,4 @@
-{{--
-    AWESOME UI: Admin Dashboard - Premium Analytics Design
-    - Modern glassmorphism effects with gradients
-    - Animated stats cards with icons
-    - Live clock and greeting based on time
-    - Chart.js integration for visual analytics
-    - Recent activity feed
-    - Quick action buttons
---}}
+
 @extends('admin.include.layout')
 @section('title', 'Dashboard')
 @section('content')
@@ -239,13 +231,14 @@
 
         // Stats with realistic data (you can replace with actual DB counts)
         $totalUsers = \App\Models\User::count() ?? 0;
-        $activeBookings = \App\Models\Tasks::where('status', 'in_progress')->count() ?? 0;
+        $totalTask = \App\Models\AddTask::count() ?? 0;
         $totalProducts = \App\Models\Project::count() ?? 0;
         $totalOrders = \App\Models\AssingTask::count() ?? 0;
+        $totalReveneu = \App\Models\LeadCreate::where('lead_status','converted')->sum('budget');
 
         // Calculate percentage changes (mock data - replace with actual logic)
         $userGrowth = $totalUsers > 0 ? rand(5, 20) : 0;
-        $bookingGrowth = $activeBookings > 0 ? rand(3, 15) : 0;
+        $bookingGrowth = $totalTask > 0 ? rand(3, 15) : 0;
         $productGrowth = $totalProducts > 0 ? rand(2, 10) : 0;
         $orderGrowth = $totalOrders > 0 ? rand(1, 8) : 0;
     @endphp
@@ -284,7 +277,9 @@
                 </div>
             </div>
 
-            {{-- Stats Cards --}}
+            @if(Auth::guard('super_admin')->check())
+
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <!-- Total Users Card -->
                 <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500 animate-slide-left"
@@ -292,7 +287,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Users</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ number_format($totalUsers) }}</h3>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ $totalUsers ?? 0 }}</h3>
                             <div class="mt-3 flex items-center gap-1">
                                 <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
                                     <i class="fas fa-arrow-up text-xs"></i> {{ $userGrowth }}%
@@ -313,13 +308,12 @@
                     </div>
                 </div>
 
-                <!-- Active Bookings Card -->
                 <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-emerald-500 animate-slide-left"
                     style="animation-delay: 0.2s">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Active Bookings</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ number_format($activeBookings) }}</h3>
+                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Projects</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ $totalProducts ?? 0 }}</h3>
                             <div class="mt-3 flex items-center gap-1">
                                 <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
                                     <i class="fas fa-arrow-up text-xs"></i> {{ $bookingGrowth }}%
@@ -335,7 +329,7 @@
                     <div class="mt-4 pt-3 border-t border-gray-100">
                         <a href="#"
                             class="text-xs text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1">
-                            Manage bookings <i class="fas fa-arrow-right text-xs"></i>
+                            Manage Projects <i class="fas fa-arrow-right text-xs"></i>
                         </a>
                     </div>
                 </div>
@@ -345,8 +339,8 @@
                     style="animation-delay: 0.3s">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Projects</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ number_format($totalProducts) }}</h3>
+                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Revenue</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ $totalReveneu}}</h3>
                             <div class="mt-3 flex items-center gap-1">
                                 <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
                                     <i class="fas fa-arrow-up text-xs"></i> {{ $productGrowth }}%
@@ -373,7 +367,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Tasks</p>
-                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{ number_format($totalOrders) }}</h3>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">{{    $totalTask  ?? 0  }}</h3>
                             <div class="mt-3 flex items-center gap-1">
                                 <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
                                     <i class="fas fa-arrow-up text-xs"></i> {{ $orderGrowth }}%
@@ -394,6 +388,119 @@
                     </div>
                 </div>
             </div>
+            @else
+               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Total Users Card -->
+                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500 animate-slide-left"
+                    style="animation-delay: 0.1s">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Users</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                            <div class="mt-3 flex items-center gap-1">
+                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                    <i class="fas fa-arrow-up text-xs"></i> {{ $userGrowth }}%
+                                </span>
+                                <span class="text-xs text-gray-400">vs last month</span>
+                            </div>
+                        </div>
+                        <div
+                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                            <i class="fas fa-users text-white text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100">
+                        <a href="#"
+                            class="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+                            View all users <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Active Bookings Card -->
+                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-emerald-500 animate-slide-left"
+                    style="animation-delay: 0.2s">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Active Bookings</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                            <div class="mt-3 flex items-center gap-1">
+                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                    <i class="fas fa-arrow-up text-xs"></i> {{ $bookingGrowth }}%
+                                </span>
+                                <span class="text-xs text-gray-400">vs last month</span>
+                            </div>
+                        </div>
+                        <div
+                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg">
+                            <i class="fas fa-calendar-check text-white text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100">
+                        <a href="#"
+                            class="text-xs text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1">
+                            Manage bookings <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Total Projects Card -->
+                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-500 animate-slide-left"
+                    style="animation-delay: 0.3s">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Projects</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                            <div class="mt-3 flex items-center gap-1">
+                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                    <i class="fas fa-arrow-up text-xs"></i> {{ $productGrowth }}%
+                                </span>
+                                <span class="text-xs text-gray-400">vs last month</span>
+                            </div>
+                        </div>
+                        <div
+                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg">
+                            <i class="fas fa-project-diagram text-white text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100">
+                        <a href="{{ route('project.list') }}"
+                            class="text-xs text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1">
+                            View projects <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Total Tasks Card -->
+                <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500 animate-slide-left"
+                    style="animation-delay: 0.4s">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Tasks</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                            <div class="mt-3 flex items-center gap-1">
+                                <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                                    <i class="fas fa-arrow-up text-xs"></i> {{ $orderGrowth }}%
+                                </span>
+                                <span class="text-xs text-gray-400">vs last month</span>
+                            </div>
+                        </div>
+                        <div
+                            class="icon-wrapper w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
+                            <i class="fas fa-tasks text-white text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100">
+                        <a href="#"
+                            class="text-xs text-orange-600 hover:text-orange-700 font-medium flex items-center gap-1">
+                            View tasks <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+
 
             {{-- Charts and Activity Section --}}
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
