@@ -256,7 +256,7 @@
                             </div>
                             <div>
                                 <h1 class="text-2xl md:text-3xl font-bold text-white">
-                                    {{ $greeting }}, {{ $adminName }}!
+                                    {{ $greeting }}
                                 </h1>
                                 <p class="text-white/80 mt-1 flex items-center gap-2">
                                     <i class="fas fa-calendar-alt text-sm"></i>

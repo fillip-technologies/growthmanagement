@@ -178,7 +178,7 @@
 
             </div>
         </div> --}}
-{{--
+        {{--
         <div x-data="{ open: false }" class="mb-3">
             <button @click="open = !open"
                 class="w-full flex items-center justify-between px-6 py-3 rounded-xl shadow-md
@@ -249,9 +249,6 @@
 
             </div>
         </div>
-
-
-
     @elseif(Auth::guard('employee')->check())
         <a href="{{ route('emp.attendance') }}"
             class="flex items-center px-6 py-3 mb-3 rounded-xl shadow-md
