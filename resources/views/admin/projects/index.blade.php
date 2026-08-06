@@ -424,6 +424,9 @@
                                     <i class="fas fa-project-diagram mr-1"></i> Project
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                                    <i class="fas fa-project-diagram mr-1"></i> Client Name
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-users mr-1"></i> Handel Project
                                 </th>
 
@@ -563,7 +566,14 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-1.5 text-xs ">
+                                                <p class="font-bold text-md">{{ $p->client_name ?? 'N/A' }}</p>
+                                            </div>
 
+                                        </div>
+                                    </td>
                                     <td class="px-6 py-4">
                                         <div class="space-y-2">
 
