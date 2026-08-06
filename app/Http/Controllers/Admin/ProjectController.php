@@ -19,7 +19,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with(['projectInfraresource','projecthumanresource'])->paginate(10);
+        $projects = Project::with(['projectInfraresource','projecthumanresource'])->orderBy('id','desc')->paginate(10);
         return view('admin.projects.index', compact('projects'));
     }
 
