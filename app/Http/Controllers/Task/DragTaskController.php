@@ -47,7 +47,7 @@ class DragTaskController extends Controller
             'assigned_by' => $id,
         ]);
          $task = AddTask::with('project')->where('id', $request->task_id)->first();
-         $user = User::find($request->employee_id);
+         $user = User::where('id',$request->employee_id)->first();
          Mail::to($user->email)
         ->send(new AssingtaskMail($user, $task));
 

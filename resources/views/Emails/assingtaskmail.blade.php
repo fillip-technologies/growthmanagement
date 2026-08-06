@@ -86,46 +86,46 @@
                                 <tr>
                                     <td style="padding:8px 0;">
                                         <strong>📌 Project Name :</strong>
-                                        {{ $task->project->name ?? '' }}
+                                        {{ $task->project->first()->name ?? '' }}
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="padding:8px 0;">
                                         <strong>📝 Description :</strong>
-                                        {{ $task->project->description ?? 'N/A' }}
+                                        {{ $task->project->first()->description ?? 'N/A' }}
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="padding:8px 0;">
                                         <strong>📅 Start Date :</strong>
-                                        {{ !empty($task->project->start_date) ? \Carbon\Carbon::parse($task->project->start_date)->format('d M Y') : 'N/A' }}
+                                        {{ !empty($task->project->first()->start_date) ? \Carbon\Carbon::parse($task->project->start_date)->format('d M Y') : 'N/A' }}
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="padding:8px 0;">
                                         <strong>⏳ End Date :</strong>
-                                        {{ !empty($task->project->end_date) ? \Carbon\Carbon::parse($task->project->end_date)->format('d M Y') : 'N/A' }}
+                                        {{ !empty($task->project->first()->end_date) ? \Carbon\Carbon::parse($task->project->end_date)->format('d M Y') : 'N/A' }}
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="padding:8px 0;">
                                         <strong>⚡ Priority :</strong>
-                                        {{ ucfirst($task->project->priority ?? 'N/A') }}
+                                        {{ ucfirst($task->project->first()->priority ?? 'N/A') }}
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="padding:8px 0;">
                                         <strong>📊 Status :</strong>
-                                        {{ ucfirst($task->project->status ?? 'Pending') }}
+                                        {{ ucfirst($task->project->first()->status ?? 'Pending') }}
                                     </td>
                                 </tr>
 
-                                @if (!empty($task->project->modules))
+                                @if (!empty($task->project->first()->modules))
                                     <tr>
                                         <td style="padding:8px 0;">
                                             <strong>🧩 Modules :</strong>

@@ -426,9 +426,7 @@
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-users mr-1"></i> Handel Project
                                 </th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                                    <i class="fas fa-server mr-1"></i> Infrastructure
-                                </th>
+
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-calendar-alt mr-1"></i> Timeline
                                 </th>
@@ -438,11 +436,12 @@
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-chart-line mr-1"></i> Status
                                 </th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                                    <i class="fas fa-cubes mr-1"></i> Modules
-                                </th>
+
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-user mr-1"></i> Created By
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                                    <i class="fas fa-chart-line mr-1"></i> Date
                                 </th>
                                 <th class="px-6 py-4 text-center text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-bolt mr-1"></i> Actions
@@ -511,6 +510,24 @@
                                         }
                                     }
                                 @endphp
+                                @php
+                                    $editRoute = null;
+                                    $deleteRoute = null;
+                                    $viewRoute = null;
+                                    if (Auth::guard('marketing_manager')->check()) {
+                                        $editRoute = route('marketing.project.edit', $p->id);
+                                        $deleteRoute = route('marketing.project.delete', $p->id);
+                                        $viewRoute = route('marketing.view.project', $p->id);
+                                    } elseif (Auth::guard('super_admin')->check()) {
+                                        $editRoute = route('project.edit', $p->id);
+                                        $deleteRoute = route('project.delete', $p->id);
+                                        $viewRoute = route('admin.view.project', $p->id);
+                                    } elseif (Auth::guard('project_manager')->check()) {
+                                        $editRoute = route('project.edit', $p->id);
+                                        $deleteRoute = route('project.delete', $p->id);
+                                        $viewRoute = route('admin.view.project', $p->id);
+                                    }
+                                @endphp
                                 <tr class="table-row hover:bg-orange-50/50 transition-all duration-200"
                                     data-status="{{ $p->status }}" data-priority="{{ $p->priority }}"
                                     data-name="{{ strtolower($p->name) }}"
@@ -532,14 +549,17 @@
                                                 <i class="fas fa-folder-open text-orange-600 text-lg"></i>
                                             </div>
                                             <div>
-                                                <span class="font-bold text-gray-800">{{ $p->name }}</span>
-                                                <div class="flex items-center gap-2 mt-1">
-                                                    <div class="w-16 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                                                        <div class="h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"
-                                                            style="width: {{ $progress }}%"></div>
+                                                <a href="{{ $viewRoute }}">
+                                                    <span class="font-bold text-gray-800">{{ $p->name }}</span>
+                                                    <div class="flex items-center gap-2 mt-1">
+                                                        <div class="w-16 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                                                            <div class="h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"
+                                                                style="width: {{ $progress }}%"></div>
+                                                        </div>
+                                                        <span class="text-xs text-gray-400">{{ $progress }}%</span>
                                                     </div>
-                                                    <span class="text-xs text-gray-400">{{ $progress }}%</span>
-                                                </div>
+                                                </a>
+
                                             </div>
                                         </div>
                                     </td>
@@ -564,21 +584,7 @@
                                         </div>
                                     </td>
 
-                                    <td class="px-6 py-4">
-                                        @if ($hasInfra)
-                                            <div class="flex flex-wrap gap-1">
-                                                @foreach ($infraFields as $infra)
-                                                    @if ($infra['value'])
-                                                        <span class="infra-tag {{ $infra['class'] }}">
-                                                            {{ $infra['label'] }}: {{ Str::limit($infra['value'], 15) }}
-                                                        </span>
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <span class="text-gray-400 text-xs">—</span>
-                                        @endif
-                                    </td>
+
 
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="space-y-1">
@@ -621,30 +627,9 @@
                                         </span>
                                     </td>
 
-                                    <td class="px-6 py-4">
-                                        @if ($modules && count($modules) > 0)
-                                            <div class="relative group">
-                                                <button
-                                                    class="text-sm text-orange-600 hover:text-orange-700 font-medium flex items-center gap-1">
-                                                    <i class="fas fa-cubes"></i>
-                                                    {{ count($modules) }} Module(s)
-                                                    <i class="fas fa-chevron-down text-xs"></i>
-                                                </button>
-                                                <div
-                                                    class="absolute left-0 top-full mt-2 hidden group-hover:block bg-white border border-gray-200 rounded-xl shadow-xl z-10 min-w-[200px] p-2">
-                                                    @foreach ($modules as $module)
-                                                        <div
-                                                            class="px-3 py-1.5 text-sm text-gray-700 hover:bg-orange-50 rounded-lg flex items-center gap-2">
-                                                            <i class="fas fa-microchip text-orange-400 text-xs"></i>
-                                                            {{ $module }}
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        @else
-                                            <span class="text-gray-400 text-sm">—</span>
-                                        @endif
-                                    </td>
+
+
+
 
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="space-y-1">
@@ -659,24 +644,14 @@
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        @php
-                                            $editRoute = null;
-                                            $deleteRoute = null;
-                                            $viewRoute = null;
-                                            if (Auth::guard('marketing_manager')->check()) {
-                                                $editRoute = route('marketing.project.edit', $p->id);
-                                                $deleteRoute = route('marketing.project.delete', $p->id);
-                                                $viewRoute = route('marketing.view.project', $p->id);
-                                            } elseif (Auth::guard('super_admin')->check()) {
-                                                $editRoute = route('project.edit', $p->id);
-                                                $deleteRoute = route('project.delete', $p->id);
-                                                $viewRoute = route('admin.view.project', $p->id);
-                                            } elseif (Auth::guard('project_manager')->check()) {
-                                                $editRoute = route('project.edit', $p->id);
-                                                $deleteRoute = route('project.delete', $p->id);
-                                                $viewRoute = route('admin.view.project', $p->id);
-                                            }
-                                        @endphp
+                                        <span
+                                            class="status-badge inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold {{ $statusColors[$p->status]['bg'] }} {{ $statusColors[$p->status]['text'] }}">
+                                            {{ \Carbon\Carbon::parse($p->created_at)->format('d M, Y') }}
+                                        </span>
+                                    </td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap">
+
                                         <div class="flex items-center justify-center gap-1.5">
                                             <a href="{{ $editRoute }}"
                                                 class="action-btn group p-2 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white transition-all duration-200"

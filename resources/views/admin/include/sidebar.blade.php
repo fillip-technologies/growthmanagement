@@ -64,13 +64,13 @@
 
                 <a href="{{ route('attendanceList') }}"
                     class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
-                    <i class="fa-solid fa-calendar-check mr-3 text-emerald-400"></i>
+                    <i class="fa-solid fa-calendar-check mr-3 text-emerald-400 hover:text-white"></i>
                     Attendance
                 </a>
 
                 <a href="{{ route('drag.task') }}"
                     class="flex items-center px-5 py-2 rounded-lg bg-gray-800 hover:bg-orange-500 hover:text-white transition">
-                    <i class="fa-solid fa-list-check mr-3 text-blue-400"></i>
+                    <i class="fa-solid fa-list-check mr-3 text-blue-400 hover:text-white"></i>
                     Drag Task
                 </a>
 
@@ -343,13 +343,11 @@
         </a>
 
         <div x-data="{ open: false }" class="relative">
-
-            <!-- Dropdown Button -->
             <button @click="open = !open"
                 class="w-full flex items-center justify-between px-6 py-3 mb-3 rounded-xl shadow-md
-        bg-gray-900/60 backdrop-blur-xl border border-gray-800
-        hover:bg-orange-600 hover:text-white hover:border-orange-400
-        transition-all duration-300 group">
+                    bg-gray-900/60 backdrop-blur-xl border border-gray-800
+                    hover:bg-orange-600 hover:text-white hover:border-orange-400
+                    transition-all duration-300 group">
 
                 <span class="flex items-center">
                     <i class="fas fa-folder-open mr-4 text-orange-500 group-hover:text-white"></i>
