@@ -68,7 +68,7 @@ Route::prefix('admin')->middleware(['super_admin'])->group(function () {
     Route::get('/leave/live', [AdminController::class, 'leaveLive'])->name('leaveList');
     Route::get('/view/project/{id}',[ProjectController::class, 'projectView'])->name('admin.view.project');
 
-    Route::get('report/{id}/user/{uid}', [ManegemantController::class, 'report'])->name('report');
+    Route::get('report/{id}/user/{uid}', [ManegemantController::class, 'report'])->name('admin.user.report');
     Route::get('/users', function () {
         return 'This is the admin users list';
     })->name('users');
@@ -86,4 +86,3 @@ Route::prefix('admin')->middleware(['super_admin'])->group(function () {
    Route::get('project/information/{id}',[TeamHaedController::class, 'projectInfo'])->name('admin.project.info');
 
 });
-

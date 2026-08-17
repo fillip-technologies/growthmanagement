@@ -31,7 +31,7 @@
         </script>
     @endif
 
-    <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-[1500px] mx-auto px-3 sm:px-5 lg:px-6 py-6">
 
         <!-- Header Section -->
         <div class="mb-8">
@@ -88,7 +88,7 @@
         </div>
 
         <!-- Tasks Grid View -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" id="tasksContainer">
+        <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-5 lg:gap-6" id="tasksContainer">
             @forelse ($tasks as $key => $task)
                 @php
 
@@ -101,12 +101,12 @@
                 @endphp
 
                 <div
-                    class="task-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group">
+                    class="task-card min-w-0 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group">
 
                     <!-- Card Header -->
                     <div class="bg-gradient-to-r from-gray-50 to-gray-100 p-5 border-b border-gray-200">
-                        <div class="flex items-start justify-between">
-                            <div class="flex items-center gap-3">
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="flex min-w-0 items-center gap-3">
                                 <div class="relative">
                                     <div
                                         class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
@@ -116,9 +116,9 @@
                                         class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-white">
                                     </div>
                                 </div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900 text-lg">{{ $task->user->name ?? 'N/A' }}</h3>
-                                    <p class="text-xs text-gray-500">{{ $task->user->email ?? 'No Email' }}</p>
+                                <div class="min-w-0">
+                                    <h3 class="truncate font-semibold text-gray-900 text-lg">{{ $task->user->name ?? 'N/A' }}</h3>
+                                    <p class="truncate text-xs text-gray-500">{{ $task->user->email ?? 'No Email' }}</p>
                                 </div>
                             </div>
                             <div class="flex gap-2">
@@ -134,8 +134,8 @@
                     <div class="p-5 space-y-4">
                         <!-- Project Info -->
                         <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <h4 class="font-semibold text-blue-600 text-lg">{{ $project->name ?? 'N/A' }}</h4>
+                            <div class="flex items-start justify-between gap-3 mb-2">
+                                <h4 class="min-w-0 flex-1 break-words font-semibold text-blue-600 text-lg leading-snug">{{ $project->name ?? 'N/A' }}</h4>
                                 <button type="button" onclick="empopenChat({{ $project->id }},{{ $task->user->id }})"
                                     id="chatToggle" data-empID="{{ $task->user->id }}"
                                     data-project_id="{{ $project->id }}"
@@ -153,7 +153,7 @@
                         </div>
 
                         <!-- Project Details Grid -->
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div class="bg-gray-50 rounded-lg p-2">
                                 <div class="text-xs text-gray-500">Start Date</div>
 
@@ -214,7 +214,7 @@
                                 <div class="text-xs text-gray-500 mb-2">Modules</div>
                                 <div class="flex flex-wrap gap-2">
                                     @foreach ($modules as $module)
-                                        <span class="px-2 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-medium">
+                                        <span class="max-w-full break-words px-2 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-medium">
                                             {{ $module }}
                                         </span>
                                     @endforeach
@@ -225,7 +225,7 @@
                         <!-- Progress Bar -->
                         <div>
                             <div class="flex justify-between text-xs font-medium mb-1">
-                                <span class="text-gray-600">Working Persentage %</span>
+                                <span class="text-gray-600">Working Percentage %</span>
                                 <span
                                     class="{{ $progressColor === 'green' ? 'text-green-600' : ($progressColor === 'yellow' ? 'text-yellow-600' : 'text-red-600') }} font-bold">
                                     {{ $progress }}%
@@ -243,7 +243,7 @@
                     <div class="p-5 bg-gray-50 border-t border-gray-100">
 
                         <form action="{{ route('employee.status') }}" method="POST"
-                            class="grid grid-cols-1 md:grid-cols-4 gap-3 items-center">
+                            class="grid grid-cols-1 sm:grid-cols-[minmax(90px,1fr)_minmax(140px,1.4fr)_auto] gap-3 items-center">
 
                             @csrf
                             <input type="hidden" name="employee_id" value="{{ EmpLogin()->id ?? '' }}">
@@ -252,7 +252,7 @@
                             <!-- Progress -->
                             <input type="number" name="progress" min="0" max="100"
                                 value="{{ $task->progress ?? '' }}" placeholder="Progress %"
-                                class="max-w-full px-3 py-2 border border-gray-300 rounded-lg
+                                class="w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg
                                focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
 
                             <!-- Status -->
@@ -277,7 +277,7 @@
 
                             <!-- Submit Button -->
                             <button type="submit"
-                                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                class="w-full sm:w-auto px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
                                 Update
                             </button>
 
@@ -327,7 +327,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto px-4 py-6">
+    <div class="max-w-[1500px] mx-auto px-3 sm:px-5 lg:px-6 py-6">
         <!-- Page Header -->
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
             <h1 class="text-2xl font-bold text-gray-800 mb-3 sm:mb-0">My Client Task</h1>
@@ -342,11 +342,11 @@
         </div>
 
         <!-- Task Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-5 lg:gap-6">
             @if ($salesTask->count() > 0)
                 @foreach ($salesTask as $items)
                     <div
-                        class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100">
+                        class="task-card min-w-0 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100">
                         <!-- Card Header -->
                         <div
                             class="px-4 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex justify-between items-center">
@@ -489,8 +489,9 @@
                                         'new' => 'bg-red-100 text-red-800',
                                         'lost' => 'bg-gray-100 text-gray-800',
                                     ];
-                                    $status = strtolower($items->leaddata->lead_status ?? 'pending');
-                                    $statusColor = $statusColors[$items->leaddata->lead_status] ?? 'bg-gray-100 text-gray-800';
+                                    $leadStatus = $items->leaddata->lead_status ?? 'pending';
+                                    $status = strtolower($leadStatus);
+                                    $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
 
                                     $priorityColors = [
                                         'high' => 'bg-red-100 text-red-800 border-red-300',
@@ -504,7 +505,7 @@
                                 <span
                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusColor }}">
                                     <span class="w-1.5 h-1.5 rounded-full bg-current mr-1.5"></span>
-                                    {{ ucwords(str_replace('_', ' ', $items->leaddata->lead_status ?? 'Pending')) }}
+                                    {{ ucwords(str_replace('_', ' ', $leadStatus)) }}
                                 </span>
 
                                 @if ($items->priority)
@@ -672,6 +673,7 @@
     <style>
         .task-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 0;
         }
 
         .task-card:hover {
@@ -683,6 +685,16 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+        }
+
+        .task-card * {
+            min-width: 0;
+        }
+
+        @media (max-width: 767px) {
+            .task-card:hover {
+                transform: none;
+            }
         }
 
         /* Filter animation */
