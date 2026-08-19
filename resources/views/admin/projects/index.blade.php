@@ -509,9 +509,9 @@
                                 {{-- <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-user mr-1"></i> Created By
                                 </th> --}}
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                                {{-- <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-chart-line mr-1"></i> Date
-                                </th>
+                                </th> --}}
                                 <th class="px-6 py-4 text-center text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-bolt mr-1"></i> Actions
                                 </th>
