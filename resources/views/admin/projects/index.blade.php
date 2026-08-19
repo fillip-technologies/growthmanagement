@@ -493,22 +493,22 @@
                                     <i class="fas fa-project-diagram mr-1"></i> Client Name
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                                    <i class="fas fa-users mr-1"></i> Handel Project
+                                    <i class="fas fa-users mr-1"></i> Assigned To
                                 </th>
 
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-calendar-alt mr-1"></i> Timeline
                                 </th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                                {{-- <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-flag mr-1"></i> Priority
-                                </th>
+                                </th> --}}
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-chart-line mr-1"></i> Status
                                 </th>
 
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                                {{-- <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-user mr-1"></i> Created By
-                                </th>
+                                </th> --}}
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-chart-line mr-1"></i> Date
                                 </th>
@@ -685,13 +685,13 @@
                                         </div>
                                     </td>
 
-                                    <td class="px-6 py-4 whitespace-nowrap" data-label="Priority">
+                                    {{-- <td class="px-6 py-4 whitespace-nowrap" data-label="Priority">
                                         <span
                                             class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold {{ $priorityColors[$p->priority]['bg'] }} {{ $priorityColors[$p->priority]['text'] }}">
                                             <i class="fas {{ $priorityColors[$p->priority]['icon'] }} text-xs"></i>
                                             {{ ucfirst($p->priority) }}
                                         </span>
-                                    </td>
+                                    </td> --}}
 
                                     <td class="px-6 py-4 whitespace-nowrap" data-label="Status">
                                         <span
@@ -736,7 +736,7 @@
                                             </a>
                                             <a href="{{ $viewRoute }}"
                                                 class="action-btn group p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-200"
-                                                title="Edit Project">
+                                                title="View Project">
                                                 <i class="fas fa-eye text-sm"></i> </a>
                                             <form action="{{ $deleteRoute }}" method="POST" class="delete-form inline"
                                                 data-name="{{ $p->name }}">
