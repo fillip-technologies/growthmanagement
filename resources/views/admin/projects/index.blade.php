@@ -707,7 +707,7 @@
 
 
 
-                                    <td class="px-6 py-4 whitespace-nowrap" data-label="Created By">
+                                    {{-- <td class="px-6 py-4 whitespace-nowrap" data-label="Created By">
                                         <div class="space-y-1">
                                             <div class="flex items-center gap-1.5 text-xs text-gray-500">
                                                 <p class="font-medium">{{ $p->user->name ?? 'N/A' }}</p>
@@ -717,7 +717,7 @@
                                                 <p>{{ $p->user->email ?? 'N/A' }}</p>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> --}}
 
                                     {{-- <td class="px-6 py-4 whitespace-nowrap" data-label="Date">
                                         <span
