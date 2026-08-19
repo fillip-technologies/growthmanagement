@@ -719,12 +719,12 @@
                                         </div>
                                     </td>
 
-                                    <td class="px-6 py-4 whitespace-nowrap" data-label="Date">
+                                    {{-- <td class="px-6 py-4 whitespace-nowrap" data-label="Date">
                                         <span
                                             class="status-badge inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold {{ $statusColors[$p->status]['bg'] }} {{ $statusColors[$p->status]['text'] }}">
                                             {{ \Carbon\Carbon::parse($p->created_at)->format('d M, Y') }}
                                         </span>
-                                    </td>
+                                    </td> --}}
 
                                     <td class="px-6 py-4 whitespace-nowrap" data-label="Actions">
 
