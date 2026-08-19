@@ -14,27 +14,21 @@ use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $projects = Project::with(['projectInfraresource','projecthumanresource'])->orderBy('id','desc')->paginate(10);
         return view('admin.projects.index', compact('projects'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         $employees = User::with('role')->where('role', '!=', 'super_admin')->get();
         return view('admin.projects.create', compact('employees'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -76,9 +70,7 @@ class ProjectController extends Controller
             ->with('success', 'Project created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show($id)
     {
         $project = Project::findorFail($id);
@@ -107,7 +99,7 @@ class ProjectController extends Controller
         'modules.*' => 'nullable',
     ]);
 
-       $project = Project::findOrFail($id);
+        $project = Project::findOrFail($id);
         DB::transaction(function () use ($request, $project) {
         $project->update([
             'name' => $request->name,
