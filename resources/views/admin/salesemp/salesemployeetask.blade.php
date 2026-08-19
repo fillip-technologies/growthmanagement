@@ -47,18 +47,32 @@
                                     x-transition:enter="transition ease-out duration-100"
                                     x-transition:enter-start="transform opacity-0 scale-95"
                                     x-transition:enter-end="transform opacity-100 scale-100">
-                                    <a href="{{ route('view.sale.task', ['id' => $task->leaddata_id, 'user_id' => $task->user_id]) }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                            </path>
-                                        </svg>
-                                        View Details
-                                    </a>
+                                    @if (!empty($task->leaddata_id) && !empty($task->user_id))
+                                        <a href="{{ route('view.sale.task', ['id' => $task->leaddata_id, 'user_id' => $task->user_id]) }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                                </path>
+                                            </svg>
+                                            View Details
+                                        </a>
+                                    @else
+                                        <span class="block px-4 py-2 text-sm text-gray-400 cursor-not-allowed">
+                                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                                </path>
+                                            </svg>
+                                            View Details
+                                        </span>
+                                    @endif
                                     <a href="javascript:void(0)" onclick="openStatusModal({{ $task->leaddata_id }})"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor"

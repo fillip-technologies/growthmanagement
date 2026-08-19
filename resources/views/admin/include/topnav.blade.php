@@ -2,7 +2,7 @@
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
 <!-- Topbar -->
-<header class="bg-gradient-to-r from-gray-900 via-gray-900 to-black border-b border-gray-800 shadow-xl sticky top-0 z-20"
+<header class="bg-white/95 border-b border-slate-200 shadow-sm sticky top-0 z-20 backdrop-blur-xl"
         x-data="{
             showNotifications: false,
             showProfileMenu: false,
@@ -29,16 +29,16 @@
 
         <!-- Left Section - Title & Mobile Menu -->
         <div class="flex items-center space-x-4">
-            <button id="sidebar-toggle" class="text-gray-400 hover:text-white transition-colors duration-200 md:hidden">
+            <button id="sidebar-toggle" class="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600" aria-label="Toggle sidebar">
                 <i class="fas fa-bars text-xl"></i>
             </button>
 
             <!-- Page Title with gradient -->
             <div>
-                <h1 class="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                <h1 class="text-xl font-bold text-slate-900">
                     @yield('heading', 'Dashboard')
                 </h1>
-                <p class="text-xs text-gray-500 hidden sm:block">
+                <p class="text-xs text-slate-500 hidden sm:block">
                     <i class="fas fa-calendar-alt mr-1"></i>
                     {{ now()->format('l, F j, Y') }}
                 </p>
@@ -53,8 +53,8 @@
                 <input type="text"
                        x-model="searchQuery"
                        placeholder="Search..."
-                       class="w-64 px-4 py-2 pl-10 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all duration-200">
-                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm"></i>
+                       class="w-64 px-4 py-2 pl-10 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition-all duration-200">
+                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-sm"></i>
 
                 <!-- Search Results Dropdown -->
                 <div x-show="searchQuery.length > 0"
@@ -64,20 +64,20 @@
                      x-transition:leave="transition ease-in duration-150"
                      x-transition:leave-start="opacity-100 transform translate-y-0"
                      x-transition:leave-end="opacity-0 transform -translate-y-2"
-                     class="absolute top-full right-0 mt-2 w-80 bg-gray-800 border border-gray-700 rounded-lg shadow-xl overflow-hidden z-50">
+                     class="absolute top-full right-0 mt-2 w-80 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden z-50">
                     <div class="p-2">
-                        <div class="text-xs text-gray-500 px-3 py-2">Recent Searches</div>
-                        <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-700 rounded-lg transition-colors">
-                            <i class="fas fa-tasks text-gray-500 mr-3 text-sm"></i>
-                            <span class="text-sm text-gray-300">Tasks</span>
+                        <div class="text-xs text-slate-400 px-3 py-2">Recent Searches</div>
+                        <a href="#" class="flex items-center px-3 py-2 hover:bg-blue-50 rounded-lg transition-colors">
+                            <i class="fas fa-tasks text-slate-400 mr-3 text-sm"></i>
+                            <span class="text-sm text-slate-600">Tasks</span>
                         </a>
-                        <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-700 rounded-lg transition-colors">
-                            <i class="fas fa-users text-gray-500 mr-3 text-sm"></i>
-                            <span class="text-sm text-gray-300">Employees</span>
+                        <a href="#" class="flex items-center px-3 py-2 hover:bg-blue-50 rounded-lg transition-colors">
+                            <i class="fas fa-users text-slate-400 mr-3 text-sm"></i>
+                            <span class="text-sm text-slate-600">Employees</span>
                         </a>
-                        <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-700 rounded-lg transition-colors">
-                            <i class="fas fa-file-alt text-gray-500 mr-3 text-sm"></i>
-                            <span class="text-sm text-gray-300">Reports</span>
+                        <a href="#" class="flex items-center px-3 py-2 hover:bg-blue-50 rounded-lg transition-colors">
+                            <i class="fas fa-file-alt text-slate-400 mr-3 text-sm"></i>
+                            <span class="text-sm text-slate-600">Reports</span>
                         </a>
                     </div>
                 </div>
@@ -94,8 +94,8 @@
         <div class="relative">
             <input type="text"
                    placeholder="Search..."
-                   class="w-full px-4 py-2 pl-10 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
-            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm"></i>
+                   class="w-full px-4 py-2 pl-10 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100">
+            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-sm"></i>
         </div>
     </div>
 </header>

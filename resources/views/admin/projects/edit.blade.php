@@ -41,7 +41,7 @@
         $currentStatus = $statusColors[$project->status] ?? $statusColors['pending'];
         $priorityColors = [
             'low' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'fa-arrow-down'],
-            'medium' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'fa-minus'],
+            'medium' => ['bg' => 'bg-blue-100', 'text' => 'text-cyan-600', 'icon' => 'fa-minus'],
             'high' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'fa-arrow-up'],
         ];
     @endphp
@@ -129,7 +129,7 @@
         select:focus,
         textarea:focus {
             outline: none;
-            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
         }
 
         .custom-scrollbar::-webkit-scrollbar {
@@ -142,12 +142,12 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #fb923c;
+            background: #60a5fa;
             border-radius: 10px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #f97316;
+            background: #2563eb;
         }
 
         .status-badge {
@@ -183,9 +183,9 @@
         }
 
         .team-member-card:hover {
-            border-color: #f97316;
+            border-color: #2563eb;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.12);
         }
 
         .role-badge {
@@ -213,18 +213,18 @@
         }
 
         .role-badge.qa {
-            background: #fef3c7;
+            background: #eff6ff;
             color: #92400e;
         }
     </style>
 
-    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-gray-100 to-orange-50/30 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-gray-100 to-blue-50/30 py-8 px-4 sm:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
 
             {{-- Floating Background Elements --}}
             <div class="fixed inset-0 overflow-hidden pointer-events-none">
                 <div
-                    class="absolute top-20 right-10 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float">
+                    class="absolute top-20 right-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float">
                 </div>
                 <div class="absolute bottom-20 left-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"
                     style="animation-delay: 2s;"></div>
@@ -236,13 +236,13 @@
             <div class="relative mb-8 animate-fade-up">
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover">
                     <div
-                        class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-500 to-orange-600 opacity-10 rounded-full transform translate-x-32 -translate-y-32">
+                        class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-500 to-cyan-500 opacity-10 rounded-full transform translate-x-32 -translate-y-32">
                     </div>
                     <div class="relative px-6 py-6 md:px-8 md:py-8">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                             <div class="flex items-center gap-4">
                                 <div
-                                    class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg transform -rotate-3 hover:rotate-0 transition-all duration-300">
+                                    class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg transform -rotate-3 hover:rotate-0 transition-all duration-300">
                                     <i class="fas fa-edit text-white text-2xl"></i>
                                 </div>
                                 <div>
@@ -250,7 +250,7 @@
                                         Edit Project
                                     </h1>
                                     <p class="text-gray-500 mt-1 flex items-center gap-2">
-                                        <i class="fas fa-folder-open text-orange-500"></i>
+                                        <i class="fas fa-folder-open text-blue-500"></i>
                                         Updating: <span class="font-semibold text-gray-700">{{ $project->name }}</span>
                                     </p>
                                 </div>
@@ -278,7 +278,7 @@
                         icon: 'error',
                         title: 'Validation Error',
                         html: `{!! implode('<br>', $errors->all()) !!}`,
-                        confirmButtonColor: '#f97316',
+                        confirmButtonColor: '#2563eb',
                         background: '#fff',
                         customClass: {
                             popup: 'rounded-2xl'
@@ -322,9 +322,9 @@
 
                         {{-- Basic Information Card --}}
                         <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 card-hover">
-                            <div class="px-6 py-4 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100">
+                            <div class="px-6 py-4 bg-gradient-to-r from-blue-50 to-cyan-50 border-b border-blue-100">
                                 <h3 class="font-bold text-gray-800 flex items-center gap-2">
-                                    <i class="fas fa-info-circle text-orange-500"></i>
+                                    <i class="fas fa-info-circle text-blue-500"></i>
                                     Basic Information
                                 </h3>
                             </div>
@@ -334,13 +334,13 @@
                                     {{-- Project Title --}}
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                            <i class="fas fa-tag text-orange-500 mr-2"></i>
+                                            <i class="fas fa-tag text-blue-500 mr-2"></i>
                                             Project Title <span class="text-red-500">*</span>
                                         </label>
                                         <div class="input-group">
                                             <input type="text" name="name" placeholder="Enter project title"
                                                 value="{{ old('name', $project->name) }}"
-                                                class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 transition-all duration-200">
+                                                class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                             <i class="fas fa-folder-open input-group-icon"></i>
                                         </div>
                                         @error('name')
@@ -351,14 +351,14 @@
 
                                      <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                        <i class="fas fa-tag text-orange-500 mr-2"></i>
+                                        <i class="fas fa-tag text-blue-500 mr-2"></i>
                                         Client Name <span class="text-red-500">*</span>
                                     </label>
                                     <div class="input-group">
                                         <input type="text" name="client_name"
                                             placeholder="Enter Client Name"
                                             value="{{ old('client_name',$project->client_name ?? "") }}"
-                                            class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 transition-all duration-200">
+                                            class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                         <i class="fas fa-user input-group-icon"></i>
                                     </div>
                                     @error('client_name')
@@ -370,12 +370,12 @@
                                     {{-- Status --}}
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                            <i class="fas fa-chart-line text-orange-500 mr-2"></i>
+                                            <i class="fas fa-chart-line text-blue-500 mr-2"></i>
                                             Status <span class="text-red-500">*</span>
                                         </label>
                                         <div class="relative">
                                             <select name="status"
-                                                class="w-full pl-12 pr-10 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 appearance-none bg-white cursor-pointer transition-all duration-200">
+                                                class="w-full pl-12 pr-10 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 appearance-none bg-white cursor-pointer transition-all duration-200">
                                                 <option value="pending"
                                                     {{ old('status', $project->status) == 'pending' ? 'selected' : '' }}>
                                                     🟡 Pending
@@ -403,12 +403,12 @@
                                 {{-- Description --}}
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                        <i class="fas fa-align-left text-orange-500 mr-2"></i>
+                                        <i class="fas fa-align-left text-blue-500 mr-2"></i>
                                         Description <span class="text-red-500">*</span>
                                     </label>
                                     <textarea name="description" rows="5"
                                         placeholder="Describe the project scope, objectives, and key deliverables..."
-                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 transition-all duration-200 resize-none">{{ old('description', $project->description) }}</textarea>
+                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200 resize-none">{{ old('description', $project->description) }}</textarea>
                                     @error('description')
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                     @enderror
@@ -822,16 +822,16 @@
 
                         {{-- Modules Management Card --}}
                         <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 card-hover">
-                            <div class="px-6 py-4 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100">
+                            <div class="px-6 py-4 bg-gradient-to-r from-blue-50 to-cyan-50 border-b border-blue-100">
                                 <h3 class="font-bold text-gray-800 flex items-center gap-2">
-                                    <i class="fas fa-cubes text-orange-500"></i>
+                                    <i class="fas fa-cubes text-blue-500"></i>
                                     Project Modules
                                 </h3>
                             </div>
                             <div class="p-6">
                                 <div class="mb-4 flex justify-between items-center flex-wrap gap-3">
                                     <p class="text-sm text-gray-500 flex items-center gap-1">
-                                        <i class="fas fa-info-circle text-orange-400"></i>
+                                        <i class="fas fa-info-circle text-blue-400"></i>
                                         Manage the main modules/features of this project
                                     </p>
                                     <button type="button" id="add-module"
@@ -853,9 +853,9 @@
                                     @if (!empty($modules))
                                         @foreach ($modules ?? [] as $index => $module)
                                             <div
-                                                class="module-item flex gap-3 items-center bg-gray-50 rounded-xl p-3 border border-gray-200 hover:border-orange-300 transition-all duration-200 group">
+                                                class="module-item flex gap-3 items-center bg-gray-50 rounded-xl p-3 border border-gray-200 hover:border-blue-300 transition-all duration-200 group">
                                                 <div class="flex-shrink-0">
-                                                    <i class="fas fa-microchip text-orange-400"></i>
+                                                    <i class="fas fa-microchip text-blue-400"></i>
                                                 </div>
                                                 <input type="text" name="modules[]" value="{{ $module }}"
                                                     placeholder="e.g., User Authentication, Payment Gateway"
@@ -868,9 +868,9 @@
                                         @endforeach
                                     @else
                                         <div
-                                            class="module-item flex gap-3 items-center bg-gray-50 rounded-xl p-3 border border-gray-200 hover:border-orange-300 transition-all duration-200 group">
+                                            class="module-item flex gap-3 items-center bg-gray-50 rounded-xl p-3 border border-gray-200 hover:border-blue-300 transition-all duration-200 group">
                                             <div class="flex-shrink-0">
-                                                <i class="fas fa-microchip text-orange-400"></i>
+                                                <i class="fas fa-microchip text-blue-400"></i>
                                             </div>
                                             <input type="text" name="modules[]"
                                                 placeholder="e.g., User Authentication, Payment Gateway"
@@ -883,8 +883,8 @@
                                     @endif
                                 </div>
 
-                                <div class="mt-4 p-3 bg-orange-50 rounded-xl">
-                                    <div class="flex items-center gap-2 text-xs text-orange-700">
+                                <div class="mt-4 p-3 bg-blue-50 rounded-xl">
+                                    <div class="flex items-center gap-2 text-xs text-cyan-600">
                                         <i class="fas fa-lightbulb"></i>
                                         <span>Tip: Add modules like "Frontend", "Backend", "Database", "API Integration",
                                             etc.</span>
@@ -907,9 +907,9 @@
                         {{-- Priority Card --}}
                         <div
                             class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 card-hover sticky top-6">
-                            <div class="px-6 py-4 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100">
+                            <div class="px-6 py-4 bg-gradient-to-r from-blue-50 to-cyan-50 border-b border-blue-100">
                                 <h3 class="font-bold text-gray-800 flex items-center gap-2">
-                                    <i class="fas fa-flag text-orange-500"></i>
+                                    <i class="fas fa-flag text-blue-500"></i>
                                     Priority Level
                                 </h3>
                             </div>
@@ -928,8 +928,8 @@
                                         <input type="radio" name="priority" value="medium" class="hidden peer"
                                             {{ old('priority', $project->priority) == 'medium' ? 'checked' : '' }}>
                                         <div
-                                            class="border-2 border-gray-200 rounded-xl p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all duration-200">
-                                            <i class="fas fa-minus text-orange-500 text-xl"></i>
+                                            class="border-2 border-gray-200 rounded-xl p-3 text-center peer-checked:border-blue-500 peer-checked:bg-blue-50 transition-all duration-200">
+                                            <i class="fas fa-minus text-blue-500 text-xl"></i>
                                             <p class="text-xs font-medium mt-1 text-gray-600">Medium</p>
                                         </div>
                                     </label>
@@ -951,9 +951,9 @@
 
                         {{-- Timeline Card --}}
                         <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 card-hover">
-                            <div class="px-6 py-4 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100">
+                            <div class="px-6 py-4 bg-gradient-to-r from-blue-50 to-cyan-50 border-b border-blue-100">
                                 <h3 class="font-bold text-gray-800 flex items-center gap-2">
-                                    <i class="fas fa-calendar-alt text-orange-500"></i>
+                                    <i class="fas fa-calendar-alt text-blue-500"></i>
                                     Project Timeline
                                 </h3>
                             </div>
@@ -961,13 +961,13 @@
                                 {{-- Start Date --}}
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                        <i class="fas fa-play-circle text-orange-500 mr-2"></i>
+                                        <i class="fas fa-play-circle text-blue-500 mr-2"></i>
                                         Start Date <span class="text-red-500">*</span>
                                     </label>
                                     <div class="relative">
                                         <input type="datetime-local" name="start_date"
                                             value="{{ old('start_date', \Carbon\Carbon::parse($project->start_date)->format('Y-m-d\TH:i')) }}"
-                                            class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 transition-all duration-200">
+                                            class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                         <i
                                             class="fas fa-calendar-day absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                                     </div>
@@ -979,13 +979,13 @@
                                 {{-- End Date --}}
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                        <i class="fas fa-stop-circle text-orange-500 mr-2"></i>
+                                        <i class="fas fa-stop-circle text-blue-500 mr-2"></i>
                                         End Date
                                     </label>
                                     <div class="relative">
                                         <input type="datetime-local" name="end_date"
                                             value="{{ $project->end_date ? \Carbon\Carbon::parse($project->end_date)->format('Y-m-d\TH:i') : '' }}"
-                                            class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 transition-all duration-200">
+                                            class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                                         <i
                                             class="fas fa-calendar-week absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                                     </div>
@@ -1020,10 +1020,10 @@
                         </div>
 
                         {{-- Quick Tips Card --}}
-                        <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-5 border border-orange-100">
+                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-5 border border-blue-100">
                             <div class="flex items-start gap-3">
                                 <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                                    <i class="fas fa-lightbulb text-orange-500 text-lg"></i>
+                                    <i class="fas fa-lightbulb text-blue-500 text-lg"></i>
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-gray-800 mb-2">Update Tips</h4>
@@ -1069,7 +1069,7 @@
                                 Reset
                             </button>
                             <button type="submit"
-                                class="px-8 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 transform hover:scale-[1.02] transition-all duration-200 text-white font-bold rounded-xl shadow-md hover:shadow-xl flex items-center gap-2">
+                                class="px-8 py-2.5 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600 transform hover:scale-[1.02] transition-all duration-200 text-white font-bold rounded-xl shadow-md hover:shadow-xl flex items-center gap-2">
                                 <i class="fas fa-save"></i>
                                 Update Project
                             </button>
@@ -1103,9 +1103,9 @@
             let wrapper = document.getElementById('module-wrapper');
 
             let html = `
-            <div class="module-item flex gap-3 items-center bg-gray-50 rounded-xl p-3 border border-gray-200 hover:border-orange-300 transition-all duration-200 group animate-slide-in">
+            <div class="module-item flex gap-3 items-center bg-gray-50 rounded-xl p-3 border border-gray-200 hover:border-blue-300 transition-all duration-200 group animate-slide-in">
                 <div class="flex-shrink-0">
-                    <i class="fas fa-microchip text-orange-400"></i>
+                    <i class="fas fa-microchip text-blue-400"></i>
                 </div>
                 <input type="text" name="modules[]"
                     placeholder="e.g., User Authentication, Payment Gateway"
@@ -1149,7 +1149,7 @@
                         icon: 'warning',
                         title: 'Cannot Remove',
                         text: 'At least one module is required for the project',
-                        confirmButtonColor: '#f97316',
+                        confirmButtonColor: '#2563eb',
                         timer: 2000,
                         showConfirmButton: true
                     });
@@ -1165,7 +1165,7 @@
                 text: 'All unsaved changes will be lost',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#f97316',
+                confirmButtonColor: '#2563eb',
                 cancelButtonColor: '#6c757d',
                 confirmButtonText: 'Yes, reset',
                 cancelButtonText: 'Cancel'
@@ -1180,10 +1180,10 @@
         // Add focus effects
         document.querySelectorAll('input, select, textarea').forEach(element => {
             element.addEventListener('focus', function() {
-                this.parentElement?.classList.add('ring-2', 'ring-orange-200', 'rounded-xl');
+                this.parentElement?.classList.add('ring-2', 'ring-blue-200', 'rounded-xl');
             });
             element.addEventListener('blur', function() {
-                this.parentElement?.classList.remove('ring-2', 'ring-orange-200');
+                this.parentElement?.classList.remove('ring-2', 'ring-blue-200');
             });
         });
     </script>

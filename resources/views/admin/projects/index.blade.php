@@ -75,7 +75,7 @@
         }
 
         .table-row:hover {
-            background-color: #fef3c7;
+            background-color: #eff6ff;
             transform: scale(1.01);
         }
 
@@ -96,13 +96,13 @@
         }
 
         .filter-active {
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.22);
         }
 
         .search-input:focus {
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
 
         .custom-scrollbar::-webkit-scrollbar {
@@ -116,7 +116,7 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #fb923c;
+            background: #60a5fa;
             border-radius: 10px;
         }
 
@@ -167,9 +167,58 @@
         }
 
         .infra-tag.hosting {
-            background: #fef3c7;
-            color: #92400e;
-            border-color: #fde68a;
+            background: #eff6ff;
+            color: #1d4ed8;
+            border-color: #bfdbfe;
+        }
+
+        @media (max-width: 767px) {
+            #projectsTable thead {
+                display: none;
+            }
+
+            #projectsTable,
+            #projectsTable tbody,
+            #projectsTable tr,
+            #projectsTable td {
+                display: block;
+                width: 100%;
+            }
+
+            #projectsTable tr {
+                margin-bottom: 1rem;
+                border: 1px solid #e2e8f0;
+                border-radius: 1rem;
+                background: #fff;
+                box-shadow: 0 12px 30px rgba(15, 36, 87, 0.08);
+                overflow: hidden;
+            }
+
+            #projectsTable td {
+                border: 0;
+                padding: 0.85rem 1rem;
+                white-space: normal !important;
+            }
+
+            #projectsTable td::before {
+                content: attr(data-label);
+                display: block;
+                margin-bottom: 0.35rem;
+                color: #64748b;
+                font-size: 0.72rem;
+                font-weight: 800;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            #projectsTable td:last-child {
+                border-top: 1px solid #eef2f7;
+            }
+
+            .project-actions {
+                justify-content: flex-start !important;
+                flex-wrap: wrap;
+            }
         }
 
         .infra-tag.domain {
@@ -209,7 +258,7 @@
 
         $priorityColors = [
             'low' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'fa-arrow-down'],
-            'medium' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'fa-minus'],
+            'medium' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'fa-minus'],
             'high' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'fa-arrow-up'],
         ];
     @endphp
@@ -220,7 +269,7 @@
                 icon: 'error',
                 title: 'Validation Error',
                 html: `{!! implode('<br>', $errors->all()) !!}`,
-                confirmButtonColor: '#f97316',
+                confirmButtonColor: '#2563eb',
                 customClass: {
                     popup: 'rounded-2xl'
                 }
@@ -256,13 +305,13 @@
         }
     @endphp
 
-    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-orange-50/20 py-6 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
+    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/40 to-cyan-50/20 py-4 px-3 sm:px-5 lg:px-8">
+        <div class="max-w-[1500px] mx-auto">
 
             {{-- Floating Background Elements --}}
             <div class="fixed inset-0 overflow-hidden pointer-events-none">
                 <div
-                    class="absolute top-20 right-10 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse">
+                    class="absolute top-20 right-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse">
                 </div>
                 <div class="absolute bottom-20 left-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"
                     style="animation-delay: 2s;"></div>
@@ -270,36 +319,53 @@
 
             {{-- HEADER SECTION --}}
             <div class="relative mb-8 animate-fade-up">
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                    <div
-                        class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-500 to-orange-600 opacity-5 rounded-full transform translate-x-32 -translate-y-32">
-                    </div>
-                    <div class="relative px-6 py-6 md:px-8 md:py-8">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                            <div class="flex items-center gap-4">
-                                <div
-                                    class="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-all duration-300">
-                                    <i class="fas fa-project-diagram text-white text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h1 class="text-2xl md:text-3xl font-black text-gray-800 tracking-tight">
-                                        Project Dashboard
-                                    </h1>
-                                    <p class="text-gray-500 mt-1 flex items-center gap-2">
-                                        <i class="fas fa-chart-line text-orange-500 text-sm"></i>
-                                        Manage and track all your projects in one centralized dashboard
-                                    </p>
-                                </div>
-                            </div>
-                            <a href="{{ $createProject }}"
-                                class="group inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl text-sm font-semibold shadow-lg transition-all duration-200 transform hover:scale-[1.02]">
-                                <i class="fas fa-plus"></i>
-                                <span>Create New Project</span>
-                                <i
-                                    class="fas fa-arrow-right opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-0 group-hover:translate-x-1"></i>
-                            </a>
+                <div class="flex flex-col items-stretch justify-end gap-3 sm:flex-row sm:items-center">
+                    <a href="{{ $createProject }}"
+                        class="group inline-flex w-full items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white px-6 py-3 rounded-xl text-sm font-semibold shadow-lg transition-all duration-200 transform hover:scale-[1.02] sm:w-auto">
+                        <i class="fas fa-plus"></i>
+                        <span>Create New Project</span>
+                        <i
+                            class="fas fa-arrow-right opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-0 group-hover:translate-x-1"></i>
+                    </a>
+
+                    @if ($projects->hasPages())
+                        <div class="inline-flex justify-center overflow-hidden rounded-xl bg-blue-600 shadow-lg shadow-blue-600/20 ring-1 ring-blue-500/30">
+                            @if ($projects->onFirstPage())
+                                <span class="grid h-12 w-12 place-items-center text-blue-200/70">
+                                    <i class="fas fa-chevron-left"></i>
+                                </span>
+                            @else
+                                <a href="{{ $projects->previousPageUrl() }}"
+                                    class="grid h-12 w-12 place-items-center text-white transition hover:bg-cyan-500">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            @endif
+
+                            @for ($page = 1; $page <= $projects->lastPage(); $page++)
+                                @if ($page == $projects->currentPage())
+                                    <span class="grid h-12 min-w-12 place-items-center bg-cyan-500 px-4 text-white">
+                                        {{ $page }}
+                                    </span>
+                                @else
+                                    <a href="{{ $projects->url($page) }}"
+                                        class="grid h-12 min-w-12 place-items-center px-4 text-blue-50 transition hover:bg-cyan-500 hover:text-white">
+                                        {{ $page }}
+                                    </a>
+                                @endif
+                            @endfor
+
+                            @if ($projects->hasMorePages())
+                                <a href="{{ $projects->nextPageUrl() }}"
+                                    class="grid h-12 w-12 place-items-center text-white transition hover:bg-cyan-500">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            @else
+                                <span class="grid h-12 w-12 place-items-center text-blue-200/70">
+                                    <i class="fas fa-chevron-right"></i>
+                                </span>
+                            @endif
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
 
@@ -381,30 +447,30 @@
 
             {{-- SEARCH AND FILTER BAR --}}
             <div class="bg-white rounded-2xl shadow-lg p-4 mb-6 animate-fade-up" style="animation-delay: 0.15s">
-                <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex flex-col xl:flex-row gap-4">
                     <div class="flex-1 relative">
                         <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <input type="text" id="searchInput"
                             placeholder="Search projects by name, description, modules, team members, or domain..."
-                            class="search-input w-full pl-11 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 transition-all duration-200">
+                            class="search-input w-full pl-11 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-400 transition-all duration-200">
                     </div>
-                    <div class="flex gap-2 flex-wrap">
+                    <div class="grid grid-cols-1 gap-2 sm:grid-cols-[1fr_1fr_auto] xl:flex xl:flex-wrap">
                         <select id="statusFilter"
-                            class="px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 bg-white">
+                            class="px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-400 bg-white">
                             <option value="all">📊 All Status</option>
                             <option value="pending">🟡 Pending</option>
                             <option value="ongoing">🔵 Ongoing</option>
                             <option value="completed">🟢 Completed</option>
                         </select>
                         <select id="priorityFilter"
-                            class="px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-400 bg-white">
+                            class="px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-400 bg-white">
                             <option value="all">🎯 All Priority</option>
                             <option value="low">🟢 Low</option>
                             <option value="medium">🟠 Medium</option>
                             <option value="high">🔴 High</option>
                         </select>
                         <button onclick="resetFilters()"
-                            class="px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded-xl transition">
+                            class="px-4 py-3 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl transition">
                             <i class="fas fa-redo-alt"></i>
                         </button>
                     </div>
@@ -412,10 +478,10 @@
             </div>
 
             {{-- TABLE CARD --}}
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden animate-fade-up" style="animation-delay: 0.2s">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden animate-fade-up border border-slate-100" style="animation-delay: 0.2s">
                 <div class="overflow-x-auto custom-scrollbar">
-                    <table class="min-w-full divide-y divide-gray-200" id="projectsTable">
-                        <thead class="bg-gradient-to-r from-gray-50 to-orange-50">
+                    <table class="min-w-full divide-y divide-slate-200 md:min-w-[1180px]" id="projectsTable">
+                        <thead class="bg-gradient-to-r from-slate-50 to-blue-50">
                             <tr>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                                     <i class="fas fa-hashtag mr-1"></i> #
@@ -531,7 +597,7 @@
                                         $viewRoute = route('admin.view.project', $p->id);
                                     }
                                 @endphp
-                                <tr class="table-row hover:bg-orange-50/50 transition-all duration-200"
+                                <tr class="table-row hover:bg-blue-50/50 transition-all duration-200"
                                     data-status="{{ $p->status }}" data-priority="{{ $p->priority }}"
                                     data-name="{{ strtolower($p->name) }}"
                                     data-description="{{ strtolower($p->description) }}"
@@ -540,23 +606,23 @@
                                     data-designer="{{ strtolower($p->designer ?? '') }}"
                                     data-qa-engineer="{{ strtolower($p->qa_engineer ?? '') }}"
                                     data-domain="{{ strtolower($p->domain_name ?? '') }}">
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap" data-label="#">
                                         <span
                                             class="text-sm font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded-lg">{{ $key + 1 }}</span>
                                     </td>
 
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4" data-label="Project">
                                         <div class="flex items-center gap-3">
                                             <div
-                                                class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center shadow-sm">
-                                                <i class="fas fa-folder-open text-orange-600 text-lg"></i>
+                                                class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-100 flex items-center justify-center shadow-sm">
+                                                <i class="fas fa-folder-open text-blue-600 text-lg"></i>
                                             </div>
                                             <div>
                                                 <a href="{{ $viewRoute }}">
                                                     <span class="font-bold text-gray-800">{{ $p->name }}</span>
                                                     <div class="flex items-center gap-2 mt-1">
                                                         <div class="w-16 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                                                            <div class="h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"
+                                                            <div class="h-full bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full"
                                                                 style="width: {{ $progress }}%"></div>
                                                         </div>
                                                         <span class="text-xs text-gray-400">{{ $progress }}%</span>
@@ -566,7 +632,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap" data-label="Client Name">
                                         <div class="space-y-1">
                                             <div class="flex items-center gap-1.5 text-xs ">
                                                 <p class="font-bold text-md">{{ $p->client_name ?? 'N/A' }}</p>
@@ -574,7 +640,7 @@
 
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4" data-label="Handle Project">
                                         <div class="space-y-2">
 
                                             <div class="flex items-center gap-3">
@@ -596,7 +662,7 @@
 
 
 
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap" data-label="Timeline">
                                         <div class="space-y-1">
                                             <div class="flex items-center gap-1.5 text-xs text-gray-500">
                                                 <i class="fas fa-play-circle text-green-500"></i>
@@ -619,7 +685,7 @@
                                         </div>
                                     </td>
 
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap" data-label="Priority">
                                         <span
                                             class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold {{ $priorityColors[$p->priority]['bg'] }} {{ $priorityColors[$p->priority]['text'] }}">
                                             <i class="fas {{ $priorityColors[$p->priority]['icon'] }} text-xs"></i>
@@ -627,7 +693,7 @@
                                         </span>
                                     </td>
 
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap" data-label="Status">
                                         <span
                                             class="status-badge inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold {{ $statusColors[$p->status]['bg'] }} {{ $statusColors[$p->status]['text'] }}">
                                             <span
@@ -641,7 +707,7 @@
 
 
 
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap" data-label="Created By">
                                         <div class="space-y-1">
                                             <div class="flex items-center gap-1.5 text-xs text-gray-500">
                                                 <p class="font-medium">{{ $p->user->name ?? 'N/A' }}</p>
@@ -653,23 +719,23 @@
                                         </div>
                                     </td>
 
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap" data-label="Date">
                                         <span
                                             class="status-badge inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold {{ $statusColors[$p->status]['bg'] }} {{ $statusColors[$p->status]['text'] }}">
                                             {{ \Carbon\Carbon::parse($p->created_at)->format('d M, Y') }}
                                         </span>
                                     </td>
 
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap" data-label="Actions">
 
-                                        <div class="flex items-center justify-center gap-1.5">
+                                        <div class="project-actions flex items-center justify-center gap-1.5">
                                             <a href="{{ $editRoute }}"
-                                                class="action-btn group p-2 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white transition-all duration-200"
+                                                class="action-btn group p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-200"
                                                 title="Edit Project">
                                                 <i class="fas fa-edit text-sm"></i>
                                             </a>
                                             <a href="{{ $viewRoute }}"
-                                                class="action-btn group p-2 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white transition-all duration-200"
+                                                class="action-btn group p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-200"
                                                 title="Edit Project">
                                                 <i class="fas fa-eye text-sm"></i> </a>
                                             <form action="{{ $deleteRoute }}" method="POST" class="delete-form inline"
@@ -709,7 +775,7 @@
                                                     project</p>
                                             </div>
                                             <a href="{{ $createProject }}"
-                                                class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                                                class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
                                                 <i class="fas fa-plus"></i>
                                                 Create Project
                                             </a>
@@ -722,10 +788,9 @@
                 </div>
 
             </div>
-            <div class="mt-2 p-3">
+            <div class="relative z-10 mt-4 rounded-2xl bg-white p-3 shadow-sm border border-slate-100">
                 {{ $projects->links() }}
             </div>
-
         </div>
     </div>
 
@@ -793,7 +858,7 @@
 
                 Swal.fire({
                     title: 'Delete Project?',
-                    html: `Are you sure you want to delete <strong class="text-orange-600">${projectName}</strong>?<br>This action cannot be undone.`,
+                    html: `Are you sure you want to delete <strong class="text-blue-600">${projectName}</strong>?<br>This action cannot be undone.`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#ef4444',

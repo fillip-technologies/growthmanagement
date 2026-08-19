@@ -108,9 +108,9 @@
         }
 
         .team-card:hover {
-            border-color: #f97316;
+            border-color: #2563eb;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.12);
         }
 
         .role-badge {
@@ -135,7 +135,7 @@
             color: #9d174d;
         }
         .role-badge.qa {
-            background: #fef3c7;
+            background: #eff6ff;
             color: #92400e;
         }
 
@@ -158,9 +158,9 @@
         }
 
         .infra-tag.hosting {
-            background: #fef3c7;
+            background: #eff6ff;
             color: #92400e;
-            border-color: #fde68a;
+            border-color: #bfdbfe;
         }
 
         .infra-tag.domain {
@@ -184,13 +184,13 @@
         .infra-tag.cdn {
             background: #fefce8;
             color: #a16207;
-            border-color: #fde68a;
+            border-color: #bfdbfe;
         }
 
         .module-chip {
             display: inline-block;
             padding: 6px 16px;
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            background: linear-gradient(135deg, #eff6ff, #bfdbfe);
             color: #92400e;
             border-radius: 20px;
             font-size: 13px;
@@ -229,7 +229,7 @@
         }
 
         .stat-box:hover {
-            border-color: #fb923c;
+            border-color: #60a5fa;
             box-shadow: 0 4px 12px rgba(249, 115, 22, 0.08);
         }
 
@@ -245,7 +245,7 @@
 
         .stat-icon.orange {
             background: #fff7ed;
-            color: #f97316;
+            color: #2563eb;
         }
         .stat-icon.blue {
             background: #eff6ff;
@@ -298,13 +298,13 @@
 
         $modules = $project->modules;
         $statusColors = [
-            'pending' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'border' => 'border-amber-200', 'icon' => 'fa-clock', 'label' => 'Pending'],
+            'pending' => ['bg' => 'bg-cyan-100', 'text' => 'text-amber-700', 'border' => 'border-cyan-200', 'icon' => 'fa-clock', 'label' => 'Pending'],
             'ongoing' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'border' => 'border-blue-200', 'icon' => 'fa-spinner', 'label' => 'Ongoing'],
             'completed' => ['bg' => 'bg-emerald-100', 'text' => 'text-emerald-700', 'border' => 'border-emerald-200', 'icon' => 'fa-check-circle', 'label' => 'Completed'],
         ];
         $priorityColors = [
             'low' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'border' => 'border-green-200', 'icon' => 'fa-arrow-down', 'label' => 'Low Priority'],
-            'medium' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'border' => 'border-orange-200', 'icon' => 'fa-minus', 'label' => 'Medium Priority'],
+            'medium' => ['bg' => 'bg-blue-100', 'text' => 'text-cyan-600', 'border' => 'border-blue-200', 'icon' => 'fa-minus', 'label' => 'Medium Priority'],
             'high' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'border' => 'border-red-200', 'icon' => 'fa-arrow-up', 'label' => 'High Priority'],
         ];
         $currentStatus = $statusColors[$project->status] ?? $statusColors['pending'];
@@ -356,12 +356,12 @@
         $updatedAt = \Carbon\Carbon::parse($project->updated_at);
     @endphp
 
-    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-orange-50/20 py-6 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50/20 py-6 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
 
             {{-- Floating Background Elements --}}
             <div class="fixed inset-0 overflow-hidden pointer-events-none">
-                <div class="absolute top-20 right-10 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+                <div class="absolute top-20 right-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
                 <div class="absolute bottom-20 left-10 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
                 <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-200 rounded-full filter blur-3xl opacity-10 animate-pulse" style="animation-delay: 4s;"></div>
             </div>
@@ -369,11 +369,11 @@
             {{-- HEADER SECTION --}}
             <div class="relative mb-6 animate-fade-up">
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-500 to-orange-600 opacity-5 rounded-full transform translate-x-32 -translate-y-32"></div>
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-500 to-cyan-500 opacity-5 rounded-full transform translate-x-32 -translate-y-32"></div>
                     <div class="relative px-6 py-6 md:px-8 md:py-8">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                             <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-all duration-300">
+                                <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-all duration-300">
                                     <i class="fas fa-folder-open text-white text-2xl"></i>
                                 </div>
                                 <div>
@@ -381,7 +381,7 @@
                                         {{ $project->name }}
                                     </h1>
                                     <p class="text-gray-500 mt-1 flex items-center gap-2">
-                                        <i class="fas fa-hashtag text-orange-500 text-sm"></i>
+                                        <i class="fas fa-hashtag text-blue-500 text-sm"></i>
                                         Project ID: #{{ str_pad($project->id, 4, '0', STR_PAD_LEFT) }}
                                         <span class="mx-2">|</span>
                                         <i class="fas fa-calendar-alt text-gray-400 text-sm"></i>
@@ -415,7 +415,7 @@
                         </div>
                     </div>
                     <div class="w-full h-1.5 bg-gray-200 rounded-full mt-3 overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-full" style="width: {{ $progress }}%"></div>
+                        <div class="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" style="width: {{ $progress }}%"></div>
                     </div>
                 </div>
                 <div class="stat-box">
@@ -438,7 +438,7 @@
                         </div>
                     </div>
                     @if($endDate && $daysLeft !== null)
-                        <p class="text-xs {{ $isOverdue ? 'text-red-500' : ($daysLeft < 7 ? 'text-amber-500' : 'text-gray-400') }} mt-1">
+                        <p class="text-xs {{ $isOverdue ? 'text-red-500' : ($daysLeft < 7 ? 'text-cyan-500' : 'text-gray-400') }} mt-1">
                             @if($isOverdue)
                                 <i class="fas fa-exclamation-triangle"></i> Overdue
                             @elseif($daysLeft < 7)
@@ -484,9 +484,9 @@
 
                     {{-- DESCRIPTION CARD --}}
                     <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 detail-card">
-                        <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-orange-50 border-b border-gray-200">
+                        <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-blue-50 border-b border-gray-200">
                             <h3 class="font-bold text-gray-800 flex items-center gap-2">
-                                <i class="fas fa-align-left text-orange-500"></i>
+                                <i class="fas fa-align-left text-blue-500"></i>
                                 Project Description
                             </h3>
                         </div>
@@ -497,9 +497,9 @@
 
                     {{-- MODULES CARD --}}
                     <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 detail-card">
-                        <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-orange-50 border-b border-gray-200">
+                        <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-blue-50 border-b border-gray-200">
                             <h3 class="font-bold text-gray-800 flex items-center gap-2">
-                                <i class="fas fa-cubes text-orange-500"></i>
+                                <i class="fas fa-cubes text-blue-500"></i>
                                 Project Modules
                                 <span class="ml-2 text-sm font-normal text-gray-500">({{ count($modules) }} modules)</span>
                             </h3>
@@ -508,7 +508,7 @@
                             <div class="flex flex-wrap">
                                 @foreach($modules as $module)
                                     <span class="module-chip">
-                                        <i class="fas fa-microchip text-amber-500 mr-1"></i>
+                                        <i class="fas fa-microchip text-cyan-500 mr-1"></i>
                                         {{ $module }}
                                     </span>
                                 @endforeach
@@ -518,7 +518,7 @@
 
                     {{-- INFRASTRUCTURE RESOURCES CARD --}}
                     <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 detail-card">
-                        <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-orange-50 border-b border-gray-200">
+                        <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-blue-50 border-b border-gray-200">
                             <h3 class="font-bold text-gray-800 flex items-center gap-2">
                                 <i class="fas fa-server text-blue-600"></i>
                                 Infrastructure Resources
@@ -529,7 +529,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     @foreach($infraFields as $infra)
                                         @if($project->{$infra['key']})
-                                            <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl hover:bg-orange-50 transition-all duration-200">
+                                            <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl hover:bg-blue-50 transition-all duration-200">
                                                 <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center flex-shrink-0">
                                                     <i class="fas {{ $infra['icon'] }} text-blue-600 text-sm"></i>
                                                 </div>
@@ -553,7 +553,7 @@
 
                     {{-- TEAM MEMBERS CARD --}}
                     <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 detail-card sticky top-6">
-                        <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-orange-50 border-b border-gray-200">
+                        <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-blue-50 border-b border-gray-200">
                             <h3 class="font-bold text-gray-800 flex items-center gap-2">
                                 <i class="fas fa-users text-purple-600"></i>
                                 Human Resources
@@ -587,9 +587,9 @@
 
                     {{-- PROJECT METADATA CARD --}}
                     <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 detail-card">
-                        <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-orange-50 border-b border-gray-200">
+                        <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-blue-50 border-b border-gray-200">
                             <h3 class="font-bold text-gray-800 flex items-center gap-2">
-                                <i class="fas fa-info-circle text-orange-500"></i>
+                                <i class="fas fa-info-circle text-blue-500"></i>
                                 Project Metadata
                             </h3>
                         </div>
@@ -617,17 +617,17 @@
                     </div>
 
                     {{-- ACTION BUTTONS CARD --}}
-                    <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-5 border border-orange-100">
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-5 border border-blue-100">
                         <div class="space-y-3">
-                            <a href="#" class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200">
+                            <a href="#" class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200">
                                 <i class="fas fa-edit"></i>
                                 Edit Project
                             </a>
-                            <a href="#" class="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-xl font-semibold border-2 border-gray-200 hover:border-orange-300 transition-all duration-200">
+                            <a href="#" class="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-xl font-semibold border-2 border-gray-200 hover:border-blue-300 transition-all duration-200">
                                 <i class="fas fa-tasks"></i>
                                 View Tasks
                             </a>
-                            <a href="#" class="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-xl font-semibold border-2 border-gray-200 hover:border-orange-300 transition-all duration-200">
+                            <a href="#" class="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-xl font-semibold border-2 border-gray-200 hover:border-blue-300 transition-all duration-200">
                                 <i class="fas fa-chart-pie"></i>
                                 View Reports
                             </a>
@@ -642,9 +642,9 @@
 
             {{-- FOOTER TIMELINE --}}
             <div class="mt-6 bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 detail-card">
-                <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-orange-50 border-b border-gray-200">
+                <div class="px-6 py-4 bg-gradient-to-r from-gray-50 to-blue-50 border-b border-gray-200">
                     <h3 class="font-bold text-gray-800 flex items-center gap-2">
-                        <i class="fas fa-road text-orange-500"></i>
+                        <i class="fas fa-road text-blue-500"></i>
                         Project Timeline
                     </h3>
                 </div>
@@ -663,11 +663,11 @@
 
                                     <div class="flex-1 mx-4">
                                         <div class="relative h-2 bg-gray-200 rounded-full overflow-hidden">
-                                            <div class="h-full bg-gradient-to-r from-orange-400 to-orange-600 rounded-full" style="width: {{ $progress }}%"></div>
+                                            <div class="h-full bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full" style="width: {{ $progress }}%"></div>
                                         </div>
                                         <div class="flex justify-between text-xs text-gray-400 mt-1">
                                             <span>0%</span>
-                                            <span class="font-medium text-orange-600">{{ $progress }}% Complete</span>
+                                            <span class="font-medium text-cyan-500">{{ $progress }}% Complete</span>
                                             <span>100%</span>
                                         </div>
                                     </div>
