@@ -734,10 +734,10 @@
                                                 title="Edit Project">
                                                 <i class="fas fa-edit text-sm"></i>
                                             </a>
-                                            <a href="{{ $viewRoute }}"
+                                            {{-- <a href="{{ $viewRoute }}"
                                                 class="action-btn group p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-200"
                                                 title="View Project">
-                                                <i class="fas fa-eye text-sm"></i> </a>
+                                                <i class="fas fa-eye text-sm"></i> </a> --}}
                                             <form action="{{ $deleteRoute }}" method="POST" class="delete-form inline"
                                                 data-name="{{ $p->name }}">
                                                 @csrf
@@ -749,7 +749,7 @@
                                                 </button>
                                             </form>
 
-                                            <form action="{{ route('addtotask', $p->id) }}" method="POST"
+                                            {{-- <form action="{{ route('addtotask', $p->id) }}" method="POST"
                                                 class="inline">
                                                 @csrf
                                                 <button type="submit"
@@ -757,7 +757,7 @@
                                                     title="Add to Task">
                                                     <i class="fas fa-tasks text-sm"></i>
                                                 </button>
-                                            </form>
+                                            </form> --}}
                                         </div>
                                     </td>
                                 </tr>
